@@ -12,6 +12,8 @@ mongo = PyMongo(app)
 
 # INSERT APP ROUTES HERE
 @app.route('/')
+def home(): 
+    return render_template("index.html")
 @app.route('/test')
 def test():
     return render_template("test.html")
