@@ -6,8 +6,8 @@ from bson.objectid import ObjectId
 app = Flask(__name__)
 
 app.config["MONGO_DBNAME"] = 'CoPoDB'
-app.config["MONGO_URI"] = 'mongodb+srv://root:root@myfirstcluster-wegta.mongodb.net/task_manager?retryWrites=true&w=majority'
-
+app.config["MONGO_URI"] = "mongodb+srv://root:root@myfirstcluster-wegta.mongodb.net/CoPoDB?retryWrites=true&w=majority"
+# DON'T FORGET TO HIDE PASSWORD IN URI BEFORE LAUNCH
 mongo = PyMongo(app)
 
 # INSERT APP ROUTES HERE
@@ -16,7 +16,7 @@ def home():
     return render_template("index.html")
 @app.route('/test')
 def test():
-    return render_template("test.html")
+    return render_template("test.html", copo_themes = mongo.db.copo_themes.find())
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
