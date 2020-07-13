@@ -5,8 +5,8 @@ from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
-app.config["MONGO_DBNAME"] = ''
-app.config["MONGO_URI"] = ''
+app.config["MONGO_DBNAME"] = 'CoPoDB'
+app.config["MONGO_URI"] = 'mongodb+srv://root:root@myfirstcluster-wegta.mongodb.net/task_manager?retryWrites=true&w=majority'
 
 mongo = PyMongo(app)
 
