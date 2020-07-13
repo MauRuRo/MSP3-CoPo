@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, redirect, request, url_for
-from flask_pymongo import flask_pymongo
+from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
 app = Flask(__name__)
@@ -11,7 +11,10 @@ app.config["MONGO_URI"] = 'mongodb+srv://root:root@myfirstcluster-wegta.mongodb.
 mongo = PyMongo(app)
 
 # INSERT APP ROUTES HERE
-
+@app.route('/')
+@app.route('/test')
+def test():
+    return render_template("test.html")
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
