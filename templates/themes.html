@@ -1,0 +1,10 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+<ul>
+    {% for theme in copo_themes %}
+    <li>{{theme.theme}}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

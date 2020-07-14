@@ -14,9 +14,9 @@ mongo = PyMongo(app)
 @app.route('/')
 def home(): 
     return render_template("index.html")
-@app.route('/test')
-def test():
-    return render_template("test.html", copo_themes = mongo.db.copo_themes.find())
+@app.route('/themes')
+def themes():
+    return render_template("themes.html", copo_themes = mongo.db.copo_themes.find())
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
