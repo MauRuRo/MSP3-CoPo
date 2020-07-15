@@ -1,7 +1,20 @@
 {% extends 'base.html' %} 
 {% block content %}
-
-    This is the index page
-    <a href="{{ url_for('themes') }}">TEST BUTTON</a>
+<div class="container">
+    <div class="row">
+        <div class="main-section copo-creations">
+            <h5>CoPo Creations</h5>
+            <p>In this section you can browse through all the different poetry that individuals and 
+                collaborators have produced using the CoPo web application. Be inspired by others like 
+                yourself and when you're ready collaborate on a poem or create your own!</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="main-section published">
+         <p>This is where the text goes explaining what</p>
+        </div>
+    </div>
+</div>
+  
 
 {% endblock %}
