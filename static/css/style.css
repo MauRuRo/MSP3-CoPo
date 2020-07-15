@@ -11,13 +11,21 @@ main {
 .main-section {
     text-align: left;
     color: white;
-    background-color: blue;
     height: 70vw;
     width: 70vw;
     margin: auto;
     padding:10px;
     border-radius:5%;
     border: solid 1px black;
+}
+
+.copo-creations {
+    background: url("../images/leather.jpg");
+    background-size:500px;
+}
+.published {
+    background: url("../images/leather2.jpg");
+    background-size:500px;
 }
 
 footer {
