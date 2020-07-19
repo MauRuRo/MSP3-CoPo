@@ -1,6 +1,7 @@
 $(document).ready(function () {
   /** EVENT HANDLERS */
   $("ul").hide();
+//   $('select').formSelect();  
 
   $(".copo-creations").click(function () {
     $(".copo-creations").addClass("inactive");
