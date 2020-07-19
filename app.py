@@ -14,6 +14,11 @@ mongo = PyMongo(app)
 @app.route('/')
 def home(): 
     return render_template("index.html")
+
+@app.route('/creations')
+def creations(): 
+    return render_template("creations.html")
+
 @app.route('/themes')
 def themes():
     return render_template("themes.html", copo_themes = mongo.db.copo_themes.find())

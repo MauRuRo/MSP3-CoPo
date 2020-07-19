@@ -1,6 +1,15 @@
-h1, h4 {
+h1, h2, h3, h4, h5, h6 {
     text-align: center;
     margin-bottom:5px;
+}
+
+a {
+    decoration: none;
+    color:black;
+}
+
+a:hover {
+    color: skyblue;
 }
 
 main {
@@ -10,7 +19,7 @@ main {
 }
 .main-section {
     text-align: left;
-    color: white;
+    /* color: white; */
     height: 70vw;
     width: 70vw;
     margin: auto;
@@ -20,12 +29,14 @@ main {
 }
 
 .copo-creations {
-    background: url("../images/leather.jpg");
-    background-size:500px;
-}
-.published {
-    background: url("../images/leather2.jpg");
-    background-size:500px;
+    text-align: left;
+    /* color: white; */
+    height: auto;
+    width: 70vw;
+    margin: auto;
+    padding:10px;
+    border-radius:0%;
+    border: solid 1px black;
 }
 
 footer {
