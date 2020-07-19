@@ -17,11 +17,12 @@ def home():
 
 @app.route('/creations')
 def creations(): 
-    return render_template("creations.html")
+    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find(), copo_authors = mongo.db.copo_users.find(), copo_titles = mongo.db.copo_creations.find())
 
 @app.route('/themes')
 def themes():
     return render_template("themes.html", copo_themes = mongo.db.copo_themes.find())
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
