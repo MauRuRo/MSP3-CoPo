@@ -39,6 +39,16 @@ main {
     border: solid 1px black;
 }
 
+.search-bar {
+    text-align:center;
+    width: 70vw;
+    margin: auto;
+}
+
+.label-icon {
+    text-align: right;
+}
+
 footer {
     text-align: center;
     padding-top: 15px;
