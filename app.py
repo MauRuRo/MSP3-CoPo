@@ -17,7 +17,7 @@ def home():
 
 @app.route('/creations')
 def creations(): 
-    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find(), copo_authors = mongo.db.copo_users.find(), copo_titles = mongo.db.copo_creations.find())
+    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1))
 
 @app.route('/create')
 def create():

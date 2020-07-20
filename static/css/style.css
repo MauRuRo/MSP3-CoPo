@@ -12,6 +12,10 @@ a:hover {
     color: skyblue;
 }
 
+li {
+    font-size:150%;
+}
+
 main {
     min-height:calc(100vh - 250px);
     margin-top:30px;
@@ -37,6 +41,11 @@ main {
     padding:10px;
     border-radius:0%;
     border: solid 1px black;
+}
+
+.list {
+    width: 70vw;
+    margin: auto;
 }
 
 .search-bar {

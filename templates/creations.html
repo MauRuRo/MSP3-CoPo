@@ -52,22 +52,23 @@
                         </div>
                     </a>
                     </div>
-                    <ul id="theme-list">
-                        {% for theme in copo_themes %}
-                        <li>{{theme.theme}}</li>
-                        {% endfor %}
-                    </ul>
-                    <ul id="author-list">
-                        {% for user in copo_authors %}
-                        <li>{{user.author_name}}</li>
-                        {% endfor %}
-                    </ul>
-                    <ul id="title-list">
-                        {% for poem in copo_titles%}
-                        <li>{{poem.title}}</li>
-                        {% endfor %}
-                    </ul>
-
+                    <div class="row">
+                        <ul id="theme-list" class="list">
+                            {% for theme in copo_themes %}
+                            <li>{{theme.theme}}</li>
+                            {% endfor %}
+                        </ul>
+                        <ul id="author-list" class="list">
+                            {% for user in copo_authors %}
+                            <li>{{user.author_name}}</li>
+                            {% endfor %}
+                        </ul>
+                        <ul id="title-list" class="list">
+                            {% for poem in copo_titles%}
+                            <li>{{poem.title}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
 
 
