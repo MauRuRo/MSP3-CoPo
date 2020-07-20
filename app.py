@@ -21,7 +21,16 @@ def creations():
 
 @app.route('/create')
 def create():
-    return render_template("create.html", copo_themes = mongo.db.copo_themes.find())
+    return render_template("create.html", copo_themes = mongo.db.copo_themes.find().sort("theme",1))
+
+@app.route('/read/<poem_id>')
+def read(poem_id):
+    the_poem = mongo.db.copo_creations.find_one({"_id": ObjectId(poem_id)})
+    return render_template("poems.html", poem=the_poem)   
+
+@app.route('/poems')
+def poems():
+    return render_template("poems.html, <poem>")
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
