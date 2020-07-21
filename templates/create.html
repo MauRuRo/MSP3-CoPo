@@ -10,35 +10,49 @@
                             <form class="col s12">
                                 <div class="row">
                                     <div class="input-field col s12">
-                                    <input  id="title" type="text" class="validate" name="title">
-                                    <label for="title">Title</label>
+                                    <input  id="title" type="text" class="validate" name="title" placeholder="Title">
+                                    <!-- <label for="title">Title</label> -->
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                     <textarea id="textarea1" class="materialize-textarea" placeholder="Write your poem here..."></textarea>
-                                    <label for="textarea1">Poem</label>
+                                    <!-- <label for="textarea1">Poem</label> -->
                                     </div>
                                 </div>
-                                  <!-- <div class="input-field col s12">
+                                <div class="row">
+                                    <div class="input-field col s12">
                                         <select>
                                         <option value="" disabled selected>Choose your theme</option>
                                         {% for theme in copo_themes %}
                                         <option value="">{{ theme.theme }}</option>
                                         {% endfor %}
                                         </select>
-                                        <label>Materialize Select</label>
-                                    </div> -->
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                    <input id="author_name" type="text" class="validate" name="author_name">
-                                    <label for="author_name">Author</label>
+                                        <!-- <label>Materialize Select</label> -->
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                    <input id="username" type="text" class="validate" name="username">
-                                    <label for="username">Username</label>
+                                    <input id="author_name" type="text" class="validate" name="author_name" placeholder="Author Name">
+                                    <!-- <label for="author_name">Author</label> -->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                        <div class="switch col s12">
+                                            <label for="switch">Allow Collaboration?</label>
+                                            <br>
+                                            <label>
+                                            Off
+                                            <input type="checkbox">
+                                            <span class="lever"></span>
+                                            On
+                                            </label>
+                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                    <input id="username" type="text" class="validate" name="username" placeholder="Username">
+                                    <!-- <label for="username">Username</label> -->
                                     </div>
                                 </div>
                             <div class="row">
