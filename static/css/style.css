@@ -26,6 +26,10 @@ main {
     /* color: white; */
     height: 70vw;
     width: 70vw;
+    max-width: 280px;
+    max-height:280px;
+    min-width: 240px;
+    min-height:240px;
     margin: auto;
     padding:10px;
     border-radius:5%;
@@ -52,6 +56,11 @@ main {
     text-align:center;
     width: 70vw;
     margin: auto;
+}
+
+.poem-space {
+    white-space: pre-line;
+    text-align: center;
 }
 
 footer {

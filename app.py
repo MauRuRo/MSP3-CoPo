@@ -32,6 +32,13 @@ def read(poem_id):
 def poems():
     return render_template("poems.html, <poem>")
 
+@app.route('/insert_poem', methods=["POST"])
+def insert_poem():
+    poems = mongo.db.copo_creations
+    poems.insert_one(request.form.to_dict())
+    return redirect(url_for('creations'))
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
