@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+import datetime
 
 app = Flask(__name__)
 
@@ -35,7 +36,25 @@ def poems():
 @app.route('/insert_poem', methods=["POST"])
 def insert_poem():
     poems = mongo.db.copo_creations
-    poems.insert_one(request.form.to_dict())
+    users = mongo.db.copo_users
+    creation = request.form.to_dict()
+    date = datetime.datetime.now()
+    poem = {
+        "title" : creation.get("title"),
+        "Poem" : creation.get("Poem"),
+        "Theme" : creation.get("Theme"),
+        "Author" : creation.get("Author"),
+        "username" : creation.get("username"),
+        "Version" : 1,
+        "Date" : date
+    }
+    user = {
+        "username" : creation.get("username"),
+        "password" : creation.get("password"),
+        "author_name" : creation.get("Author")
+    }
+    poems.insert_one(poem)
+    users.insert_one(user)
     return redirect(url_for('creations'))
 
 
