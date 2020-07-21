@@ -1,7 +1,6 @@
 $(document).ready(function () {
   /** EVENT HANDLERS */
   $("ul").hide();
-//   $('select').formSelect();  
 
   $(".copo-creations").click(function () {
     $(".copo-creations").addClass("inactive");
@@ -23,5 +22,13 @@ $(document).ready(function () {
 
   $("li").click( function() {
       console.log("list clicked");
-  })
+  });
+
+$("select").change(function(){
+  if ($(this).val() == "Other") {
+      $(".vis").css("visibility", "visible");
+      console.log("check");
+  };
+});
+
 });

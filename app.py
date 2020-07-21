@@ -39,10 +39,20 @@ def insert_poem():
     users = mongo.db.copo_users
     creation = request.form.to_dict()
     date = datetime.datetime.now()
+    if creation.get("Theme") == "Other":
+        theme = creation.get("new_theme")
+        themedict = {
+            "theme" : theme
+        }
+        mongo.db.copo_themes.insert_one(themedict)
+    else:
+        theme = creation.get("Theme")
+        
+
     poem = {
         "title" : creation.get("title"),
         "Poem" : creation.get("Poem"),
-        "Theme" : creation.get("Theme"),
+        "Theme" : theme,
         "Author" : creation.get("Author"),
         "username" : creation.get("username"),
         "Version" : 1,
@@ -56,7 +66,6 @@ def insert_poem():
     poems.insert_one(poem)
     users.insert_one(user)
     return redirect(url_for('creations'))
-
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
