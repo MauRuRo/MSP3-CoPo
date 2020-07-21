@@ -69,5 +69,5 @@ footer {
 }
 
 .vis {
-    visibility: hidden;
+    display: none;
 }

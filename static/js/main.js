@@ -26,8 +26,9 @@ $(document).ready(function () {
 
 $("select").change(function(){
   if ($(this).val() == "Other") {
-      $(".vis").css("visibility", "visible");
-      console.log("check");
+      $(".vis").css("display", "block");
+  } else {
+      $(".vis").css("display", "none");
   };
 });
 
