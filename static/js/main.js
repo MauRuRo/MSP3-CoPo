@@ -2,6 +2,7 @@ $(document).ready(function () {
   /** EVENT HANDLERS */
   $("ul").hide();
   $(".second-part").css("display", "none")
+  $("#next-part").addClass("disabled");
 
   $(".copo-creations").click(function () {
     $(".copo-creations").addClass("inactive");
@@ -22,8 +23,12 @@ $(document).ready(function () {
   });
 
   $("#next-part").click( function() {
-      $(".second-part").css("display", "block")
-      $(".first-part").css("display", "none")
+      if ($("#new_user").val() == 1 || $("#new_user").val() == 2 ){
+        $(".second-part").css("display", "block");
+        $(".first-part").css("display", "none")
+      } else {
+        // $("span").css("color", "red")
+      };
   });
   $("#prev-part").click( function() {
       $(".first-part").css("display", "block")
@@ -37,6 +42,13 @@ $("#Theme").change(function(){
   } else {
       $(".vis").css("display", "none");
       $("#new_theme").removeAttr("required")
+  };
+});
+
+$("#new_user").change(function(){
+  if ($(this).val() == 1 || $(this).val() == 2) {
+      $("#next-part").removeClass("disabled");
+  } else {
   };
 });
 

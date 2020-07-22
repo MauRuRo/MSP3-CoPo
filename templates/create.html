@@ -7,7 +7,7 @@
             <div class = "container">
                 <div class="container">
                       <div class="row">
-                            <form action="{{ url_for('insert_poem') }}" method="POST" class="col s12">
+                            <form action="{{ url_for('insert_poem') }}" method="POST" class="col s12" id="createpoem">
                                 <div class="row first-part">
                                     <div class="input-field col s12">
                                     <input  id="title" name="title" type="text" class="validate" name="title" placeholder="Title" required>
@@ -49,10 +49,10 @@
                                 </div>
                                 <div class="row first-part">
                                     <div class="input-field col s12">
-                                        <select id="new_user" name="new_user">
+                                        <select id="new_user" name="new_user" data-error="Please select an option before continuing." required>
                                         <option disabled selected value="">Submit as existing or new user?</option>
-                                        <option>Existing User</option>
-                                        <option>New User</option>
+                                        <option value=1>Existing User</option>
+                                        <option value=2>New User</option>
                                         </select>
                                     </div>
                                 </div>
