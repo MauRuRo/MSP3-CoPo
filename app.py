@@ -58,13 +58,15 @@ def insert_poem():
         "Version" : 1,
         "Date" : date
     }
+
     user = {
         "username" : creation.get("username"),
         "password" : creation.get("password"),
         "author_name" : creation.get("Author")
     }
     poems.insert_one(poem)
-    users.insert_one(user)
+    if creation.get("new_user") == 2:
+        users.insert_one(user)
     return redirect(url_for('creations'))
 
 if __name__ == '__main__':

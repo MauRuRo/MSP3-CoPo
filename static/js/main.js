@@ -26,8 +26,6 @@ $(document).ready(function () {
       if ($("#new_user").val() == 1 || $("#new_user").val() == 2 ){
         $(".second-part").css("display", "block");
         $(".first-part").css("display", "none")
-      } else {
-        // $("span").css("color", "red")
       };
   });
   $("#prev-part").click( function() {
