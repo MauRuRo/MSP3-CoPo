@@ -1,6 +1,7 @@
 $(document).ready(function () {
   /** EVENT HANDLERS */
   $("ul").hide();
+  $(".second-part").css("display", "none")
 
   $(".copo-creations").click(function () {
     $(".copo-creations").addClass("inactive");
@@ -20,16 +21,25 @@ $(document).ready(function () {
     };
   });
 
-  $("li").click( function() {
-      console.log("list clicked");
+  $("#next-part").click( function() {
+      $(".second-part").css("display", "block")
+      $(".first-part").css("display", "none")
+  });
+  $("#prev-part").click( function() {
+      $(".first-part").css("display", "block")
+      $(".second-part").css("display", "none")
   });
 
-$("select").change(function(){
+$("#Theme").change(function(){
   if ($(this).val() == "Other") {
       $(".vis").css("display", "block");
+      $("#new_theme").attr("required", "required")
   } else {
       $(".vis").css("display", "none");
+      $("#new_theme").removeAttr("required")
   };
 });
+
+
 
 });

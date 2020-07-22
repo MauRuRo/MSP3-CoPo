@@ -8,22 +8,20 @@
                 <div class="container">
                       <div class="row">
                             <form action="{{ url_for('insert_poem') }}" method="POST" class="col s12">
-                                <div class="row">
+                                <div class="row first-part">
                                     <div class="input-field col s12">
-                                    <input  id="title" name="title" type="text" class="validate" name="title" placeholder="Title">
-                                    <!-- <label for="title">Title</label> -->
+                                    <input  id="title" name="title" type="text" class="validate" name="title" placeholder="Title" required>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row first-part">
                                     <div class="input-field col s12">
-                                    <textarea id="Poem" name="Poem" class="materialize-textarea" placeholder="Write your poem here..."></textarea>
-                                    <!-- <label for="textarea1">Poem</label> -->
+                                    <textarea id="Poem" name="Poem" class="materialize-textarea" placeholder="Write your poem here..." required></textarea>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row first-part">
                                     <div class="input-field col s12">
-                                        <select id="Theme" name="Theme">
-                                        <option disabled selected>Choose your theme</option>
+                                        <select id="Theme" name="Theme" class="validate" required="required">
+                                        <option disabled selected value="">Choose your theme</option>
                                         {% for theme in copo_themes %}
                                         <option>{{ theme.theme }}</option>
                                         {% endfor %}
@@ -32,51 +30,67 @@
                                         <!-- <label>Materialize Select</label> -->
                                     </div>
                                 </div>
-                                <div class="row vis">
+                                <div class="row vis first-part">
                                     <div class="input-field col s12">
                                         <input  id="new_theme" name="new_theme" type="text" class="validate" placeholder="enter new theme....">
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                    <input id="Author" type="text" class="validate" name="Author" placeholder="Author Name">
-                                    <!-- <label for="author_name">Author</label> -->
-                                    </div>
-                                </div>
-                                <div class="row">
+                                 <div class="row first-part">
                                         <div class="switch col s12" id="edit_YN" name="edit_YN">
                                             <label for="switch">Allow Collaboration?</label>
                                             <br>
                                             <label>
                                             Off
-                                            <input type="checkbox">
+                                            <input type="checkbox" checked>
                                             <span class="lever"></span>
                                             On
                                             </label>
                                         </div>
                                 </div>
-                                <div class="row">
+                                <div class="row first-part">
                                     <div class="input-field col s12">
-                                    <input id="username" type="text" class="validate" name="username" placeholder="Username">
-                                    <!-- <label for="username">Username</label> -->
+                                        <select id="new_user" name="new_user">
+                                        <option disabled selected value="">Submit as existing or new user?</option>
+                                        <option>Existing User</option>
+                                        <option>New User</option>
+                                        </select>
                                     </div>
                                 </div>
-                            <div class="row">
+
+
+                            <button id="next-part" class="btn waves-effect waves-light first-part" type="button">Next
+                                <i class="material-icons right">navigate_next</i>
+                            </button>
+
+                                <div class="row second-part">
+                                    <div class="input-field col s12">
+                                    <input id="username" type="text" class="validate" name="username" placeholder="Username" required>
+                                    </div>
+                                </div>
+                            <div class="row second-part">
                                 <div class="input-field col s12">
-                                <input id="password" name="password" type="password" class="validate">
+                                <input id="password" name="password" type="password" class="validate" required>
                                 <label for="password">Password</label>
                                 </div>
                             </div>
-                             <div class="row">
-                          <button class="btn waves-effect waves-light" type="submit">Submit
+                            <div class="row second-part">
+                                <div class="input-field col s12">
+                                <input id="Author" type="text" class="validate" name="Author" placeholder="Author Name" required>
+                                </div>
+                            </div>
+                             <div class="row second-part">
+                             <div class="col s6">
+                            <button id="prev-part" class="btn waves-effect waves-light second-part" type="button">Previous
+                                <i class="material-icons right">navigate_before</i>
+                            </button>
+                            </div>
+                            <div class="col s6">
+                          <button class="btn waves-effect waves-light right" type="submit">Submit
                                 <i class="material-icons right">send</i>
                             </button>
+                            </div>
                         </div>     
                             </form>
-
-                            <div class="vis">
-                            LOVE IS VISIBLE!
-                            </div>
                         </div>
                        
                 </div>
