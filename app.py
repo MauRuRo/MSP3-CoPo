@@ -58,7 +58,6 @@ def insert_poem():
         "Version" : 1,
         "Date" : date
     }
-
     user = {
         "username" : creation.get("username"),
         "password" : creation.get("password"),
@@ -68,6 +67,14 @@ def insert_poem():
     if creation.get("new_user") == 2:
         users.insert_one(user)
     return redirect(url_for('creations'))
+
+@app.route('/check_users', methods=["POST"])
+def check_users():
+    users = mongo.db.copo_users
+    data = request.get_json()
+    exists = users.find_one({"username" : data })
+    if exists == null:
+        return redirect(url_for('creations'))
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

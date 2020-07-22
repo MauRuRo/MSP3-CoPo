@@ -46,7 +46,34 @@ $("#Theme").change(function(){
 $("#new_user").change(function(){
   if ($(this).val() == 1 || $(this).val() == 2) {
       $("#next-part").removeClass("disabled");
+  };
+  if ($(this).val() == 1) {
+      $("#Author").attr("readonly", "readonly");
+      $("#username").attr("placeholder", "Enter Username");
+      $("#password").siblings("label").text("Enter Password")
   } else {
+     $("#Author").removeAttr("readonly");
+      $("#username").attr("placeholder", "Create Username");
+      $("#password").siblings("label").text("Create Password")
+  };
+});
+
+$("#username").change(function(){
+  if ($("#new_user").val() == 1) {
+      var user_name = $("#username").val();
+        $.ajax({
+            type: "POST",
+            url: "{{ url_for('check_users') }}",
+            contentType: "application/json",
+            data: JSON.stringify(user_name),
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
   };
 });
 
