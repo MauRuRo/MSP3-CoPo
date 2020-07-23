@@ -77,7 +77,7 @@ def checkUser():
     if exists == None:
         return json.dumps({'user':exists});
     else:
-        return json.dumps({'user':exists.get("username"),'author': exists.get("author_name")})
+        return json.dumps({'user':exists.get("username"),'author': exists.get("author_name"),'password':exists.get("password")})
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

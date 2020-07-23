@@ -4,6 +4,7 @@ $(document).ready(function () {
   $(".second-part").css("display", "none")
   $("#next-part").addClass("disabled");
 
+
   $(".copo-creations").click(function () {
     $(".copo-creations").addClass("inactive");
     $(this).removeClass("inactive");
@@ -43,14 +44,23 @@ $("#Theme").change(function(){
   };
 });
 
+$("form").change(function(){
+    if ($("#title").val()=="" || $("#Poem").val()=="" || $("#Theme").val()=="" || ($("#new_theme").val()=="" && $("#new_theme").attr("required")) || $("new_user").val()=="") {
+    $("#next-part").addClass("disabled")
+    } else {
+        $("#next-part").removeClass("disabled")
+    }
+});
+
 $("#new_user").change(function(){
   if ($(this).val() == 1 || $(this).val() == 2) {
-      $("#next-part").removeClass("disabled");
+    //   $("#next-part").removeClass("disabled");
   };
   if ($(this).val() == 1) {
       $("#Author").attr("readonly", "readonly");
       $("#username").attr("placeholder", "Enter Username");
-      $("#password").siblings("label").text("Enter Password")
+      $("#password").siblings("label").text("Enter Password");
+      $("#create-submit").addClass("disabled");
   } else {
      $("#Author").removeAttr("readonly");
       $("#username").attr("placeholder", "Create Username");
@@ -58,6 +68,7 @@ $("#new_user").change(function(){
   };
 });
 
+var databack
 $("#username").change(function(){
   if ($("#new_user").val() == 1) {
 
@@ -70,24 +81,33 @@ $("#username").change(function(){
 			type: 'POST',
 			success: function(response){
                 databack = JSON.parse(response)
-                console.log(databack.user)
-				console.log(response);
                 if (databack.user == null) {
-                    console.log("check")
                     alert("Username does not exist");
-                    $("#username").val("")
+                    $("#username").val("").focus()
                 } else {
-                    console.log("author check");
                 $("#Author").val(databack.author)          
             }
 			},
 			error: function(error){
 				console.log(error);
 			}
-		});
-          
-};
+		});       
+    };
+});
 
+$("#password").change(function(){
+    console.log(databack.password)
+  if ($("#new_user").val() == 1) {
+      var password = $("#password").val();
+      if (databack.password == password) {
+          console.log("password correct")
+          $("#create-submit").removeClass("disabled");   
+      } else {
+          alert("Incorrect Password");
+          console.log("password incorrect")
+          $("#password").val("").focus();
+      }
+    };
 });
 
 }); //docend
