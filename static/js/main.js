@@ -62,25 +62,27 @@ $("#username").change(function(){
   if ($("#new_user").val() == 1) {
 
       var user = $("#username").val();
-      console.log(user_name)
-
-    $.ajax({
-                url: '/check_user',
-                data: $('form').serialize(),
-                type: 'POST',
-                success: function(response){
-                    console.log(response);
-                },
-                error: function(error){
-                    console.log(error);
-                }
-            });
-
-  }});
+      console.log(user)
+		$.ajax({
+			url: '/checkUser',
+			data: $('form').serialize(),
+			type: 'POST',
+			success: function(response){
+                data = response
+				console.log(response);
+                if (data["user"] == null) {
+                    console.log("check")
+                alert("Username already exists");
+                $("#username").val("");
+            };
+			},
+			error: function(error){
+				console.log(error);
+			}
+		});
+          
 };
 
-
-
 });
 
-});
+}); //docend

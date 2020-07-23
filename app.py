@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, json
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import datetime
@@ -76,10 +76,12 @@ def insert_poem():
 #     # if exists == null:
 #     return render_template(url_for('creations'))
 
-@app.route('/check_user', methods=['POST'])
-def check_user():
-    user =  request.form['username'];
-    return json.dumps({'status':'OK','user':user});
+@app.route('/checkUser', methods=['POST'])
+def checkUser():
+    user = request.form['username'];
+    users = mongo.db.copo_users
+    exists = users.find_one({"username" : user })
+    return json.dumps({'user':exists});
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
