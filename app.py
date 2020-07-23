@@ -68,20 +68,16 @@ def insert_poem():
         users.insert_one(user)
     return redirect(url_for('creations'))
 
-# @app.route('/check_users/<user_name>', methods=["GET", "POST"])
-# def check_users():
-#     # users = mongo.db.copo_users
-#     # data = request.get_json()
-#     # exists = users.find_one({"username" : data })
-#     # if exists == null:
-#     return render_template(url_for('creations'))
-
+# from: https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
 @app.route('/checkUser', methods=['POST'])
 def checkUser():
     user = request.form['username'];
     users = mongo.db.copo_users
     exists = users.find_one({"username" : user })
-    return json.dumps({'user':exists});
+    if exists == None:
+        return json.dumps({'user':exists});
+    else:
+        return json.dumps({'user':exists.get("username"),'author': exists.get("author_name")})
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

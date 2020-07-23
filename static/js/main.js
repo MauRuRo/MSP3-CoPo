@@ -63,18 +63,23 @@ $("#username").change(function(){
 
       var user = $("#username").val();
       console.log(user)
+      // from : https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
 		$.ajax({
 			url: '/checkUser',
 			data: $('form').serialize(),
 			type: 'POST',
 			success: function(response){
-                data = response
+                databack = JSON.parse(response)
+                console.log(databack.user)
 				console.log(response);
-                if (data["user"] == null) {
+                if (databack.user == null) {
                     console.log("check")
-                alert("Username already exists");
-                $("#username").val("");
-            };
+                    alert("Username does not exist");
+                    $("#username").val("")
+                } else {
+                    console.log("author check");
+                $("#Author").val(databack.author)          
+            }
 			},
 			error: function(error){
 				console.log(error);
