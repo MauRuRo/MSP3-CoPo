@@ -68,13 +68,18 @@ def insert_poem():
         users.insert_one(user)
     return redirect(url_for('creations'))
 
-@app.route('/check_users', methods=["POST"])
-def check_users():
-    users = mongo.db.copo_users
-    data = request.get_json()
-    exists = users.find_one({"username" : data })
-    if exists == null:
-        return redirect(url_for('creations'))
+# @app.route('/check_users/<user_name>', methods=["GET", "POST"])
+# def check_users():
+#     # users = mongo.db.copo_users
+#     # data = request.get_json()
+#     # exists = users.find_one({"username" : data })
+#     # if exists == null:
+#     return render_template(url_for('creations'))
+
+@app.route('/check_user', methods=['POST'])
+def check_user():
+    user =  request.form['username'];
+    return json.dumps({'status':'OK','user':user});
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

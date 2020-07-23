@@ -60,23 +60,27 @@ $("#new_user").change(function(){
 
 $("#username").change(function(){
   if ($("#new_user").val() == 1) {
-      var user_name = $("#username").val();
-        $.ajax({
-            type: "POST",
-            url: "{{ url_for('check_users') }}",
-            contentType: "application/json",
-            data: JSON.stringify(user_name),
-            dataType: "json",
-            success: function(response) {
-                console.log(response);
-            },
-            error: function(err) {
-                console.log(err);
-            }
-        });
-  };
+
+      var user = $("#username").val();
+      console.log(user_name)
+
+    $.ajax({
+                url: '/check_user',
+                data: $('form').serialize(),
+                type: 'POST',
+                success: function(response){
+                    console.log(response);
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            });
+
+  }});
+};
+
+
+
 });
-
-
 
 });
