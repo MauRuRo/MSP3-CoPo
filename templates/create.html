@@ -19,7 +19,7 @@
                                     </div>
                                 </div>
                                 <div class="row first-part">
-                                    <div class="input-field col s12">
+                                    <div class="input-field col s12" id="sel-theme">
                                         <select id="Theme" name="Theme" class="validate" required="required">
                                         <option disabled selected value="">Choose your theme</option>
                                         {% for theme in copo_themes %}
@@ -27,10 +27,10 @@
                                         {% endfor %}
                                         <option>Other</option>
                                         </select>
-                                        <!-- <label>Materialize Select</label> -->
+                                        <!-- <label>Choose your theme</label> -->
                                     </div>
                                 </div>
-                                <div class="row vis first-part">
+                                <div id="new_theme_row" class="row first-part">
                                     <div class="input-field col s12">
                                         <input  id="new_theme" name="new_theme" type="text" class="validate" placeholder="enter new theme....">
                                     </div>

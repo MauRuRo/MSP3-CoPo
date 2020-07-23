@@ -1,5 +1,7 @@
 $(document).ready(function () {
   /** EVENT HANDLERS */
+var themevar = false
+var newuservar = false
   $("ul").hide();
   $(".second-part").css("display", "none")
   $("#next-part").addClass("disabled");
@@ -32,27 +34,39 @@ $(document).ready(function () {
   $("#prev-part").click( function() {
       $(".first-part").css("display", "block")
       $(".second-part").css("display", "none")
+      if ($("#new_theme").attr("required")) {
+      } else {
+         $("#new_theme_row").css("display", "none")
+      }
   });
 
+
+
+$("form").change(function(){
+    if ($("#title").val()=="" || $("#Poem").val()=="" || themevar==false || ($("#new_theme").val()=="" && $("#new_theme").get(0).hasAttribute("required")) || newuservar == false) {
+    $("#next-part").addClass("disabled")
+    } else {
+    $("#next-part").removeClass("disabled")
+    }
+});
+
+
 $("#Theme").change(function(){
+themevar = true
   if ($(this).val() == "Other") {
-      $(".vis").css("display", "block");
+      $("#new_theme_row").css("display", "block");
       $("#new_theme").attr("required", "required")
+  } else if ($(this).val() == "Choose your theme") {
+     $("#next-part").addClass("disabled")
   } else {
-      $(".vis").css("display", "none");
+      $("#new_theme_row").css("display", "none");
       $("#new_theme").removeAttr("required")
   };
 });
 
-$("form").change(function(){
-    if ($("#title").val()=="" || $("#Poem").val()=="" || $("#Theme").val()=="" || ($("#new_theme").val()=="" && $("#new_theme").attr("required")) || $("new_user").val()=="") {
-    $("#next-part").addClass("disabled")
-    } else {
-        $("#next-part").removeClass("disabled")
-    }
-});
 
 $("#new_user").change(function(){
+    newuservar=true
   if ($(this).val() == 1 || $(this).val() == 2) {
     //   $("#next-part").removeClass("disabled");
   };
