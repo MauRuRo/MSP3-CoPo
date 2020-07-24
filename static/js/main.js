@@ -25,6 +25,29 @@ var newuservar = false
     };
   });
 
+  $("#theme-list").children().click(function() {
+        choice = $(this).html()
+    		$.ajax({
+			url: '/creations-theme-select',
+            data: {"Theme": choice},
+			type: 'POST',
+			success: function(response){
+                console.log(response);
+            //     databack = JSON.parse(response)
+            //     if (databack.user == null) {
+            //         alert("Username does not exist");
+            //         $("#username").val("").focus()
+            //     } else {
+            //     $("#Author").val(databack.author)          
+            // }
+			},
+			error: function(error){
+				console.log(error);
+			}
+		});   
+
+  })
+
   $("#next-part").click( function() {
       if ($("#new_user").val() == 1 || $("#new_user").val() == 2 ){
         $(".second-part").css("display", "block");
@@ -91,7 +114,7 @@ $("#username").change(function(){
       // from : https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
 		$.ajax({
 			url: '/checkUser',
-			data: $('form').serialize(),
+            data: $('form').serialize(),
 			type: 'POST',
 			success: function(response){
                 databack = JSON.parse(response)

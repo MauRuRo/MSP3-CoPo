@@ -1,8 +1,9 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for, json
+from flask import Flask, render_template, redirect, request, url_for, json, jsonify
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import datetime
+import requests
 
 app = Flask(__name__)
 
@@ -20,6 +21,12 @@ def home():
 def creations(): 
     return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1))
 
+@app.route('/creations-theme-select', methods=['POST'])
+def creationsThemeSelect(): 
+    info = request.form["Theme"]
+    return json.dumps({'test':info})
+    # return render_template('creations.html', copo_themes = mongo.db.copo_themes.sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find({"Theme":info}).sort("title", 1))
+    
 @app.route('/create')
 def create():
     return render_template("create.html", copo_themes = mongo.db.copo_themes.find().sort("theme",1))
