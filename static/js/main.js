@@ -5,19 +5,54 @@ var newuservar = false
   $("ul").hide();
   $(".second-part").css("display", "none")
   $("#next-part").addClass("disabled");
-
-
-  $(".copo-creations").click(function () {
-    // if ($(this).hasClass("active"))
-    let block = "#" + $(this).attr("id")
-    let toggleblocks = function(y) {
+    
+    var toggleblocks = function(y) {
     $(".copo-creations").addClass("inactive");
     $(y).removeClass("inactive");
     $(y).addClass("active");
     $(".inactive").slideToggle();
     $("h6").slideToggle();
     $(".inactive").parent().slideToggle();
-    }
+    };
+
+    $("#searchbar").change(function(){
+        stitle = $("#search").val()
+        searchtitle = {"title" : stitle};
+        // searchtitle = '{"title" : { "$regex":"'+stitle+'"}';
+        console.log(searchtitle);
+        $.ajax({
+			url: '/searchpoems',
+            data: searchtitle,
+			type: 'POST',
+			success: function(response){
+                console.log(response)
+                titlesel = JSON.parse(response);
+                $("#title-list").slideDown();
+                $("#title-list").children().css("display","none");
+                for (i in titlesel) {
+                    let idObject= "#" + titlesel[i]._id ;
+                    console.log(idObject);
+                    $("#title-list").children(idObject).css("display", "block")
+                };
+                if ($("#title-list").is(":visible")){
+                }else{
+                toggleblocks("#titleblock")
+                };
+			},
+			error: function(error){
+				console.log(error);
+			}
+		}); 
+});
+
+
+  
+  
+
+  $(".copo-creations").click(function () {
+    // if ($(this).hasClass("active"))
+    let block = "#" + $(this).attr("id")
+
 
 
     if ($(this).attr("id") == "themeblock") {
@@ -115,7 +150,7 @@ var newuservar = false
 
 
 
-$("form").change(function(){
+$("#createpoem").change(function(){
     if ($("#title").val()=="" || $("#Poem").val()=="" || themevar==false || ($("#new_theme").val()=="" && $("#new_theme").get(0).hasAttribute("required")) || newuservar == false) {
     $("#next-part").addClass("disabled")
     } else {

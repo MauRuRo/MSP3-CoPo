@@ -48,6 +48,19 @@ def creationsAuthorSelect():
         i+=1
     return json.dumps(poemlist)
 
+@app.route('/searchpoems', methods=["POST"])
+def searchpoems():
+    info = request.form["title"]
+    titleselect = '{"title" : { "$regex":"'+ info + '"}'
+    copo_titles = mongo.db.copo_creations.find(titleselect).sort("title", 1)
+    ctitle = list(copo_titles)
+    poemlist = {}
+    i = 0
+    for poem in ctitle:
+        poemlist[i] = {"_id": str(poem.get("_id")), "title": poem.get("title")}
+        i+=1
+    return json.dumps(poemlist)
+
 @app.route('/create')
 def create():
     return render_template("create.html", copo_themes = mongo.db.copo_themes.find().sort("theme",1))
