@@ -33,9 +33,15 @@ var newuservar = false
 			type: 'POST',
 			success: function(response){
                 // themesellist = {{ response | tojson }};
-                console.log(JSON.parse(response));
-                for (i in response) {
-                    $("#title-list").children().children("#"+i._id).css("display")
+                themesel = JSON.parse(response);
+                console.log(themesel);
+                $("#theme-list").slideUp();
+                $("#title-list").slideDown();
+                $("#title-list").children().css("display","none");
+                for (i in themesel) {
+                    let idObject= "#" + themesel[i]._id ;
+                    console.log(idObject);
+                    $("#title-list").children(idObject).css("display", "block")
                 }
                 // window.location = 'creations'
             //     databack = JSON.parse(response)
