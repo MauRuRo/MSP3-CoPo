@@ -11,7 +11,7 @@ app.config["MONGO_DBNAME"] = 'CoPoDB'
 app.config["MONGO_URI"] = "mongodb+srv://root:root@myfirstcluster-wegta.mongodb.net/CoPoDB?retryWrites=true&w=majority"
 # DON'T FORGET TO HIDE PASSWORD IN URI BEFORE LAUNCH
 mongo = PyMongo(app)
-themeselect = None
+# themeselect = None
 # INSERT APP ROUTES HERE
 @app.route('/')
 def home(): 
@@ -19,41 +19,35 @@ def home():
 
 @app.route('/creations')
 def creations(): 
-    # global themeselect
     return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1))
-    # themeselect = None
+
 
 @app.route('/creations-theme-select', methods=['POST'])
 def creationsThemeSelect(): 
     info = request.form["Theme"]
-    global themeselect
     themeselect = {"Theme":info}
     copo_titles = mongo.db.copo_creations.find(themeselect).sort("title", 1)
-    titles_copo = copo_titles[0]
-    print(titles_copo)
-    print(titles_copo.get("_id"))
-
     ctitle = list(copo_titles)
     poemlist = {}
     i = 0
     for poem in ctitle:
         poemlist[i] = {"_id": str(poem.get("_id")), "title": poem.get("title")}
         i+=1
-    print(poemlist)
-
-    # titles_last = json.load(titles_copo)
-    # print(titles_last)
-    # return titles_copo
     return json.dumps(poemlist)
-    # for poem in copo_titles:
-    #    test += {"user": poem.get("username")}
-    # return json.dumps(themeselect)
- 
-    # themeresult = list(copo_titles)
-    # return dict(copo_titles)
-    # return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find(themeselect).sort("title", 1))
 
-    
+@app.route('/creations-author-select', methods=['POST'])
+def creationsAuthorSelect(): 
+    info = request.form["username"]
+    userselect = {"username":info}
+    copo_titles = mongo.db.copo_creations.find(userselect).sort("title", 1)
+    ctitle = list(copo_titles)
+    poemlist = {}
+    i = 0
+    for poem in ctitle:
+        poemlist[i] = {"_id": str(poem.get("_id")), "title": poem.get("title")}
+        i+=1
+    return json.dumps(poemlist)
+
 @app.route('/create')
 def create():
     return render_template("create.html", copo_themes = mongo.db.copo_themes.find().sort("theme",1))
@@ -82,7 +76,6 @@ def insert_poem():
     else:
         theme = creation.get("Theme")
         
-
     poem = {
         "title" : creation.get("title"),
         "Poem" : creation.get("Poem"),
@@ -98,7 +91,8 @@ def insert_poem():
         "author_name" : creation.get("Author")
     }
     poems.insert_one(poem)
-    if creation.get("new_user") == 2:
+    print(creation.get("new_user"))
+    if creation.get("new_user") == "2":
         users.insert_one(user)
     return redirect(url_for('creations'))
 

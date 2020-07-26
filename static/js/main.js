@@ -8,19 +8,41 @@ var newuservar = false
 
 
   $(".copo-creations").click(function () {
+    // if ($(this).hasClass("active"))
+    let block = "#" + $(this).attr("id")
+    let toggleblocks = function(y) {
     $(".copo-creations").addClass("inactive");
-    $(this).removeClass("inactive");
-    $(this).addClass("active");
+    $(y).removeClass("inactive");
+    $(y).addClass("active");
     $(".inactive").slideToggle();
     $("h6").slideToggle();
     $(".inactive").parent().slideToggle();
+    }
 
-    if ($(this).children().text() == "Themes") {
-            $("#theme-list").slideToggle();
-    } else if ($(this).children().text() == "Authors") {
-            $("#author-list").slideToggle();
-    } else if ($(this).children().text() == "Titles") {
+
+    if ($(this).attr("id") == "themeblock") {
+        if ($("#title-list").is(":visible")) {
             $("#title-list").slideToggle();
+            $("#themeblock").children("h5").text("Themes");
+            $("#title-list").children().css("display", "block")
+            $("#theme-list").slideToggle();
+        } else {
+            $("#theme-list").slideToggle();
+            toggleblocks(block)
+        }
+    } else if ($(this).attr("id") == "authorblock") {
+        if ($("#title-list").is(":visible")) {
+            $("#title-list").slideToggle();
+            $("#authorblock").children("h5").text("Authors");
+            $("#title-list").children().css("display", "block")
+            $("#author-list").slideToggle();
+        } else {
+            $("#author-list").slideToggle();
+            toggleblocks(block)
+        }
+    } else if ($(this).attr("id") == "titleblock") {
+            $("#title-list").slideToggle();
+            toggleblocks(block)
     } else {
     };
   });
@@ -32,9 +54,7 @@ var newuservar = false
             data: {"Theme": choice},
 			type: 'POST',
 			success: function(response){
-                // themesellist = {{ response | tojson }};
                 themesel = JSON.parse(response);
-                console.log(themesel);
                 $("#theme-list").slideUp();
                 $("#title-list").slideDown();
                 $("#title-list").children().css("display","none");
@@ -42,21 +62,40 @@ var newuservar = false
                     let idObject= "#" + themesel[i]._id ;
                     console.log(idObject);
                     $("#title-list").children(idObject).css("display", "block")
+                $("#themeblock").children("h5").text("Theme: " + choice);
                 }
-                // window.location = 'creations'
-            //     databack = JSON.parse(response)
-            //     if (databack.user == null) {
-            //         alert("Username does not exist");
-            //         $("#username").val("").focus()
-            //     } else {
-            //     $("#Author").val(databack.author)          
-            // }
 			},
 			error: function(error){
 				console.log(error);
 			}
 		});   
+  })
 
+    $("#author-list").children().click(function() {
+        console.log( $(this).attr("id"))
+        choice = $(this).attr("id")
+        authorname = $(this).html()
+    		$.ajax({
+			url: '/creations-author-select',
+            data: {"username": choice},
+			type: 'POST',
+			success: function(response){
+                console.log(response)
+                authorsel = JSON.parse(response);
+                $("#author-list").slideUp();
+                $("#title-list").slideDown();
+                $("#title-list").children().css("display","none");
+                for (i in authorsel) {
+                    let idObject= "#" + authorsel[i]._id ;
+                    console.log(idObject);
+                    $("#title-list").children(idObject).css("display", "block")
+                $("#authorblock").children("h5").text("Author: " + authorname);
+                }
+			},
+			error: function(error){
+				console.log(error);
+			}
+		});   
   })
 
   $("#next-part").click( function() {
@@ -143,8 +182,7 @@ $("#username").change(function(){
     };
 });
 
-$("#password").change(function(){
-    console.log(databack.password)
+$("#password").change(function(){   
   if ($("#new_user").val() == 1) {
       var password = $("#password").val();
       if (databack.password == password) {

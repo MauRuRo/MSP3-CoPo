@@ -24,17 +24,17 @@
 
                     <!-- <h6>Or browse by:</h6> -->
                     <div class="row">
-                        <div class="copo-creations">
+                        <div id="themeblock" class="copo-creations">
                             <h5>Themes</h5>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="copo-creations">
+                        <div id="authorblock" class="copo-creations">
                             <h5>Authors</h5>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="copo-creations">
+                        <div id="titleblock" class="copo-creations">
                             <h5>Titles</h5>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                         </ul>
                         <ul id="author-list" class="list">
                             {% for user in copo_authors %}
-                            <li>{{user.author_name}}</li>
+                            <li id="{{user.username}}">{{user.author_name}}</li>
                             {% endfor %}
                         </ul>
                         <ul id="title-list" class="list">
