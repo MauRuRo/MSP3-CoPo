@@ -11,7 +11,7 @@ app.config["MONGO_DBNAME"] = 'CoPoDB'
 app.config["MONGO_URI"] = "mongodb+srv://root:root@myfirstcluster-wegta.mongodb.net/CoPoDB?retryWrites=true&w=majority"
 # DON'T FORGET TO HIDE PASSWORD IN URI BEFORE LAUNCH
 mongo = PyMongo(app)
-
+themeselect = None
 # INSERT APP ROUTES HERE
 @app.route('/')
 def home(): 
@@ -19,13 +19,16 @@ def home():
 
 @app.route('/creations')
 def creations(): 
-    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1))
+    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find(themeselect).sort("title", 1))
 
 @app.route('/creations-theme-select', methods=['POST'])
 def creationsThemeSelect(): 
     info = request.form["Theme"]
+    global themeselect
+    themeselect = {"Theme":info}
     return json.dumps({'test':info})
     # return render_template('creations.html', copo_themes = mongo.db.copo_themes.sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find({"Theme":info}).sort("title", 1))
+    
     
 @app.route('/create')
 def create():

@@ -33,6 +33,7 @@ var newuservar = false
 			type: 'POST',
 			success: function(response){
                 console.log(response);
+                window.location = 'creations'
             //     databack = JSON.parse(response)
             //     if (databack.user == null) {
             //         alert("Username does not exist");
