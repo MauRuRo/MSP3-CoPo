@@ -27,6 +27,10 @@ var newuservar = false
 			success: function(response){
                 console.log(response)
                 titlesel = JSON.parse(response);
+                if ($("#title-list").is(":visible")){
+                }else{
+                    toggleblocks("#titleblock")
+                };
                 $("#title-list").slideDown();
                 $("#title-list").children().css("display","none");
                 for (i in titlesel) {
@@ -34,10 +38,7 @@ var newuservar = false
                     console.log(idObject);
                     $("#title-list").children(idObject).css("display", "block")
                 };
-                if ($("#title-list").is(":visible")){
-                }else{
-                toggleblocks("#titleblock")
-                };
+
 			},
 			error: function(error){
 				console.log(error);
@@ -50,11 +51,7 @@ var newuservar = false
   
 
   $(".copo-creations").click(function () {
-    // if ($(this).hasClass("active"))
     let block = "#" + $(this).attr("id")
-
-
-
     if ($(this).attr("id") == "themeblock") {
         if ($("#title-list").is(":visible")) {
             $("#title-list").slideToggle();
@@ -77,6 +74,8 @@ var newuservar = false
         }
     } else if ($(this).attr("id") == "titleblock") {
             $("#title-list").slideToggle();
+            $("#search").val("")
+            $("#title-list").children().css("display","block")
             toggleblocks(block)
     } else {
     };
