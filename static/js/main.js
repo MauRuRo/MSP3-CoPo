@@ -34,6 +34,9 @@ var newuservar = false
 			success: function(response){
                 // themesellist = {{ response | tojson }};
                 console.log(JSON.parse(response));
+                for (i in response) {
+                    $("#title-list").children().children("#"+i._id).css("display")
+                }
                 // window.location = 'creations'
             //     databack = JSON.parse(response)
             //     if (databack.user == null) {

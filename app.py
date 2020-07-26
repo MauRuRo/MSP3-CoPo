@@ -19,9 +19,9 @@ def home():
 
 @app.route('/creations')
 def creations(): 
-    global themeselect
-    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find(themeselect).sort("title", 1))
-    themeselect = None
+    # global themeselect
+    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1))
+    # themeselect = None
 
 @app.route('/creations-theme-select', methods=['POST'])
 def creationsThemeSelect(): 
@@ -35,8 +35,10 @@ def creationsThemeSelect():
 
     ctitle = list(copo_titles)
     poemlist = {}
-    for poem in range(len(ctitle)):
-        poemlist[poem] = {"_id": str(ctitle[poem].get("_id")), "title": ctitle[poem].get("title")}
+    i = 0
+    for poem in ctitle:
+        poemlist[i] = {"_id": str(poem.get("_id")), "title": poem.get("title")}
+        i+=1
     print(poemlist)
 
     # titles_last = json.load(titles_copo)
