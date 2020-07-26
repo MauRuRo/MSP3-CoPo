@@ -32,8 +32,9 @@ var newuservar = false
             data: {"Theme": choice},
 			type: 'POST',
 			success: function(response){
+                // themesellist = {{ response | tojson }};
                 console.log(response);
-                window.location = 'creations'
+                // window.location = 'creations'
             //     databack = JSON.parse(response)
             //     if (databack.user == null) {
             //         alert("Username does not exist");

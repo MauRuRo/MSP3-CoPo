@@ -19,16 +19,22 @@ def home():
 
 @app.route('/creations')
 def creations(): 
+    global themeselect
     return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find(themeselect).sort("title", 1))
+    themeselect = None
 
 @app.route('/creations-theme-select', methods=['POST'])
 def creationsThemeSelect(): 
     info = request.form["Theme"]
     global themeselect
     themeselect = {"Theme":info}
-    return json.dumps({'test':info})
-    # return render_template('creations.html', copo_themes = mongo.db.copo_themes.sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find({"Theme":info}).sort("title", 1))
-    
+    # return json.dumps({'test':info})
+    copo_titles = mongo.db.copo_creations.find(themeselect).sort("title", 1)
+    print(list(copo_titles))
+    themeresult = list(copo_titles)
+    return json.dumps(dict(copo_titles))
+    # return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find(themeselect).sort("title", 1))
+
     
 @app.route('/create')
 def create():
