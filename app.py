@@ -28,11 +28,27 @@ def creationsThemeSelect():
     info = request.form["Theme"]
     global themeselect
     themeselect = {"Theme":info}
-    # return json.dumps({'test':info})
     copo_titles = mongo.db.copo_creations.find(themeselect).sort("title", 1)
-    print(list(copo_titles))
-    themeresult = list(copo_titles)
-    return json.dumps(dict(copo_titles))
+    titles_copo = copo_titles[0]
+    print(titles_copo)
+    print(titles_copo.get("_id"))
+
+    ctitle = list(copo_titles)
+    poemlist = {}
+    for poem in range(len(ctitle)):
+        poemlist[poem] = {"_id": str(ctitle[poem].get("_id")), "title": ctitle[poem].get("title")}
+    print(poemlist)
+
+    # titles_last = json.load(titles_copo)
+    # print(titles_last)
+    # return titles_copo
+    return json.dumps(poemlist)
+    # for poem in copo_titles:
+    #    test += {"user": poem.get("username")}
+    # return json.dumps(themeselect)
+ 
+    # themeresult = list(copo_titles)
+    # return dict(copo_titles)
     # return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find(themeselect).sort("title", 1))
 
     

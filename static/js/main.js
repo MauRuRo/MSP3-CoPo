@@ -33,7 +33,7 @@ var newuservar = false
 			type: 'POST',
 			success: function(response){
                 // themesellist = {{ response | tojson }};
-                console.log(response);
+                console.log(JSON.parse(response));
                 // window.location = 'creations'
             //     databack = JSON.parse(response)
             //     if (databack.user == null) {
