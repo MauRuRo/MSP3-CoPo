@@ -71,3 +71,15 @@ footer {
 #new_theme_row {
     display: none;
 }
+
+#credits {
+    /* text-align: right;    */
+    /* width: 70vw;
+    max-width: 280px;
+    min-width: 240px;     */
+}
+
+#credits p {
+        margin-top: 4px;
+    margin-bottom: 2px;
+}

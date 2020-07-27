@@ -1,14 +1,37 @@
 {% extends 'base.html' %} 
 {% block content %}
-                <h4>{{ poem.title}}</h4>
-            </div>
+         <a href="{{ url_for('creations') }}">
+                <h4>CoPo Creations</h4>
+                </a>
         </header>
+        <hr>
         <main>
-            <div class = "container">
+            <div class = "container">            
             <div class="poem-space">
-               {{poem.Poem}}
+                <h5>{{ poem.title}}</h5>
+                <p><em>
+                {{poem.Poem}}
+                </em></p>
+                <div id="credits">
+                    <p><strong>Author</strong>: {{ poem.Author }}
+                    <strong>Collaborators</strong>: {{ poem.collaborators }}
+                    <strong>Version</strong>: {{ poem.Version }}</p>
+                </div>
             </div>
-                                
+                <div class="row">
+                        <a href="{{ url_for('create') }}">
+                            <div class="copo-creations">
+                                <h5>Collaborate!</h5>
+                            </div>
+                        </a>
+                </div>    
+                <div class="row">
+                        <a href="{{ url_for('create') }}">
+                            <div class="copo-creations">
+                                <h5>Delete</h5>
+                            </div>
+                        </a>
+                </div>                    
             </div>
 
 
