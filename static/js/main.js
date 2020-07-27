@@ -16,6 +16,10 @@ var newuservar = false
     };
 
     $("#searchbar").change(function(){
+      searchFunc()
+});
+
+  searchFunc = function(){
         stitle = $("#search").val()
         searchtitle = {"title" : stitle};
         // searchtitle = '{"title" : { "$regex":"'+stitle+'"}';
@@ -43,10 +47,8 @@ var newuservar = false
 			error: function(error){
 				console.log(error);
 			}
-		}); 
-});
-
-
+        }); 
+    }
   
   
 
