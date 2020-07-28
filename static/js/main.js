@@ -240,4 +240,6 @@ $("#password").change(function(){
     };
 });
 
+//  $("#createpoem").ready($('#Poem').trigger('autoresize'));
+
 }); //docend

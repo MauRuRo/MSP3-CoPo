@@ -86,3 +86,7 @@ footer {
 #new_theme_row {
     display: none;
 }
+
+.ro-invisible {
+    display: none;
+}

@@ -65,6 +65,10 @@ def searchpoems():
 def create():
     return render_template("create.html", copo_themes = mongo.db.copo_themes.find().sort("theme",1))
 
+@app.route('/collaborate/<poemId>')
+def collaborate(poemId):
+    return render_template("collaborate.html", poeminfo = mongo.db.copo_creations.find_one({"_id": ObjectId(poemId)}))
+
 @app.route('/read/<poem_id>')
 def read(poem_id):
     the_poem = mongo.db.copo_creations.find_one({"_id": ObjectId(poem_id)})
@@ -115,8 +119,8 @@ def checkUser():
     user = request.form['username'];
     users = mongo.db.copo_users
     exists = users.find_one({"username" : user })
-    if exists == None:
-        return json.dumps({'user':exists});
+    if exists is None:
+        return json.dumps({'user':exists})
     else:
         return json.dumps({'user':exists.get("username"),'author': exists.get("author_name"),'password':exists.get("password")})
 
@@ -124,4 +128,4 @@ if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
             debug=True)
-#REMEMEBER TO SET DEBUG TO FALSE WHEN DONE WITH PROJECT!
+# REMEMEBER TO SET DEBUG TO FALSE WHEN DONE WITH PROJECT!
