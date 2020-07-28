@@ -82,7 +82,7 @@ def update_poem(poemId):
     print(version_his)
     for i in version_his:
         i[3] = False
-    collaborator_new.append([{"authorname":request.form.get('Collaborator')}, {"colusername": request.form.get('username')}])
+    collaborator_new.append({"authorname":request.form.get('Collaborator'), "colusername": request.form.get('username')})
     print(collaborator_new)
     version_his.append([int(version) + 1,  {"Poem" : request.form.get('Poem')}, {"Collaborators":collaborator_new} , True])
     print(version_his)

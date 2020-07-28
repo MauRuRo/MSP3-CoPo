@@ -250,9 +250,16 @@ $("#version-his").click(function(){
 
 $(".version-num").click(function(){
     $(".poem-text").addClass("old");
+    $(".collab").addClass("old");
     clickedversion = $(this).text();
+    console.log(clickedversion)
+    clickedversioncoll = clickedversion
     clickedversion = "#poem-ver-" + clickedversion
+    clickedversioncoll = "#collab-ver-" + clickedversioncoll
+    console.log(clickedversion)
+    console.log(clickedversioncoll)
     $(clickedversion).removeClass("old");
+    $(clickedversioncoll).removeClass("old");
 })
 
 }); //docend

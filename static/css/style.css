@@ -59,16 +59,13 @@ main {
     width: 70vw;
     margin: auto;
 }
-
-.poem-space {
-    white-space: pre-line;
-    text-align: center;
+.poem-text {
+    white-space:pre-line;
 }
 
-/* footer {
+.poem-space {
     text-align: center;
-    padding-top: 15px;
-} */
+}
 
 footer {
    position: fixed;
