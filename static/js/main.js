@@ -186,20 +186,18 @@ themevar = true
 //validates that new_user field is filled out and sets the second part of the form based on the selection in new_user field.
 $("#new_user").change(function(){
     newuservar=true
-//   if ($(this).val() == 1 || $(this).val() == 2) {
-//     //   $("#next-part").removeClass("disabled");
-//   };
   if ($(this).val() == 1) {
       $("#Author").attr("readonly", "readonly"); //If Existing user then Author name is immutable.
-      $("#username").attr("placeholder", "Enter Username");
+      $("#username").attr("placeholder", "Enter Username").val("");
       $("#password").siblings("label").text("Enter Password");
+      $("#password").val("");
       $("#create-submit").addClass("disabled");
   } else {
      $("#Author").removeAttr("readonly");
       $("#username").attr("placeholder", "Create Username");
       $("#password").siblings("label").text("Create Password")
   };
-});
+})  
 
 var databack // sets global variable to be used in to seperate functions
 //if existing user is selected, and username is filled out: post to MongoDB to check if username exists and if so fill out authorname.

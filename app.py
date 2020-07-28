@@ -69,6 +69,21 @@ def create():
 def collaborate(poemId):
     return render_template("collaborate.html", poeminfo = mongo.db.copo_creations.find_one({"_id": ObjectId(poemId)}))
 
+@app.route('/update_poem/<poemId>/<version>',methods=["POST"])
+def update_poem(poemId,version):
+    poems = mongo.db.copo_creations
+    collaborator_prev = list(poems.find({"_id": ObjectId(poemId)}))
+    print(collaborator_prev)
+    print(request.form.get('Poem'))
+    poems.update_one( {'_id': ObjectId(poemId)},
+    {
+        '$set': {'Poem' : request.form.get('Poem')},
+        '$set': {'Collaborators' : [{"authorname":request.form.get('Collaborator')}, {"colusername": request.form.get('username')}]},
+        '$set': {'Version' : int(version) + 1}
+    })
+    return redirect(url_for('read', poem_id=poemId))
+
+
 @app.route('/read/<poem_id>')
 def read(poem_id):
     the_poem = mongo.db.copo_creations.find_one({"_id": ObjectId(poem_id)})
