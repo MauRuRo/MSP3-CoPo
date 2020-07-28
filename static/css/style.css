@@ -90,3 +90,16 @@ footer {
 .ro-invisible {
     display: none;
 }
+
+#version-menu {
+    display: none;
+}
+
+#version-his:hover,.version-num:hover  {
+    color: skyblue;
+}
+
+.old {
+    display: none;
+    
+}

@@ -244,5 +244,15 @@ $("#password").change(function(){
 
 autosize($("#Poem"));
 
+$("#version-his").click(function(){
+    $("#version-menu").slideToggle();
+})
+
+$(".version-num").click(function(){
+    $(".poem-text").addClass("old");
+    clickedversion = $(this).text();
+    clickedversion = "#poem-ver-" + clickedversion
+    $(clickedversion).removeClass("old");
+})
 
 }); //docend

@@ -9,15 +9,24 @@
             <div class = "container">            
             <div class="poem-space">
                 <h5>{{ poem.title}}</h5>
-                <p><em>
-                {{poem.Poem}}
+                {% for i in poem.Version %}
+                {% if i[3] == true %}
+                <p class="poem-text" id="poem-ver-{{i[0]}}"><em>
+                {{i[1].get("Poem")}}
                 </em></p>
+                {% else %}
+                <p class="poem-text old" id="poem-ver-{{i[0]}}"><em>
+                {{i[1].get("Poem")}}
+                </em></p>
+                {% endif %}
+                {% endfor %}
                 <div id="credits">
                     <p><strong>Author</strong>: <a href="">{{ poem.Author }}</a>
                     
                     <strong>Collaborators</strong>:{% for i in poem.Collaborators %} <a href="">{{ i[0].get("authorname") }}</a>, {% endfor %}
                     
-                    <strong>Version</strong>: {% for i in poem.Version %}{% if i[3] == true %}{{ i[0] }}{% endif %}{% endfor %}</p>
+                    <strong id="version-his">Version</strong>: {% for i in poem.Version %}{% if i[3] == true %}{{ i[0] }}{% endif %}{% endfor %}
+                    <span id="version-menu">{% for i in poem.Version %}<span id="version-{{ i[0] }}" class="version-num">{{ i[0] }}</span>    {% endfor %}</span></p>
                 </div>
             </div>
                 <div class="row">
