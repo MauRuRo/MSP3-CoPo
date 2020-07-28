@@ -69,20 +69,27 @@ def create():
 def collaborate(poemId):
     return render_template("collaborate.html", poeminfo = mongo.db.copo_creations.find_one({"_id": ObjectId(poemId)}))
 
-@app.route('/update_poem/<poemId>/<version>',methods=["POST"])
-def update_poem(poemId,version):
+@app.route('/update_poem/<poemId>',methods=["POST"])
+def update_poem(poemId):
     poems = mongo.db.copo_creations
     collaborator_prev = list(poems.find({"_id": ObjectId(poemId)}))
     collaborator_new = collaborator_prev[0].get("Collaborators")
-    if collaborator_new == None:
-        collaborator_new = []
-    print(collaborator_new)
+    version_his = list(poems.find({"_id": ObjectId(poemId)}))[0].get("Version")
+    for i in version_his:
+        if i[3] == True:
+            version = i[0]
+    print(version)
+    print(version_his)
+    for i in version_his:
+        i[3] = False
     collaborator_new.append([{"authorname":request.form.get('Collaborator')}, {"colusername": request.form.get('username')}])
     print(collaborator_new)
+    version_his.append([int(version) + 1,  {"Poem" : request.form.get('Poem')}, {"Collaborators":collaborator_new} , True])
+    print(version_his)
     poems.update_one( {'_id': ObjectId(poemId)},
     {
         '$set': {
-            'Version' : int(version) + 1,
+            'Version' : version_his,
             'Poem' : request.form.get('Poem'),
             'Collaborators' : collaborator_new,
                 }
@@ -121,18 +128,20 @@ def insert_poem():
         "Theme" : theme,
         "Author" : creation.get("Author"),
         "username" : creation.get("username"),
-        "Version" : 1,
+        "Collaborators":[],
+        "Version" : [[1, {"Poem" : creation.get("Poem")}, {"Collaborators":[]} , True]],
         "Date" : date
     }
+
     user = {
         "username" : creation.get("username"),
         "password" : creation.get("password"),
         "author_name" : creation.get("Author")
     }
     poems.insert_one(poem)
-    print(creation.get("new_user"))
     if creation.get("new_user") == "2":
         users.insert_one(user)
+
     return redirect(url_for('creations'))
 
 # from: https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
