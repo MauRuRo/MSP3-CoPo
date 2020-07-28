@@ -244,8 +244,7 @@ $("#password").change(function(){
     };
 });
 
-$("#Poem").focus()
-autosize($("#Poem"))
+autosize($("#Poem"));
 
 
 }); //docend
