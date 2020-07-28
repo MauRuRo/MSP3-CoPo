@@ -1,7 +1,11 @@
 $(document).ready(function () {
   /** EVENT HANDLERS */
 // setting global variables used in functions
+if ($("#Theme").hasClass("coll-theme")) {
+    themevar = true //variable used for form first part validation of collaboration form.
+}else{
 themevar = false //variable used for form first part validation.
+};
 newuservar = false  //variable used for form first part validation.
   $("ul").hide(); //hides the lists of themes, authors, titles before they are called
   $(".second-part").css("display", "none") //hides the second part of the poem insertion form
@@ -240,6 +244,8 @@ $("#password").change(function(){
     };
 });
 
-//  $("#createpoem").ready($('#Poem').trigger('autoresize'));
+$("#Poem").focus()
+autosize($("#Poem"))
+
 
 }); //docend

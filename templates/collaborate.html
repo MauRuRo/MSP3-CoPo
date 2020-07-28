@@ -1,3 +1,5 @@
+	    <script src="{{ url_for('node_modules', filename='/autosize/dist/autosize.js') }}"></script>
+
 {% extends 'base.html' %} 
 {% block content %}
                 <h4>Collaborate!</h4>
@@ -15,14 +17,14 @@
                                     </div>
                                 </div>
                                 <div class="row first-part">
-                                    <div class="input-field col s12">
+                                    <div class="input-field col s12" style="height: auto;">
                                     <textarea id="Poem" name="Poem" class="materialize-textarea" value="{{ poeminfo.Poem }}" required>{{ poeminfo.Poem }}</textarea>
                                     </div>
                                 </div>
                                 <div class="ro-invisible">
                                     <div class="row first-part">
                                         <div class="input-field col s12" id="sel-theme">
-                                            <select id="Theme" name="Theme" class="validate" required="required">
+                                            <select id="Theme" name="Theme" class="validate coll-theme" required="required">
                                             <option selected value="{{ poeminfo.theme }}">{{ poeminfo.theme }}</option>
                                             </select>
                                             <!-- <label>Choose your theme</label> -->
@@ -95,5 +97,7 @@
                 </div>
 
 
-
+<!-- <script type="javascript">
+themevar = true
+</script> -->
 {% endblock %}
