@@ -73,13 +73,20 @@ def collaborate(poemId):
 def update_poem(poemId,version):
     poems = mongo.db.copo_creations
     collaborator_prev = list(poems.find({"_id": ObjectId(poemId)}))
-    print(collaborator_prev)
-    print(request.form.get('Poem'))
+    collaborator_new = collaborator_prev[0].get("Collaborators")
+    if collaborator_new == None:
+        collaborator_new = []
+    print(collaborator_new)
+    collaborator_new.append([{"authorname":request.form.get('Collaborator')}, {"colusername": request.form.get('username')}])
+    print(collaborator_new)
     poems.update_one( {'_id': ObjectId(poemId)},
     {
-        '$set': {'Poem' : request.form.get('Poem')},
-        '$set': {'Collaborators' : [{"authorname":request.form.get('Collaborator')}, {"colusername": request.form.get('username')}]},
-        '$set': {'Version' : int(version) + 1}
+        '$set': {
+            'Version' : int(version) + 1,
+            'Poem' : request.form.get('Poem'),
+            'Collaborators' : collaborator_new,
+                }
+       
     })
     return redirect(url_for('read', poem_id=poemId))
 

@@ -14,7 +14,9 @@
                 </em></p>
                 <div id="credits">
                     <p><strong>Author</strong>: {{ poem.Author }}
-                    <strong>Collaborators</strong>: {{ poem.Collaborators[0] }}
+                    
+                    <strong>Collaborators</strong>:{% for i in poem.Collaborators %} {{ i[0].get("authorname") }}, {% endfor %}
+                    
                     <strong>Version</strong>: {{ poem.Version }}</p>
                 </div>
             </div>
