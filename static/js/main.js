@@ -1,11 +1,13 @@
 $(document).ready(function () {
   /** EVENT HANDLERS */
-var themevar = false
-var newuservar = false
-  $("ul").hide();
-  $(".second-part").css("display", "none")
-  $("#next-part").addClass("disabled");
+// setting global variables used in functions
+themevar = false //variable used for form first part validation.
+newuservar = false  //variable used for form first part validation.
+  $("ul").hide(); //hides the lists of themes, authors, titles before they are called
+  $(".second-part").css("display", "none") //hides the second part of the poem insertion form
+  $("#next-part").addClass("disabled"); //disables the next button on the form, until all fields are filled
     
+    // function for hiding/showing the selection buttons for themes, authors, titles
     var toggleblocks = function(y) {
     $(".copo-creations").addClass("inactive");
     $(y).removeClass("inactive");
@@ -15,15 +17,15 @@ var newuservar = false
     $(".inactive").parent().slideToggle();
     };
 
+    // If search bar is filled in and user presses return or tab or clicks anywhere on the page, the searchFunc function is called.
     $("#searchbar").change(function(){
       searchFunc()
-});
+    });
 
+// looks for the titles that (partially) match the searchbar input
   searchFunc = function(){
         stitle = $("#search").val()
         searchtitle = {"title" : stitle};
-        // searchtitle = '{"title" : { "$regex":"'+stitle+'"}';
-        console.log(searchtitle);
         $.ajax({
 			url: '/searchpoems',
             data: searchtitle,
@@ -51,7 +53,7 @@ var newuservar = false
     }
   
   
-
+    //function which shows/hides a list based on the selection of categorie themes/author/titles
   $(".copo-creations").click(function () {
     let block = "#" + $(this).attr("id")
     if ($(this).attr("id") == "themeblock") {
@@ -83,6 +85,7 @@ var newuservar = false
     };
   });
 
+  // if a theme is clicked it will show a list of titles with that theme
   $("#theme-list").children().click(function() {
         choice = $(this).html()
     		$.ajax({
@@ -107,6 +110,7 @@ var newuservar = false
 		});   
   })
 
+  //if author is clicked it will show a list of titles with this author/user
     $("#author-list").children().click(function() {
         console.log( $(this).attr("id"))
         choice = $(this).attr("id")
@@ -134,23 +138,25 @@ var newuservar = false
 		});   
   })
 
+  //shows the next part of the form and hides current part
+
   $("#next-part").click( function() {
-      if ($("#new_user").val() == 1 || $("#new_user").val() == 2 ){
         $(".second-part").css("display", "block");
         $(".first-part").css("display", "none")
-      };
   });
+
+  //shows first part of the form and hides current part.
   $("#prev-part").click( function() {
       $(".first-part").css("display", "block")
       $(".second-part").css("display", "none")
-      if ($("#new_theme").attr("required")) {
+      if ($("#new_theme").attr("required")) { //depending on if theme "other" is selected it will also show the new_theme field
       } else {
          $("#new_theme_row").css("display", "none")
       }
   });
 
 
-
+//checks if all fields of first part are filled out before enabling next button
 $("#createpoem").change(function(){
     if ($("#title").val()=="" || $("#Poem").val()=="" || themevar==false || ($("#new_theme").val()=="" && $("#new_theme").get(0).hasAttribute("required")) || newuservar == false) {
     $("#next-part").addClass("disabled")
@@ -159,7 +165,7 @@ $("#createpoem").change(function(){
     }
 });
 
-
+//validates that theme field is selected and shows the new_theme field if "other" is selected.
 $("#Theme").change(function(){
 themevar = true
   if ($(this).val() == "Other") {
@@ -173,14 +179,14 @@ themevar = true
   };
 });
 
-
+//validates that new_user field is filled out and sets the second part of the form based on the selection in new_user field.
 $("#new_user").change(function(){
     newuservar=true
-  if ($(this).val() == 1 || $(this).val() == 2) {
-    //   $("#next-part").removeClass("disabled");
-  };
+//   if ($(this).val() == 1 || $(this).val() == 2) {
+//     //   $("#next-part").removeClass("disabled");
+//   };
   if ($(this).val() == 1) {
-      $("#Author").attr("readonly", "readonly");
+      $("#Author").attr("readonly", "readonly"); //If Existing user then Author name is immutable.
       $("#username").attr("placeholder", "Enter Username");
       $("#password").siblings("label").text("Enter Password");
       $("#create-submit").addClass("disabled");
@@ -191,7 +197,8 @@ $("#new_user").change(function(){
   };
 });
 
-var databack
+var databack // sets global variable to be used in to seperate functions
+//if existing user is selected, and username is filled out: post to MongoDB to check if username exists and if so fill out authorname.
 $("#username").change(function(){
   if ($("#new_user").val() == 1) {
 
@@ -218,6 +225,7 @@ $("#username").change(function(){
     };
 });
 
+//if existing user is selected, check if password that's filled in matches password from user document
 $("#password").change(function(){   
   if ($("#new_user").val() == 1) {
       var password = $("#password").val();
