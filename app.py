@@ -138,11 +138,14 @@ def insert_poem():
         "password" : creation.get("password"),
         "author_name" : creation.get("Author")
     }
-    poems.insert_one(poem)
+    poem_id = poems.insert_one(poem)
     # poems = mongo.db.copo_creations
     # poemtext = creation.get("Poem")
-    # poem_insert = list(poems.find_one({}, {"Poem": poemtext}))
+    # poem_insert = poems.find_one({}, {"Poem": poemtext})
     # print(poem_insert)
+    # poemdict = poem_insert.get("_id")
+    # print(poemdict)
+    # print(poem_id.inserted_id)
     # poem_insert = poem_insert[0]
     # # poem_insert_dict = json.loads(poem_insert)
     # # poem_id = poem_insert.get("_id")
@@ -155,8 +158,8 @@ def insert_poem():
 
     if creation.get("new_user") == "2":
         users.insert_one(user)
-    return redirect(url_for('creations'))
-    # return redirect(url_for('read', poem_id=_id))
+    # return redirect(url_for('creations'))
+    return redirect(url_for('read', poem_id=poem_id.inserted_id))
 
 # from: https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
 @app.route('/checkUser', methods=['POST'])
