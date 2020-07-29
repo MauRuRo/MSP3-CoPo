@@ -72,6 +72,7 @@ def collaborate(poemId):
 @app.route('/update_poem/<poemId>',methods=["POST"])
 def update_poem(poemId):
     poems = mongo.db.copo_creations
+    users = mongo.db.copo_users
     collaborator_prev = list(poems.find({"_id": ObjectId(poemId)}))
     collaborator_new = collaborator_prev[0].get("Collaborators")
     version_his = list(poems.find({"_id": ObjectId(poemId)}))[0].get("Version")
@@ -95,6 +96,16 @@ def update_poem(poemId):
                 }
        
     })
+
+    user = {
+        "username" : request.form.get("username"),
+        "password" : request.form.get("password"),
+        "author_name" : request.form.get("Collaborator")
+    }
+   
+    if request.form.get("new_user") == "2":
+        users.insert_one(user)
+    # return redirect(url_for('creations'))
     return redirect(url_for('read', poem_id=poemId))
 
 
