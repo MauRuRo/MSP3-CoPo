@@ -252,6 +252,7 @@ $(".version-num").click(function(){
     $(".poem-text").addClass("old");
     $(".collab").addClass("old");
     clickedversion = $(this).text();
+    $("#current-ver").text(clickedversion);
     console.log(clickedversion)
     clickedversioncoll = clickedversion
     clickedversion = "#poem-ver-" + clickedversion

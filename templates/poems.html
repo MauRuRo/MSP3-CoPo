@@ -21,16 +21,19 @@
                 {% endif %}
                 {% endfor %}
                 <div id="credits">
-                    <p><strong>Author</strong>: <a href="">{{ poem.Author }}</a>
+                    <p><span class="credit"><strong>Author</strong>: <a href="">{{ poem.Author }}</a></span></p>
+                    <span class="credit">
                        {% for i in poem.Version %}
-                       {% if i[3] == "true" %}
-                    <span class="collab old" id="collab-ver-{{ i[0] }}"><strong>Collaborators</strong>:{% for a in i[2]["Collaborators"] %} <a href="">{{ a["authorname"] }}</a>, </span>{% endfor %}
+                       {% if i[3] == true %}
+                    <span class="collab" id="collab-ver-{{ i[0] }}"><p><strong>Collaborators</strong>:{% for a in i[2]["Collaborators"] %} <a href="">{{ a["authorname"] }}</a>, {% endfor %}</p></span>
                         {% else %}
-                    <span class="collab" id="collab-ver-{{ i[0] }}"><strong>Collaborators</strong>:{% for a in i[2]["Collaborators"] %} <a href="">{{ a["authorname"] }}</a>, </span>{% endfor %}
+                    <span class="collab old" id="collab-ver-{{ i[0] }}"><p><strong>Collaborators</strong>:{% for a in i[2]["Collaborators"] %} <a href="">{{ a["authorname"] }}</a>, {% endfor %}</p></span>
                         {% endif %}
                         {% endfor %}
-                    <strong id="version-his">Version</strong>: {% for i in poem.Version %}{% if i[3] == true %}{{ i[0] }}{% endif %}{% endfor %}
-                    <span id="version-menu">{% for i in poem.Version %}<span id="version-{{ i[0] }}" class="version-num">{{ i[0] }}</span>    {% endfor %}</span></p>
+                        </span>
+                    <span class="credit"><p><strong id="version-his">Version</strong>: <span id="current-ver">{% for i in poem.Version %}{% if i[3] == true %}{{ i[0] }}{% endif %}{% endfor %}</span></p>
+                    <span id="version-menu"><p>{% for i in poem.Version %}<span id="version-{{ i[0] }}" class="version-num">{{ i[0] }}</span>    {% endfor %}</p></span>
+                    </span>
                 </div>
             </div>
                 <div class="row">
