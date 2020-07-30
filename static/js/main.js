@@ -11,6 +11,41 @@ newuservar = false  //variable used for form first part validation.
   $(".second-part").css("display", "none") //hides the second part of the poem insertion form
   $("#next-part").addClass("disabled"); //disables the next button on the form, until all fields are filled
     
+checkresult = function(){
+    // console.log("FIRING")
+    setTimeout(function(){ //necessary for the checkresult; it has to fire when page reload is completed.
+    if($('#title-list').css('display') == 'block') {
+        found = 0
+        // console.log(1)
+
+        if ($(".poem-title-item")[0]){
+            $(".poem-title-item").each(function() {
+                // console.log(6)
+                if (found === 1) {
+                    // console.log(2)
+                    return false;
+                };
+                if ($(this).css("display") == "block") {
+                    found = 1
+                    // console.log(3)
+                } else {
+                    found = 0   
+                    // console.log(4)           
+                };
+            })
+        } else {
+                found = 0
+            };
+
+        if (found === 0) {
+            // console.log(5)
+            $("#title-list").append("<li id='notitles'><em>No titles found..</em></li>")
+        }
+    } 
+    }, 500);
+}
+
+
     // function for hiding/showing the selection buttons for themes, authors, titles
     toggleblocks = function(y) {
     $(".copo-creations").addClass("inactive");
@@ -19,6 +54,8 @@ newuservar = false  //variable used for form first part validation.
     $(".inactive").slideToggle();
     $("h6").slideToggle();
     $(".inactive").parent().slideToggle();
+    console.log("togglego")
+    checkresult()
     };
 
     // If search bar is filled in and user presses return or tab or clicks anywhere on the page, the searchFunc function is called.
@@ -57,34 +94,37 @@ newuservar = false  //variable used for form first part validation.
     };
 }
 // looks for the titles that (partially) match the searchbar input
-  searchFunc = function(){
-        stitle = $("#search").val()
-        searchtitle = {"title" : stitle};
-        $.ajax({
-			url: '/searchpoems',
-            data: searchtitle,
-			type: 'POST',
-			success: function(response){
-                console.log(response)
-                titlesel = JSON.parse(response);
-                if ($("#title-list").is(":visible")){
-                }else{
-                    toggleblocks("#titleblock")
-                };
-                $("#title-list").slideDown();
-                $("#title-list").children().css("display","none");
-                for (i in titlesel) {
-                    let idObject= "#" + titlesel[i]._id ;
-                    console.log(idObject);
-                    $("#title-list").children(idObject).css("display", "block")
-                };
+searchFunc = function(){
+    stitle = $("#search").val()
+    searchtitle = {"title" : stitle};
+    $.ajax({
+        url: '/searchpoems',
+        data: searchtitle,
+        type: 'POST',
+        success: function(response){
+            console.log(response)
+            titlesel = JSON.parse(response);
+            if ($("#title-list").is(":visible")){
+            }else{
+                toggleblocks("#titleblock")
+            };
+            $("#title-list").slideDown();
+            $("#title-list").children().css("display","none");
+            for (i in titlesel) {
+                let idObject= "#" + titlesel[i]._id ;
+                console.log(idObject);
+                $("#title-list").children(idObject).css("display", "block")
+            };
 
-			},
-			error: function(error){
-				console.log(error);
-			}
-        }); 
-    }
+        },
+        error: function(error){
+            console.log(error);
+        }
+    }); 
+};
+
+
+
   
 authorsearch = function(x){
         choice = $(x).text()
@@ -108,22 +148,24 @@ authorsearch = function(x){
 			},
 			error: function(error){
 				console.log(error);
-			}
-		});   
+            }
+        });   
+        console.log("check")
   }
-  //if author is clicked it will show a list of titles with this author/user
-    $("#author-list").children().click(function() {
-        authorsearch(this)
-      
-  })
+//if author is clicked it will show a list of titles with this author/user
+$("#author-list").children().click(function() {
+    authorsearch(this)
+    console.log("check1")
+    checkresult()
+    console.log("check2")
+    })
 
 //for some reason wouldn't work if function was referenced in an if statement; so had to incorporate the if statement and call function to avoid Reference error.
 searchFuncAuthor = function(){
     if ($("#author-user").text() != "") {
         blockclick("#authorblock")
         authorsearch("#author-user")
-
-};
+    };
 }
 
 searchFuncAuthor()
@@ -156,7 +198,8 @@ searchFuncAuthor()
 			error: function(error){
 				console.log(error);
 			}
-		});   
+        });   
+        checkresult()
   })
 
   

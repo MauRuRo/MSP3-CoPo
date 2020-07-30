@@ -167,22 +167,6 @@ def insert_poem():
         "author_name" : creation.get("Author")
     }
     poem_id = poems.insert_one(poem)
-    # poems = mongo.db.copo_creations
-    # poemtext = creation.get("Poem")
-    # poem_insert = poems.find_one({}, {"Poem": poemtext})
-    # print(poem_insert)
-    # poemdict = poem_insert.get("_id")
-    # print(poemdict)
-    # print(poem_id.inserted_id)
-    # poem_insert = poem_insert[0]
-    # # poem_insert_dict = json.loads(poem_insert)
-    # # poem_id = poem_insert.get("_id")
-    # print("this is what im printing")
-    # print(poemtext)
-    # print(poem_insert)
-    # # print(poem_insert_dict)
-
-    # print(_id)
 
     if creation.get("new_user") == "2":
         users.insert_one(user)
@@ -199,6 +183,11 @@ def checkUser():
         return json.dumps({'user':exists})
     else:
         return json.dumps({'user':exists.get("username"),'author': exists.get("author_name"),'password':exists.get("password")})
+
+@app.route('/delete')
+def delete():
+    mongo.db.copo_creations.delete_many({})
+    return redirect(url_for('creations'))
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

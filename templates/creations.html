@@ -64,7 +64,7 @@
                         </ul>
                         <ul id="title-list" class="list">
                             {% for poem in copo_titles%}
-                            <a id="{{poem._id}}" href="{{ url_for('read', poem_id=poem._id )}}"><li>{{poem.title}}</li></a>
+                            <a id="{{poem._id}}" href="{{ url_for('read', poem_id=poem._id )}}" class="poem-title-item"><li>{{poem.title}}</li></a>
                             {% endfor %}
                         </ul>
                 </div>
