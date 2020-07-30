@@ -12,7 +12,7 @@ newuservar = false  //variable used for form first part validation.
   $("#next-part").addClass("disabled"); //disables the next button on the form, until all fields are filled
     
     // function for hiding/showing the selection buttons for themes, authors, titles
-    var toggleblocks = function(y) {
+    toggleblocks = function(y) {
     $(".copo-creations").addClass("inactive");
     $(y).removeClass("inactive");
     $(y).addClass("active");
@@ -26,6 +26,36 @@ newuservar = false  //variable used for form first part validation.
       searchFunc()
     });
 
+    blockclick = function(x) {
+       let block = "#" + $(x).attr("id")
+    if ($(x).attr("id") == "themeblock") {
+        if ($("#title-list").is(":visible")) {
+            $("#title-list").slideToggle();
+            $("#themeblock").children("h5").text("Themes");
+            $("#title-list").children().css("display", "block")
+            $("#theme-list").slideToggle();
+        } else {
+            $("#theme-list").slideToggle();
+            toggleblocks(block)
+        }
+    } else if ($(x).attr("id") == "authorblock") {
+        if ($("#title-list").is(":visible")) {
+            $("#title-list").slideToggle();
+            $("#authorblock").children("h5").text("Authors");
+            $("#title-list").children().css("display", "block")
+            $("#author-list").slideToggle();
+        } else {
+            $("#author-list").slideToggle();
+            toggleblocks(block)
+        }
+    } else if ($(x).attr("id") == "titleblock") {
+            $("#title-list").slideToggle();
+            $("#search").val("")
+            $("#title-list").children().css("display","block")
+            toggleblocks(block)
+    } else {
+    };
+}
 // looks for the titles that (partially) match the searchbar input
   searchFunc = function(){
         stitle = $("#search").val()
@@ -56,72 +86,106 @@ newuservar = false  //variable used for form first part validation.
         }); 
     }
   
+authorsearch = function(x){
+        choice = $(x).text()
+        authorname = $(x).html()
+    		$.ajax({
+			url: '/creations-author-select',
+            data: {"Author": choice},
+			type: 'POST',
+			success: function(response){
+                console.log(response)
+                authorsel = JSON.parse(response);
+                $("#author-list").slideUp();
+                $("#title-list").slideDown();
+                $("#title-list").children().css("display","none");
+                for (i in authorsel) {
+                    let idObject= "#" + authorsel[i]._id ;
+                    console.log(idObject);
+                    $("#title-list").children(idObject).css("display", "block")
+                $("#authorblock").children("h5").text("Author: " + authorname);
+                }
+			},
+			error: function(error){
+				console.log(error);
+			}
+		});   
+  }
+  //if author is clicked it will show a list of titles with this author/user
+    $("#author-list").children().click(function() {
+        authorsearch(this)
+      
+  })
+
 //for some reason wouldn't work if function was referenced in an if statement; so had to incorporate the if statement and call function to avoid Reference error.
 searchFuncAuthor = function(){
     if ($("#author-user").text() != "") {
+        blockclick("#authorblock")
+        authorsearch("#author-user")
+    //     stitle = $("#author-user").text()
+    // search_author = {"Author" : stitle};
+    // $.ajax({
+    //     url: '/searchauthor',
+    //     data: search_author,
+    //     type: 'POST',
+    //     success: function(response){
+    //         console.log(response)
+    //         titlesel = JSON.parse(response);
+    //         if ($("#title-list").is(":visible")){
+    //         }else{
+    //             toggleblocks("#titleblock")
+    //         };
+    //         $("#title-list").slideDown();
+    //         $("#title-list").children().css("display","none");
+    //         for (i in titlesel) {
+    //             let idObject= "#" + titlesel[i]._id ;
+    //             console.log(idObject);
+    //             $("#title-list").children(idObject).css("display", "block")
+    //         };
 
-        stitle = $("#author-user").text()
-    search_author = {"Author" : stitle};
-    $.ajax({
-        url: '/searchauthor',
-        data: search_author,
-        type: 'POST',
-        success: function(response){
-            console.log(response)
-            titlesel = JSON.parse(response);
-            if ($("#title-list").is(":visible")){
-            }else{
-                toggleblocks("#titleblock")
-            };
-            $("#title-list").slideDown();
-            $("#title-list").children().css("display","none");
-            for (i in titlesel) {
-                let idObject= "#" + titlesel[i]._id ;
-                console.log(idObject);
-                $("#title-list").children(idObject).css("display", "block")
-            };
-
-        },
-        error: function(error){
-            console.log(error);
-        }
-    }); 
+    //     },
+    //     error: function(error){
+    //         console.log(error);
+    //     }
+    // }); 
 
 };
 }
 
 searchFuncAuthor()
   
+
     //function which shows/hides a list based on the selection of categorie themes/author/titles
   $(".copo-creations").click(function () {
-    let block = "#" + $(this).attr("id")
-    if ($(this).attr("id") == "themeblock") {
-        if ($("#title-list").is(":visible")) {
-            $("#title-list").slideToggle();
-            $("#themeblock").children("h5").text("Themes");
-            $("#title-list").children().css("display", "block")
-            $("#theme-list").slideToggle();
-        } else {
-            $("#theme-list").slideToggle();
-            toggleblocks(block)
-        }
-    } else if ($(this).attr("id") == "authorblock") {
-        if ($("#title-list").is(":visible")) {
-            $("#title-list").slideToggle();
-            $("#authorblock").children("h5").text("Authors");
-            $("#title-list").children().css("display", "block")
-            $("#author-list").slideToggle();
-        } else {
-            $("#author-list").slideToggle();
-            toggleblocks(block)
-        }
-    } else if ($(this).attr("id") == "titleblock") {
-            $("#title-list").slideToggle();
-            $("#search").val("")
-            $("#title-list").children().css("display","block")
-            toggleblocks(block)
-    } else {
-    };
+      blockclick(this)
+    // let block = "#" + $(this).attr("id")
+    // if ($(this).attr("id") == "themeblock") {
+    //     if ($("#title-list").is(":visible")) {
+    //         $("#title-list").slideToggle();
+    //         $("#themeblock").children("h5").text("Themes");
+    //         $("#title-list").children().css("display", "block")
+    //         $("#theme-list").slideToggle();
+    //     } else {
+    //         $("#theme-list").slideToggle();
+    //         toggleblocks(block)
+    //     }
+    // } else if ($(this).attr("id") == "authorblock") {
+    //     if ($("#title-list").is(":visible")) {
+    //         $("#title-list").slideToggle();
+    //         $("#authorblock").children("h5").text("Authors");
+    //         $("#title-list").children().css("display", "block")
+    //         $("#author-list").slideToggle();
+    //     } else {
+    //         $("#author-list").slideToggle();
+    //         toggleblocks(block)
+    //     }
+    // } else if ($(this).attr("id") == "titleblock") {
+    //         $("#title-list").slideToggle();
+    //         $("#search").val("")
+    //         $("#title-list").children().css("display","block")
+    //         toggleblocks(block)
+    // } else {
+    // };
   });
 
   // if a theme is clicked it will show a list of titles with that theme
@@ -149,33 +213,7 @@ searchFuncAuthor()
 		});   
   })
 
-  //if author is clicked it will show a list of titles with this author/user
-    $("#author-list").children().click(function() {
-        console.log( $(this).attr("id"))
-        choice = $(this).attr("id")
-        authorname = $(this).html()
-    		$.ajax({
-			url: '/creations-author-select',
-            data: {"username": choice},
-			type: 'POST',
-			success: function(response){
-                console.log(response)
-                authorsel = JSON.parse(response);
-                $("#author-list").slideUp();
-                $("#title-list").slideDown();
-                $("#title-list").children().css("display","none");
-                for (i in authorsel) {
-                    let idObject= "#" + authorsel[i]._id ;
-                    console.log(idObject);
-                    $("#title-list").children(idObject).css("display", "block")
-                $("#authorblock").children("h5").text("Author: " + authorname);
-                }
-			},
-			error: function(error){
-				console.log(error);
-			}
-		});   
-  })
+  
 
   //shows the next part of the form and hides current part
 

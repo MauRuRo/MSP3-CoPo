@@ -41,8 +41,8 @@ def creationsThemeSelect():
 
 @app.route('/creations-author-select', methods=['POST'])
 def creationsAuthorSelect(): 
-    info = request.form["username"]
-    userselect = {"username":info}
+    info = request.form["Author"]
+    userselect = {"Author":info}
     copo_titles = mongo.db.copo_creations.find(userselect).sort("title", 1)
     ctitle = list(copo_titles)
     poemlist = {}
