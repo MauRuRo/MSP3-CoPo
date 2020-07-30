@@ -122,32 +122,6 @@ searchFuncAuthor = function(){
     if ($("#author-user").text() != "") {
         blockclick("#authorblock")
         authorsearch("#author-user")
-    //     stitle = $("#author-user").text()
-    // search_author = {"Author" : stitle};
-    // $.ajax({
-    //     url: '/searchauthor',
-    //     data: search_author,
-    //     type: 'POST',
-    //     success: function(response){
-    //         console.log(response)
-    //         titlesel = JSON.parse(response);
-    //         if ($("#title-list").is(":visible")){
-    //         }else{
-    //             toggleblocks("#titleblock")
-    //         };
-    //         $("#title-list").slideDown();
-    //         $("#title-list").children().css("display","none");
-    //         for (i in titlesel) {
-    //             let idObject= "#" + titlesel[i]._id ;
-    //             console.log(idObject);
-    //             $("#title-list").children(idObject).css("display", "block")
-    //         };
-
-    //     },
-    //     error: function(error){
-    //         console.log(error);
-    //     }
-    // }); 
 
 };
 }
@@ -158,34 +132,6 @@ searchFuncAuthor()
     //function which shows/hides a list based on the selection of categorie themes/author/titles
   $(".copo-creations").click(function () {
       blockclick(this)
-    // let block = "#" + $(this).attr("id")
-    // if ($(this).attr("id") == "themeblock") {
-    //     if ($("#title-list").is(":visible")) {
-    //         $("#title-list").slideToggle();
-    //         $("#themeblock").children("h5").text("Themes");
-    //         $("#title-list").children().css("display", "block")
-    //         $("#theme-list").slideToggle();
-    //     } else {
-    //         $("#theme-list").slideToggle();
-    //         toggleblocks(block)
-    //     }
-    // } else if ($(this).attr("id") == "authorblock") {
-    //     if ($("#title-list").is(":visible")) {
-    //         $("#title-list").slideToggle();
-    //         $("#authorblock").children("h5").text("Authors");
-    //         $("#title-list").children().css("display", "block")
-    //         $("#author-list").slideToggle();
-    //     } else {
-    //         $("#author-list").slideToggle();
-    //         toggleblocks(block)
-    //     }
-    // } else if ($(this).attr("id") == "titleblock") {
-    //         $("#title-list").slideToggle();
-    //         $("#search").val("")
-    //         $("#title-list").children().css("display","block")
-    //         toggleblocks(block)
-    // } else {
-    // };
   });
 
   // if a theme is clicked it will show a list of titles with that theme
@@ -337,12 +283,8 @@ $(".version-num").click(function(){
     $(clickedversioncoll).removeClass("old");
 })
 
-$(".container").keypress(function() {
-console.log("Key pressed")
-})
 
 $("body").click(function() {
-    console.log("clicked");
     if ($("#Author").val() != "" && $("#password").val() != "" && $("#username").val() != "") {
         $("#create-submit").removeClass("disabled");
     } else {
@@ -350,14 +292,11 @@ $("body").click(function() {
     }
 
     if ($("#new_user").val() == 1 && $("#password").val() != "") {
-        console.log("checking password")
       var password = $("#password").val();
       if (databack.password == password) {
-          console.log("password correct")
           $("#create-submit").removeClass("disabled");   
       } else {
           alert("Incorrect Password");
-          console.log("password incorrect")
           $("#password").val("").focus();
           $("#create-submit").addClass("disabled");   
       }
@@ -367,7 +306,6 @@ $("body").click(function() {
 })
 //https://ilovecoding.org/lessons/keyboard-event-with-jquery
 $('body').on('keydown', function (e) {
-    console.log('I have been pressed', e);
         if ($("#Author").val() != "" && $("#password").val() != "" && $("#username").val() != "") {
         $("#create-submit").removeClass("disabled");
     } else {
@@ -378,7 +316,6 @@ $('body').on('keydown', function (e) {
     } else {
     
         if ($("#new_user").val() == 1 && $("#password").val() != "") {
-        console.log("checking password")
       var password = $("#password").val();
       if (databack.password == password) {
           console.log("password correct")
