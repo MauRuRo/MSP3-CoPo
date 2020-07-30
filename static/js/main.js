@@ -63,6 +63,7 @@ checkresult = function(){
             $("#themeblock").children("h5").text("Themes");
             $("#title-list").children().css("display", "block")
             $("#theme-list").slideToggle();
+            $("#notitles").remove()
         } else {
             $("#theme-list").slideToggle();
             toggleblocks(block)
@@ -73,6 +74,7 @@ checkresult = function(){
             $("#authorblock").children("h5").text("Authors");
             $("#title-list").children().css("display", "block")
             $("#author-list").slideToggle();
+            $("#notitles").remove()
         } else {
             $("#author-list").slideToggle();
             toggleblocks(block)
@@ -81,6 +83,7 @@ checkresult = function(){
             $("#title-list").slideToggle();
             $("#search").val("")
             $("#title-list").children().css("display","block")
+            $("#notitles").remove()
             toggleblocks(block)
     } else {
     };
