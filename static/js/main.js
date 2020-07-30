@@ -56,40 +56,41 @@ newuservar = false  //variable used for form first part validation.
         }); 
     }
   
-
+//for some reason wouldn't work if function was referenced in an if statement; so had to incorporate the if statement and call function to avoid Reference error.
+searchFuncAuthor = function(){
     if ($("#author-user").text() != "") {
-        console.log("check");
-        searchFuncAuthor();
-    };
 
-     searchFuncAuthor = function(){
         stitle = $("#author-user").text()
-        searchauthor = {"Author" : stitle};
-        $.ajax({
-			url: '/searchpoems',
-            data: searchauthor,
-			type: 'POST',
-			success: function(response){
-                console.log(response)
-                titlesel = JSON.parse(response);
-                if ($("#title-list").is(":visible")){
-                }else{
-                    toggleblocks("#titleblock")
-                };
-                $("#title-list").slideDown();
-                $("#title-list").children().css("display","none");
-                for (i in titlesel) {
-                    let idObject= "#" + titlesel[i]._id ;
-                    console.log(idObject);
-                    $("#title-list").children(idObject).css("display", "block")
-                };
+    search_author = {"Author" : stitle};
+    $.ajax({
+        url: '/searchauthor',
+        data: search_author,
+        type: 'POST',
+        success: function(response){
+            console.log(response)
+            titlesel = JSON.parse(response);
+            if ($("#title-list").is(":visible")){
+            }else{
+                toggleblocks("#titleblock")
+            };
+            $("#title-list").slideDown();
+            $("#title-list").children().css("display","none");
+            for (i in titlesel) {
+                let idObject= "#" + titlesel[i]._id ;
+                console.log(idObject);
+                $("#title-list").children(idObject).css("display", "block")
+            };
 
-			},
-			error: function(error){
-				console.log(error);
-			}
-        }); 
-    }
+        },
+        error: function(error){
+            console.log(error);
+        }
+    }); 
+
+};
+}
+
+searchFuncAuthor()
   
     //function which shows/hides a list based on the selection of categorie themes/author/titles
   $(".copo-creations").click(function () {

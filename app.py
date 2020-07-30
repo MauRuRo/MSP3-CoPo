@@ -67,8 +67,8 @@ def searchpoems():
 
 @app.route('/searchauthor', methods=["POST"])
 def searchauthor():
-    info = request.form["author"]
-    titleselect = {"author" : info}
+    info = request.form["Author"]
+    titleselect = {"Author" : info}
     copo_titles = mongo.db.copo_creations.find(titleselect).sort("title", 1) 
     ctitle = list(copo_titles)
     poemlist = {}
