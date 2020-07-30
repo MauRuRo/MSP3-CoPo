@@ -260,7 +260,7 @@ themevar = true
 $("#new_user").change(function(){
     newuservar=true
   if ($(this).val() == 1) {
-      $("#Author").attr("readonly", "readonly"); //If Existing user then Author name is immutable.
+    //   $("#Author").attr("readonly", "readonly"); //If Existing user then Author name is immutable.
       $("#username").attr("placeholder", "Enter Username").val("");
       $("#password").siblings("label").text("Enter Password");
       $("#password").val("");
@@ -311,6 +311,7 @@ $("#password").change(function(){
           alert("Incorrect Password");
           console.log("password incorrect")
           $("#password").val("").focus();
+        $("#create-submit").addClass("disabled");  
       }
     };
 });
@@ -334,6 +335,64 @@ $(".version-num").click(function(){
     console.log(clickedversioncoll)
     $(clickedversion).removeClass("old");
     $(clickedversioncoll).removeClass("old");
+})
+
+$(".container").keypress(function() {
+console.log("Key pressed")
+})
+
+$("body").click(function() {
+    console.log("clicked");
+    if ($("#Author").val() != "" && $("#password").val() != "" && $("#username").val() != "") {
+        $("#create-submit").removeClass("disabled");
+    } else {
+        $("#create-submit").addClass("disabled");
+    }
+
+    if ($("#new_user").val() == 1 && $("#password").val() != "") {
+        console.log("checking password")
+      var password = $("#password").val();
+      if (databack.password == password) {
+          console.log("password correct")
+          $("#create-submit").removeClass("disabled");   
+      } else {
+          alert("Incorrect Password");
+          console.log("password incorrect")
+          $("#password").val("").focus();
+          $("#create-submit").addClass("disabled");   
+      }
+      
+    };
+
+})
+//https://ilovecoding.org/lessons/keyboard-event-with-jquery
+$('body').on('keydown', function (e) {
+    console.log('I have been pressed', e);
+        if ($("#Author").val() != "" && $("#password").val() != "" && $("#username").val() != "") {
+        $("#create-submit").removeClass("disabled");
+    } else {
+        $("#create-submit").addClass("disabled");
+    }
+
+    if ($("#password").is(":focus")) {
+    } else {
+    
+        if ($("#new_user").val() == 1 && $("#password").val() != "") {
+        console.log("checking password")
+      var password = $("#password").val();
+      if (databack.password == password) {
+          console.log("password correct")
+          $("#create-submit").removeClass("disabled");   
+      } else {
+          alert("Incorrect Password");
+          console.log("password incorrect")
+          $("#password").val("").focus();
+          $("#create-submit").addClass("disabled");   
+      }
+      
+    };
+}; 
+
 })
 
 }); //docend
