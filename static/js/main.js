@@ -191,6 +191,7 @@ searchFuncAuthor()
 				console.log(error);
 			}
         });   
+        $("#themeblock").children("h5").text("Theme: " + choice);
         checkresult()
   })
 
