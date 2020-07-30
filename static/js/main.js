@@ -16,21 +16,15 @@ checkresult = function(){
     setTimeout(function(){ //necessary for the checkresult; it has to fire when page reload is completed.
     if($('#title-list').css('display') == 'block') {
         found = 0
-        // console.log(1)
-
         if ($(".poem-title-item")[0]){
             $(".poem-title-item").each(function() {
-                // console.log(6)
                 if (found === 1) {
-                    // console.log(2)
                     return false;
                 };
                 if ($(this).css("display") == "block") {
                     found = 1
-                    // console.log(3)
                 } else {
-                    found = 0   
-                    // console.log(4)           
+                    found = 0            
                 };
             })
         } else {
@@ -38,7 +32,6 @@ checkresult = function(){
             };
 
         if (found === 0) {
-            // console.log(5)
             $("#title-list").append("<li id='notitles'><em>No titles found..</em></li>")
         }
     } 
@@ -54,7 +47,6 @@ checkresult = function(){
     $(".inactive").slideToggle();
     $("h6").slideToggle();
     $(".inactive").parent().slideToggle();
-    console.log("togglego")
     checkresult()
     };
 
@@ -129,35 +121,35 @@ searchFunc = function(){
 authorsearch = function(x){
         choice = $(x).text()
         authorname = $(x).html()
+        console.log(authorname)
     		$.ajax({
 			url: '/creations-author-select',
             data: {"Author": choice},
 			type: 'POST',
 			success: function(response){
-                console.log(response)
+                // console.log(response)
                 authorsel = JSON.parse(response);
                 $("#author-list").slideUp();
                 $("#title-list").slideDown();
                 $("#title-list").children().css("display","none");
                 for (i in authorsel) {
                     let idObject= "#" + authorsel[i]._id ;
-                    console.log(idObject);
+                    // console.log(idObject);
                     $("#title-list").children(idObject).css("display", "block")
                 $("#authorblock").children("h5").text("Author: " + authorname);
+                console.log(authorname)
                 }
 			},
 			error: function(error){
 				console.log(error);
             }
-        });   
-        console.log("check")
+        }); 
+        $("#authorblock").children("h5").text("Author: " + authorname);  
   }
 //if author is clicked it will show a list of titles with this author/user
 $("#author-list").children().click(function() {
     authorsearch(this)
-    console.log("check1")
     checkresult()
-    console.log("check2")
     })
 
 //for some reason wouldn't work if function was referenced in an if statement; so had to incorporate the if statement and call function to avoid Reference error.

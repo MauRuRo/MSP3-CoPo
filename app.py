@@ -21,7 +21,7 @@ def home():
 def creations(): 
     return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser= None)
 
-@app.route('/creations_autor/<authoruser>')
+@app.route('/creations_author/<authoruser>')
 def creations_author(authoruser): 
     return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser=authoruser)
 
