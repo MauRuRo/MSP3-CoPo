@@ -25,9 +25,9 @@
                     <span class="credit">
                        {% for i in poem.Version %}
                        {% if i[3] == true %}
-                    <span class="collab" id="collab-ver-{{ i[0] }}"><p><strong>Collaborators</strong>:{% for a in i[2]["Collaborators"] %} <a href="">{{ a["authorname"] }}</a>, {% endfor %}</p></span>
+                    <span class="collab" id="collab-ver-{{ i[0] }}"><p><strong>Collaborators</strong>:{% for a in i[2]["Collaborators"] %} <a href="{{ url_for('creations_author', authoruser= a['authorname'] )}}">{{ a["authorname"] }}</a>, {% endfor %}</p></span>
                         {% else %}
-                    <span class="collab old" id="collab-ver-{{ i[0] }}"><p><strong>Collaborators</strong>:{% for a in i[2]["Collaborators"] %} <a href="">{{ a["authorname"] }}</a>, {% endfor %}</p></span>
+                    <span class="collab old" id="collab-ver-{{ i[0] }}"><p><strong>Collaborators</strong>:{% for a in i[2]["Collaborators"] %} <a href="{{ url_for('creations_author', authoruser= a['authorname'] )}}">{{ a["authorname"] }}</a>, {% endfor %}</p></span>
                         {% endif %}
                         {% endfor %}
                         </span>
