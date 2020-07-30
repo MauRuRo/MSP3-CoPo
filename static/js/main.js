@@ -56,6 +56,40 @@ newuservar = false  //variable used for form first part validation.
         }); 
     }
   
+
+    if ($("#author-user").text() != "") {
+        console.log("check");
+        searchFuncAuthor();
+    };
+
+     searchFuncAuthor = function(){
+        stitle = $("#author-user").text()
+        searchauthor = {"Author" : stitle};
+        $.ajax({
+			url: '/searchpoems',
+            data: searchauthor,
+			type: 'POST',
+			success: function(response){
+                console.log(response)
+                titlesel = JSON.parse(response);
+                if ($("#title-list").is(":visible")){
+                }else{
+                    toggleblocks("#titleblock")
+                };
+                $("#title-list").slideDown();
+                $("#title-list").children().css("display","none");
+                for (i in titlesel) {
+                    let idObject= "#" + titlesel[i]._id ;
+                    console.log(idObject);
+                    $("#title-list").children(idObject).css("display", "block")
+                };
+
+			},
+			error: function(error){
+				console.log(error);
+			}
+        }); 
+    }
   
     //function which shows/hides a list based on the selection of categorie themes/author/titles
   $(".copo-creations").click(function () {

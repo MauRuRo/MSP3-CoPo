@@ -19,7 +19,11 @@ def home():
 
 @app.route('/creations')
 def creations(): 
-    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1))
+    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser= None)
+
+@app.route('/creations_autor/<authoruser>')
+def creations_author(authoruser): 
+    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser=authoruser)
 
 
 @app.route('/creations-theme-select', methods=['POST'])
@@ -52,6 +56,19 @@ def creationsAuthorSelect():
 def searchpoems():
     info = request.form["title"]
     titleselect = {"title" : { "$regex": info, "$options":"i"}}
+    copo_titles = mongo.db.copo_creations.find(titleselect).sort("title", 1) 
+    ctitle = list(copo_titles)
+    poemlist = {}
+    i = 0
+    for poem in ctitle:
+        poemlist[i] = {"_id": str(poem.get("_id")), "title": poem.get("title")}
+        i+=1
+    return json.dumps(poemlist)
+
+@app.route('/searchauthor', methods=["POST"])
+def searchauthor():
+    info = request.form["author"]
+    titleselect = {"author" : info}
     copo_titles = mongo.db.copo_creations.find(titleselect).sort("title", 1) 
     ctitle = list(copo_titles)
     poemlist = {}

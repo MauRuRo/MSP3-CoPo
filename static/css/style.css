@@ -100,3 +100,7 @@ footer {
     display: none;
     
 }
+
+.meta-hidden {
+    display:none;
+}

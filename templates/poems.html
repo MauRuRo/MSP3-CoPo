@@ -21,7 +21,7 @@
                 {% endif %}
                 {% endfor %}
                 <div id="credits">
-                    <p><span class="credit"><strong>Author</strong>: <a href="">{{ poem.Author }}</a></span></p>
+                    <p><span class="credit"><strong>Author</strong>: <a href="{{ url_for('creations_author', authoruser=poem.Author )}}">{{ poem.Author }}</a></span></p>
                     <span class="credit">
                        {% for i in poem.Version %}
                        {% if i[3] == true %}
