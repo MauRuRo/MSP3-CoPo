@@ -45,7 +45,7 @@
                         </a>
                 </div>    
                 <div class="row">
-                        <a class="modal-trigger" href="#modaldelete">
+                        <a class="modal-trigger" id="tomodal" href="#modaldelete">
                             <div class="copo-creations">
                                 <h5>Delete</h5>
                             </div>
@@ -53,6 +53,9 @@
                 </div>                    
             </div>
 
+<span class ="meta-hidden" id="poempage">poem.html</span>
+<!-- <span class ="meta-hidden" id="poem_id">{{ poem._id }}</span>
+<span class ="meta-hidden" id="poem_username">{{ poem.username }}</span> -->
 
   <!-- Modal Structure -->
   <div id="modaldelete" class="modal">
@@ -72,11 +75,11 @@
             </button>
       </form>
     </div>
-    <!-- <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div> -->
   </div>
-          
+
+<script>
+masterUser = '{{ poem.username }}'
+</script>
 
 
 

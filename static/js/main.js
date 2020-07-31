@@ -149,6 +149,19 @@ $("#author-list").children().click(function() {
     checkresult()
     })
 
+// var poemdata
+// console.log(masterUser)
+
+// function getdata(vars){
+//     poemdata = vars
+// }
+
+// var clicked_poem_id
+// $("#title-list").children().click(function() {
+//     clicked_poem_id = $(this).attr("href").slice(6)
+// })
+
+
 //for some reason wouldn't work if function was referenced in an if statement; so had to incorporate the if statement and call function to avoid Reference error.
 searchFuncAuthor = function(){
     if ($("#author-user").text() != "") {
@@ -404,9 +417,9 @@ collaboratorscheck()
 var datab
 //if existing user is selected, and username is filled out: post to MongoDB to check if username exists and if so fill out authorname.
 $("#usernamedelete").change(function(){
-
+if ($("#modaldelete").css("display") == "block"){
       var user = $("#usernamedelete").val();
-
+        if (masterUser == user) {
       // from : https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
 		$.ajax({
 			url: '/checkUser',
@@ -423,12 +436,17 @@ $("#usernamedelete").change(function(){
 			error: function(error){
 				console.log(error);
 			}
-		});       
-
+        });  
+    } else {
+        alert("Username does not match poem author's username.");
+        $("#usernamedelete").val("").focus()
+    }     
+}
 });
 
 //if existing user is selected, check if password that's filled in matches password from user document
-$("#passworddelete").change(function(){   
+$("#passworddelete").change(function(){  
+    if ($("#modaldelete").css("display") == "block"){ 
       var password = $("#passworddelete").val();
       if (datab.password == password) {
           console.log("password correct")
@@ -436,12 +454,15 @@ $("#passworddelete").change(function(){
       } else {
           alert("Incorrect Password");
           console.log("password incorrect")
-          $("#password").val("").focus();
+          $("#passworddelete").val("").focus();
         $("#delete-submit").addClass("disabled");  
       }
+    }
 });
 
 $('body').on('keydown', function (e) {
+    if ($("#modaldelete").css("display") == "block"){
+        console.log("checkmodal")
         if ($("#usernamedelete").val() != "" && $("#passworddelete").val() != "") {
         $("#delete-submit").removeClass("disabled");
     } else {
@@ -465,12 +486,29 @@ $('body').on('keydown', function (e) {
       
     };
 }; 
-
+    }
 })
-    $("#delete-submit").click(function() {
+    $("#tomodal").click(function() {
       $("#usernamedelete").attr("placeholder", "Enter Username").val("");
       $("#passworddelete").siblings("label").text("Enter Password");
       $("#passworddelete").val("");
+
+    //   $.ajax({
+	// 		url: '/getpoemdata',
+    //         data: {"_id", clicked_poem_id}
+	// 		type: 'POST',
+	// 		success: function(response){
+    //             datab = JSON.parse(response)
+    //             if (datab.user == null) {
+    //                 alert("Username does not exist");
+    //                 $("#usernamedelete").val("").focus()
+    //             } else {         
+    //         }
+	// 		},
+	// 		error: function(error){
+	// 			console.log(error);
+	// 		}
+    //     }); 
     })
 
 }); //docend

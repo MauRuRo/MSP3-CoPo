@@ -135,6 +135,10 @@ def read(poem_id):
 def poems():
     return render_template("poems.html, <poem>")
 
+# @app.route('/getpoemdata')
+# def getpoemdata():
+#     return render_template("poems.html, <poem>")
+
 @app.route('/insert_poem', methods=["POST"])
 def insert_poem():
     poems = mongo.db.copo_creations
