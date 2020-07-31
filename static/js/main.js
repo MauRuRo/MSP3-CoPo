@@ -402,11 +402,14 @@ console.log("called")
     })
 })
 
+verselect = $("#current-ver").text()
+if ($("#collab-ver-"+verselect).text() == 'Collaborators:'){ // <p><strong>Collaborators</strong>": "</p>
+    $("#collab-ver-"+verselect).css("display","none");
+}
+
 $(".comma").each(function(){
 if ($(this).next().length){
-    console.log("exists")
 } else {
-    console.log("does not exit")
     $(this).css("display", "none")
 }
 });
