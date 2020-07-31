@@ -25,11 +25,12 @@
                     <span class="credit">
                        {% for i in poem.Version %}
                        {% if i[3] == true %}
-                    <span class="collab" id="collab-ver-{{ i[0] }}"><p><strong>Collaborators</strong>:{% for a in i[2]["Collaborators"] %} <a href="{{ url_for('creations_author', authoruser= a['authorname'] )}}">{{ a["authorname"] }}</a>, {% endfor %}</p></span>
+                    <span class="collab" id="collab-ver-{{ i[0] }}"><p><strong>Collaborators</strong>:{% for a in i[2]["Collaborators"] %} <a class="collab-name" id="collab-id-{{ i[0] }}{{ loop.index }}" href="{{ url_for('creations_author', authoruser= a['authorname'] )}}">{{ a["authorname"] }}</a><span class = "comma">, </span>{% endfor %}</p></span>
                         {% else %}
-                    <span class="collab old" id="collab-ver-{{ i[0] }}"><p><strong>Collaborators</strong>:{% for a in i[2]["Collaborators"] %} <a href="{{ url_for('creations_author', authoruser= a['authorname'] )}}">{{ a["authorname"] }}</a>, {% endfor %}</p></span>
+                    <span class="collab old" id="collab-ver-{{ i[0] }}"><p><strong>Collaborators</strong>:{% for a in i[2]["Collaborators"] %} <a class="collab-name" id="collab-id-{{ i[0] }}{{ loop.index }}" href="{{ url_for('creations_author', authoruser= a['authorname'] )}}">{{ a["authorname"] }}</a><span class = "comma">, </span>{% endfor %}</p></span>
                         {% endif %}
                         {% endfor %}
+       
                         </span>
                     <span class="credit"><p><strong id="version-his">Version</strong>: <span id="current-ver">{% for i in poem.Version %}{% if i[3] == true %}{{ i[0] }}{% endif %}{% endfor %}</span></p>
                     <span id="version-menu"><p>{% for i in poem.Version %}<span id="version-{{ i[0] }}" class="version-num">{{ i[0] }}</span>    {% endfor %}</p></span>
@@ -44,13 +45,38 @@
                         </a>
                 </div>    
                 <div class="row">
-                        <a href="{{ url_for('delete') }}">
+                        <a class="modal-trigger" href="#modaldelete">
                             <div class="copo-creations">
                                 <h5>Delete</h5>
                             </div>
                         </a>
                 </div>                    
             </div>
+
+
+  <!-- Modal Structure -->
+  <div id="modaldelete" class="modal">
+    <div class="modal-content">
+      <h4>Delete Poem?</h4>
+      <p>Only the original author of the poem can delete this poem.</p>
+      <form action="{{ url_for('delete') }}" method="POST" class="col s12" id="deletepoem">
+            <div class="input-field">
+                <input id="username" type="text" class="validate" name="username" placeholder="Enter username" required>
+            </div>
+            <div class="input-field col s12">
+                <input id="password" name="password" type="password" class="validate" required>
+                <label for="password">Enter Password</label>
+            </div>
+            <button id="delete-submit" class="btn waves-effect waves-light right" type="submit">Delete
+                                <i class="material-icons right">delete_sweep</i>
+            </button>
+      </form>
+    </div>
+    <!-- <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div> -->
+  </div>
+          
 
 
 

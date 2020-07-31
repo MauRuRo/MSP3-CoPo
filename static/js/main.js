@@ -1,5 +1,6 @@
 $(document).ready(function () {
   /** EVENT HANDLERS */
+$('.modal').modal();
 // setting global variables used in functions
 if ($("#Theme").hasClass("coll-theme")) {
     themevar = true //variable used for form first part validation of collaboration form.
@@ -320,6 +321,7 @@ $(".version-num").click(function(){
     console.log(clickedversioncoll)
     $(clickedversion).removeClass("old");
     $(clickedversioncoll).removeClass("old");
+    collaboratorscheck()
 })
 
 
@@ -370,5 +372,46 @@ $('body').on('keydown', function (e) {
 }; 
 
 })
+
+collaboratorscheck = function(){
+console.log("called")
+        $(".collab-name").each(function() {
+            if ($(this).parent().parent().hasClass("old")) {
+                console.log("old detected" + $(this).attr("id") + " = ComparER")
+                return true
+            }
+        name1 = $(this).text()        
+        idname = $(this).attr("id")
+        if (!$("#"+idname).length) {
+            console.log(idname + " already deleted")
+            return true
+        }
+        console.log("Comparing to: " + name1 + " " + idname + "= ComparER")
+        $(".collab-name").each(function() {
+            if ($(this).parent().parent().hasClass("old") || $(this).attr("id") == idname) {
+                console.log("old detected " + $(this).attr("id" )+ " = ComparEE || OR sameid")
+                return true
+            } 
+                if ($(this).text() == name1) {
+                    console.log("Comparing " + idname + " with:" + $(this).attr("id") + " :removing last one")
+                    // console.log($(this).next(".comma").text() )
+                    $(this).next(".comma").remove()
+                    $(this).remove()                    
+                }
+        
+    })
+})
+
+$(".comma").each(function(){
+if ($(this).next().length){
+    console.log("exists")
+} else {
+    console.log("does not exit")
+    $(this).css("display", "none")
+}
+});
+};
+
+collaboratorscheck()
 
 }); //docend

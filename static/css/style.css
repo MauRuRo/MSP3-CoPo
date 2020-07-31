@@ -104,3 +104,7 @@ footer {
 .meta-hidden {
     display:none;
 }
+
+#modaldelete {
+    height:325px;
+}

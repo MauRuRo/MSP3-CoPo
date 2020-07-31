@@ -186,7 +186,7 @@ def checkUser():
 
 @app.route('/delete')
 def delete():
-    mongo.db.copo_creations.delete_many({})
+    # mongo.db.copo_creations.delete_many({})
     return redirect(url_for('creations'))
 
 if __name__ == '__main__':
