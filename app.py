@@ -135,10 +135,6 @@ def read(poem_id):
 def poems():
     return render_template("poems.html, <poem>")
 
-# @app.route('/getpoemdata')
-# def getpoemdata():
-#     return render_template("poems.html, <poem>")
-
 @app.route('/insert_poem', methods=["POST"])
 def insert_poem():
     poems = mongo.db.copo_creations
@@ -180,7 +176,7 @@ def insert_poem():
 # from: https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
 @app.route('/checkUser', methods=['POST'])
 def checkUser():
-    user = request.form['username'];
+    user = request.form['username']
     users = mongo.db.copo_users
     exists = users.find_one({"username" : user })
     if exists is None:
@@ -188,10 +184,14 @@ def checkUser():
     else:
         return json.dumps({'user':exists.get("username"),'author': exists.get("author_name"),'password':exists.get("password")})
 
-@app.route('/delete', methods=["POST"])
+@app.route('/delete', methods=['POST'])
 def delete():
-    # mongo.db.copo_creations.delete_many({})
-    return redirect(url_for('creations'))
+    poemid = request.form['_id']
+    print(ObjectId(poemid))
+    mongo.db.copo_creations.delete_one({"_id": ObjectId(poemid)})
+    # return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser= None)
+    return json.dumps({"check":"check"})
+    # return redirect(url_for('creations'))
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

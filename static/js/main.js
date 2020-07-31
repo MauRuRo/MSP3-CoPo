@@ -149,18 +149,6 @@ $("#author-list").children().click(function() {
     checkresult()
     })
 
-// var poemdata
-// console.log(masterUser)
-
-// function getdata(vars){
-//     poemdata = vars
-// }
-
-// var clicked_poem_id
-// $("#title-list").children().click(function() {
-//     clicked_poem_id = $(this).attr("href").slice(6)
-// })
-
 
 //for some reason wouldn't work if function was referenced in an if statement; so had to incorporate the if statement and call function to avoid Reference error.
 searchFuncAuthor = function(){
@@ -460,9 +448,30 @@ $("#passworddelete").change(function(){
     }
 });
 
+
+$("body").click(function() {
+     if ($("#modaldelete").css("display") == "block"){
+    if ($("#usernamedelete").val() != "" && $("#passworddelete").val() != "") {
+        $("#delete-submit").removeClass("disabled");
+    } else {
+        $("#delete-submit").addClass("disabled");
+    }
+
+    
+      var password = $("#passworddelete").val();
+      if (databack.password == password) {
+          $("#delete-submit").removeClass("disabled");   
+      } else {
+          alert("Incorrect Password");
+          $("#passworddelete").val("").focus();
+          $("#delete-submit").addClass("disabled");   
+      }
+      
+     }
+})
+
 $('body').on('keydown', function (e) {
     if ($("#modaldelete").css("display") == "block"){
-        console.log("checkmodal")
         if ($("#usernamedelete").val() != "" && $("#passworddelete").val() != "") {
         $("#delete-submit").removeClass("disabled");
     } else {
@@ -492,23 +501,21 @@ $('body').on('keydown', function (e) {
       $("#usernamedelete").attr("placeholder", "Enter Username").val("");
       $("#passworddelete").siblings("label").text("Enter Password");
       $("#passworddelete").val("");
-
-    //   $.ajax({
-	// 		url: '/getpoemdata',
-    //         data: {"_id", clicked_poem_id}
-	// 		type: 'POST',
-	// 		success: function(response){
-    //             datab = JSON.parse(response)
-    //             if (datab.user == null) {
-    //                 alert("Username does not exist");
-    //                 $("#usernamedelete").val("").focus()
-    //             } else {         
-    //         }
-	// 		},
-	// 		error: function(error){
-	// 			console.log(error);
-	// 		}
-    //     }); 
     })
 
+
+    $("#delete-submit").click(function() {
+   $.ajax({
+			url: '/delete',
+            data: {"_id" : thispoemid},
+			type: 'POST',
+			success: function(response){
+                alert("Your poem has been deleted.")
+            window.location.href = '/creations'
+			},
+			error: function(error){
+				console.log(error);
+			}
+        }); 
+    })
 }); //docend
