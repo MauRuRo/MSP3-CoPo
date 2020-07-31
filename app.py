@@ -184,7 +184,7 @@ def checkUser():
     else:
         return json.dumps({'user':exists.get("username"),'author': exists.get("author_name"),'password':exists.get("password")})
 
-@app.route('/delete')
+@app.route('/delete', methods=["POST"])
 def delete():
     # mongo.db.copo_creations.delete_many({})
     return redirect(url_for('creations'))

@@ -13,7 +13,6 @@ newuservar = false  //variable used for form first part validation.
   $("#next-part").addClass("disabled"); //disables the next button on the form, until all fields are filled
     
 checkresult = function(){
-    // console.log("FIRING")
     setTimeout(function(){ //necessary for the checkresult; it has to fire when page reload is completed.
     if($('#title-list').css('display') == 'block') {
         found = 0
@@ -98,7 +97,6 @@ searchFunc = function(){
         data: searchtitle,
         type: 'POST',
         success: function(response){
-            console.log(response)
             titlesel = JSON.parse(response);
             if ($("#title-list").is(":visible")){
             }else{
@@ -108,7 +106,6 @@ searchFunc = function(){
             $("#title-list").children().css("display","none");
             for (i in titlesel) {
                 let idObject= "#" + titlesel[i]._id ;
-                console.log(idObject);
                 $("#title-list").children(idObject).css("display", "block")
             };
 
@@ -125,23 +122,19 @@ searchFunc = function(){
 authorsearch = function(x){
         choice = $(x).text()
         authorname = $(x).html()
-        console.log(authorname)
     		$.ajax({
 			url: '/creations-author-select',
             data: {"Author": choice},
 			type: 'POST',
 			success: function(response){
-                // console.log(response)
                 authorsel = JSON.parse(response);
                 $("#author-list").slideUp();
                 $("#title-list").slideDown();
                 $("#title-list").children().css("display","none");
                 for (i in authorsel) {
                     let idObject= "#" + authorsel[i]._id ;
-                    // console.log(idObject);
                     $("#title-list").children(idObject).css("display", "block")
                 $("#authorblock").children("h5").text("Author: " + authorname);
-                console.log(authorname)
                 }
 			},
 			error: function(error){
@@ -186,13 +179,11 @@ searchFuncAuthor()
                 $("#title-list").children().css("display","none");
                 for (i in themesel) {
                     let idObject= "#" + themesel[i]._id ;
-                    console.log(idObject);
                     $("#title-list").children(idObject).css("display", "block")
                 $("#themeblock").children("h5").text("Theme: " + choice);
                 }
 			},
 			error: function(error){
-				console.log(error);
 			}
         });   
         $("#themeblock").children("h5").text("Theme: " + choice);
@@ -264,7 +255,7 @@ $("#username").change(function(){
   if ($("#new_user").val() == 1) {
 
       var user = $("#username").val();
-      console.log(user)
+
       // from : https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
 		$.ajax({
 			url: '/checkUser',
@@ -307,18 +298,18 @@ autosize($("#Poem"));
 $("#version-his").click(function(){
     $("#version-menu").slideToggle();
 })
+$("#current-ver").click(function(){
+    $("#version-menu").slideToggle();
+})
 
 $(".version-num").click(function(){
     $(".poem-text").addClass("old");
     $(".collab").addClass("old");
     clickedversion = $(this).text();
     $("#current-ver").text(clickedversion);
-    console.log(clickedversion)
     clickedversioncoll = clickedversion
     clickedversion = "#poem-ver-" + clickedversion
     clickedversioncoll = "#collab-ver-" + clickedversioncoll
-    console.log(clickedversion)
-    console.log(clickedversioncoll)
     $(clickedversion).removeClass("old");
     $(clickedversioncoll).removeClass("old");
     collaboratorscheck()
@@ -374,27 +365,20 @@ $('body').on('keydown', function (e) {
 })
 
 collaboratorscheck = function(){
-console.log("called")
         $(".collab-name").each(function() {
             if ($(this).parent().parent().hasClass("old")) {
-                console.log("old detected" + $(this).attr("id") + " = ComparER")
                 return true
             }
         name1 = $(this).text()        
         idname = $(this).attr("id")
         if (!$("#"+idname).length) {
-            console.log(idname + " already deleted")
             return true
         }
-        console.log("Comparing to: " + name1 + " " + idname + "= ComparER")
         $(".collab-name").each(function() {
             if ($(this).parent().parent().hasClass("old") || $(this).attr("id") == idname) {
-                console.log("old detected " + $(this).attr("id" )+ " = ComparEE || OR sameid")
                 return true
             } 
                 if ($(this).text() == name1) {
-                    console.log("Comparing " + idname + " with:" + $(this).attr("id") + " :removing last one")
-                    // console.log($(this).next(".comma").text() )
                     $(this).next(".comma").remove()
                     $(this).remove()                    
                 }
@@ -416,5 +400,77 @@ if ($(this).next().length){
 };
 
 collaboratorscheck()
+
+var datab
+//if existing user is selected, and username is filled out: post to MongoDB to check if username exists and if so fill out authorname.
+$("#usernamedelete").change(function(){
+
+      var user = $("#usernamedelete").val();
+
+      // from : https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
+		$.ajax({
+			url: '/checkUser',
+            data: $('form').serialize(),
+			type: 'POST',
+			success: function(response){
+                datab = JSON.parse(response)
+                if (datab.user == null) {
+                    alert("Username does not exist");
+                    $("#usernamedelete").val("").focus()
+                } else {         
+            }
+			},
+			error: function(error){
+				console.log(error);
+			}
+		});       
+
+});
+
+//if existing user is selected, check if password that's filled in matches password from user document
+$("#passworddelete").change(function(){   
+      var password = $("#passworddelete").val();
+      if (datab.password == password) {
+          console.log("password correct")
+          $("#delete-submit").removeClass("disabled");   
+      } else {
+          alert("Incorrect Password");
+          console.log("password incorrect")
+          $("#password").val("").focus();
+        $("#delete-submit").addClass("disabled");  
+      }
+});
+
+$('body').on('keydown', function (e) {
+        if ($("#usernamedelete").val() != "" && $("#passworddelete").val() != "") {
+        $("#delete-submit").removeClass("disabled");
+    } else {
+        $("#delete-submit").addClass("disabled");
+    }
+
+    if ($("#passworddelete").is(":focus")) {
+    } else {
+    
+        if ($("#passworddelete").val() != "") {
+      var password = $("#passworddelete").val();
+      if (datab.password == password) {
+          console.log("password correct")
+          $("#delete-submit").removeClass("disabled");   
+      } else {
+          alert("Incorrect Password");
+          console.log("password incorrect")
+          $("#passworddelete").val("").focus();
+          $("#delete-submit").addClass("disabled");   
+      }
+      
+    };
+}; 
+
+})
+    $("#delete-submit").click(function() {
+      $("#usernamedelete").attr("placeholder", "Enter Username").val("");
+      $("#passworddelete").siblings("label").text("Enter Password");
+      $("#passworddelete").val("");
+    })
 
 }); //docend

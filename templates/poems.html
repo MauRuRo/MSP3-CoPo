@@ -33,7 +33,7 @@
        
                         </span>
                     <span class="credit"><p><strong id="version-his">Version</strong>: <span id="current-ver">{% for i in poem.Version %}{% if i[3] == true %}{{ i[0] }}{% endif %}{% endfor %}</span></p>
-                    <span id="version-menu"><p>{% for i in poem.Version %}<span id="version-{{ i[0] }}" class="version-num">{{ i[0] }}</span>    {% endfor %}</p></span>
+                    <span id="version-menu"><p>Version History: {% for i in poem.Version %}<span id="version-{{ i[0] }}" class="version-num">{{ i[0] }}</span>    {% endfor %}</p></span>
                     </span>
                 </div>
             </div>
@@ -61,13 +61,13 @@
       <p>Only the original author of the poem can delete this poem.</p>
       <form action="{{ url_for('delete') }}" method="POST" class="col s12" id="deletepoem">
             <div class="input-field">
-                <input id="username" type="text" class="validate" name="username" placeholder="Enter username" required>
+                <input id="usernamedelete" type="text" class="validate" name="username" placeholder="Enter username" required>
             </div>
             <div class="input-field col s12">
-                <input id="password" name="password" type="password" class="validate" required>
-                <label for="password">Enter Password</label>
+                <input id="passworddelete" name="password" type="password" class="validate" required>
+                <label for="passworddelete">Enter Password</label>
             </div>
-            <button id="delete-submit" class="btn waves-effect waves-light right" type="submit">Delete
+            <button id="delete-submit" class="btn waves-effect waves-light right disabled" type="submit">Delete
                                 <i class="material-icons right">delete_sweep</i>
             </button>
       </form>
