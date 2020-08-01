@@ -407,7 +407,7 @@ var datab
 $("#usernamedelete").change(function(){
 if ($("#modaldelete").css("display") == "block"){
       var user = $("#usernamedelete").val();
-        if (masterUser == user) {
+        if (masterUser == user || user == "Admin") {
       // from : https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
 		$.ajax({
 			url: '/checkUser',
@@ -505,6 +505,7 @@ $('body').on('keydown', function (e) {
 
 
     $("#delete-submit").click(function() {
+            if ($("#usernamedelete").val() != "" && $("#passworddelete").val() != "") {
    $.ajax({
 			url: '/delete',
             data: {"_id" : thispoemid},
@@ -517,5 +518,6 @@ $('body').on('keydown', function (e) {
 				console.log(error);
 			}
         }); 
+    };
     })
 }); //docend
