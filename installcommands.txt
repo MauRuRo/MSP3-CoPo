@@ -4,5 +4,6 @@ pip3 install dnspython
 pip3 install flask_pymongo
 python3 app.py
 
-todo:
-admin control over delete
+to do:
+about copo modal
+footer covering content issue scrolling

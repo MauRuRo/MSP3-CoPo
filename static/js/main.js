@@ -520,4 +520,20 @@ $('body').on('keydown', function (e) {
         }); 
     };
     })
+
+// found here : https://www.w3resource.com/javascript-exercises/javascript-string-exercise-9.php
+// capitalizes the first letter of each word in string
+function capitalize_Words(str){
+ return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
+
+// All titles must be capitalized because the mongo sorting function can't sort case insensitevely
+$("#title").change(function() {
+    lowerTitle = $("#title").val()
+    capTitle = capitalize_Words(lowerTitle)
+    $("#title").val(capTitle)
+})
+
+
+console.log(capitalize_Words('js string exercises'));
 }); //docend
