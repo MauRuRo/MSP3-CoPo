@@ -191,9 +191,7 @@ def checkUser():
 def delete():
     poemid = request.form['_id']
     mongo.db.copo_creations.delete_one({"_id": ObjectId(poemid)})
-    # return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser= None)
     return json.dumps({"check":"check"})
-    # return redirect(url_for('creations'))
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

@@ -8,5 +8,4 @@ to do:
 about copo modal
 footer covering content issue scrolling
 css
-turn off collaboration
 show version collaborator

@@ -303,11 +303,30 @@ $("#password").change(function(){
 
 autosize($("#Poem"));
 
+lastcollabindicator = function () {
+    console.log("running?")
+    if($("#version-menu").is(":visible")){
+        console.log("versionhis display?")
+        $(".collab-name").css("color", "DarkGrey")
+        $(".last_collaborator").css("color", "Black")
+    }else{
+        console.log("versionhis hidden?")
+        $(".collab-name").css("color", "Black")
+    }
+}
+
 $("#version-his").click(function(){
     $("#version-menu").slideToggle();
+    setTimeout(function() {    //time out necessary for slideUp: the codition is :visible is checked before slideUp is completed and therefor it won't trigger the color change.
+        lastcollabindicator()
+    }, 500);
 })
 $("#current-ver").click(function(){
     $("#version-menu").slideToggle();
+        lastcollabindicator()
+        setTimeout(function() { 
+        lastcollabindicator()
+    }, 500);
 })
 
 $(".version-num").click(function(){
@@ -407,7 +426,22 @@ if ($(this).next().length){
 });
 };
 
+
+function lastcollaborator(){
+$(".collab").each(function() {
+    last_collab = $(this).children().children(".collab-name").last().text()
+ $(this).children().children(".collab-name").each(function(){
+    if ($(this).text() == last_collab){
+        $(this).addClass("last_collaborator")
+    } else {
+        $(this).removeClass("last_collaborator")
+    }
+ })
+})
 collaboratorscheck()
+};
+
+lastcollaborator()
 
 var datab
 //if existing user is selected, and username is filled out: post to MongoDB to check if username exists and if so fill out authorname.
