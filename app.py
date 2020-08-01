@@ -149,7 +149,9 @@ def insert_poem():
         mongo.db.copo_themes.insert_one(themedict)
     else:
         theme = creation.get("Theme")
-        
+    
+    print(creation)
+
     poem = {
         "title" : creation.get("title"),
         "Poem" : creation.get("Poem"),
@@ -157,6 +159,7 @@ def insert_poem():
         "Author" : creation.get("Author"),
         "username" : creation.get("username"),
         "Collaborators":[],
+        "edit_YN": creation.get("allow_collab_text"),
         "Version" : [[1, {"Poem" : creation.get("Poem")}, {"Collaborators":[]} , True]],
         "Date" : date
     }

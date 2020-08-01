@@ -108,3 +108,7 @@ footer {
 #modaldelete {
     height:325px;
 }
+
+#allow_collab_text {
+    display: none;
+}

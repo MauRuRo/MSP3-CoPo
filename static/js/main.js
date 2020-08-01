@@ -218,6 +218,13 @@ $("#createpoem").change(function(){
     } else {
     $("#next-part").removeClass("disabled")
     }
+  if ($("#allow_collab").is(":checked")){
+      $("#allow_collab").val(true)
+      $("#allow_collab_text").val("Y")
+  } else {
+      $("#allow_collab").val(false)
+    $("#allow_collab_text").val("N")
+  }
 });
 
 //validates that theme field is selected and shows the new_theme field if "other" is selected.
@@ -534,6 +541,4 @@ $("#title").change(function() {
     $("#title").val(capTitle)
 })
 
-
-console.log(capitalize_Words('js string exercises'));
 }); //docend

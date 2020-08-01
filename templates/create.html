@@ -11,7 +11,7 @@
                             <form action="{{ url_for('insert_poem') }}" method="POST" class="col s12" id="createpoem">
                                 <div class="row first-part">
                                     <div class="input-field col s12">
-                                    <input  id="title" name="title" type="text" class="validate" name="title" placeholder="Title" required>
+                                    <input  id="title" name="title" type="text" class="validate"  placeholder="Title" required>
                                     </div>
                                 </div>
                                 <div class="row first-part">
@@ -42,11 +42,12 @@
                                             <br>
                                             <label>
                                             Off
-                                            <input type="checkbox" checked>
+                                            <input type="checkbox" checked id="allow_collab" name="allow_collab" >
                                             <span class="lever"></span>
                                             On
                                             </label>
                                         </div>
+                                    <input id="allow_collab_text" type="text" class="validate" name="allow_collab_text" required val="Y">
                                 </div>
                                 <div class="row first-part">
                                     <div class="input-field col s12">
