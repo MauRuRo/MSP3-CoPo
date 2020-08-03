@@ -1,9 +1,27 @@
 $(document).ready(function () {
   /** EVENT HANDLERS */
-$('.modal').modal({
-    endingTop: '135px',
+ function modalInit() { 
+        if ($(window).height() > 2000) {
+            $('.modal').modal({
+                endingTop: '335px',
+            });
+            } else if ($(window).height() > 1200){
+            $('.modal').modal({
+                endingTop: '235px',
+            })
+            } else {
+            $('.modal').modal({
+                endingTop: '135px',
+            });
+        }
 }
-);
+
+modalInit()
+
+$(window).resize(function() {
+    modalInit()
+});
+
 // setting global variables used in functions
 if ($("#Theme").hasClass("coll-theme")) {
     themevar = true //variable used for form first part validation of collaboration form.
@@ -582,12 +600,20 @@ $("#title").change(function() {
 })
 
 function verticalCenterMain(){
+    screenvariable = 205
+    if ($(window).height() > 2000) {
+        screenvariable = 385
+    } else if ($(window).height() > 1200) {
+        screenvariable = 475
+    } else {
+
+    }
     setTimeout(function(){
 mainheight = $("main").children(".container").height()
 console.log(mainheight)
 // $("main").children(".container").css("margin-top", "calc(calc( 0.5 * calc(100vh - 205px - " + mainheight +"px)) -60px")
 // $("main").children(".container").css("margin-bottom", "calc( 0.5 * calc(100vh - 205px - " + mainheight +"px))")
-$(".buffer").css("height", "calc(calc( 0.5 * calc(100vh - 205px - " + mainheight +"px)) - 60px")
+$(".buffer").css("height", "calc(calc( 0.5 * calc(100vh - "+screenvariable+"px - " + mainheight +"px)) - 60px")
 }, 50)
 };
 

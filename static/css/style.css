@@ -1,6 +1,23 @@
+body {
+            background-image: 
+         /* linear-gradient(-90deg,rgba(255, 255, 255, 0.4),rgba(255, 255, 255, 0.8) 5%, rgba(255,255,255,1) 20%,rgba(255,255,255,1) 80%,rgba(255, 255, 255, 0.8) 95%,rgb(255, 255, 255, 0.4)),  */
+         /* url('../images/poets-collage-complete.jpg'); */
+}
+
+
+
+
 h1, h2, h3, h4, h5, h6 {
     text-align: center;
     margin-bottom:5px;
+}
+
+/* h1, h2, h3, h4, h5, h6, p, li, input {
+background-color:white;
+} */
+
+h6 {
+    margin-bottom: 20px;
 }
 
 a {
@@ -129,7 +146,8 @@ footer {
 }
 
 #modaldelete {
-    height:325px;
+    height:50vh;
+    text-align: center;
 }
 
 #modalabout {
@@ -142,6 +160,7 @@ footer {
 .modal-content ul li {
     list-style-type: circle!important;
     font-size: 1em;
+    margin-left: 25px;
 }
 
 #allow_collab_text {
@@ -174,8 +193,190 @@ hr {
 .formcontainer {
     max-width: 520px;
     margin:auto;
+    margin-top: 30px;
 }
 
 .action-buttons {
     margin-top: 50px;
+}
+
+@media (min-width: 1000px) and (min-height: 1200px) {
+
+    body {
+            background-image: 
+         linear-gradient(-90deg,rgba(255, 255, 255, 0.4),rgba(255, 255, 255, 0.8) 15%, rgba(255,255,255,1) 25%,rgba(255,255,255,1) 75%,rgba(255, 255, 255, 0.8) 85%,rgb(255, 255, 255, 0.4)), 
+         url('../images/poets-collage-complete.jpg');
+}
+
+    footer {
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+       header {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    h1 {
+       font-size: 500%;
+    }
+    h4 {
+        font-size: 300%;
+    }
+
+    h5 {
+    font-size: 250%;
+    }
+    main h6 {
+    font-size: 200%;
+    }
+
+    p, li {
+        font-size: 2em;
+    }
+
+    .modal-content p, .modal-content ul li {
+        font-size: 1.75em;
+    }
+
+
+   .copo-creations, #titlesearchbar, .list, #modalabout {
+       max-width: 600px;
+   }
+
+   hr {
+       max-width: 300px;
+   }
+
+    .formcontainer {
+        max-width: none;
+    }
+
+    .formcontainer container {
+        margin:0;
+    }
+
+    input, textarea, label, button {
+        font-size: 2em!important;
+    }
+
+    .input-field.col label {
+        top: -2rem!important;
+    }
+
+    form .row {
+        margin-bottom: 40px;
+    }
+
+    .input-field {
+        margin-bottom:70px;
+        margin-top:70px;
+    }
+    .dropdown-content li span {
+        font-size: 1em!important;
+    }
+
+    button {
+        height: 72px!important;
+        line-height: 72px!important;
+    }
+
+    .btn i{
+        font-size: 2rem!important;
+    }
+
+    main, #modalabout {
+        height: calc(100vh - 395px);
+    }
+
+}
+
+@media (min-width: 2500px) and (min-height: 1200px) {
+    footer {
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+       header {
+        margin-top: 75px;
+        margin-bottom: 75px;
+    }
+    h1 {
+       font-size: 750%;
+    }
+    h4 {
+        font-size: 450%;
+    }
+
+    h5 {
+    font-size: 375%;
+    }
+    main h6 {
+    font-size: 375%;
+    }
+
+    p, li {
+        font-size: 3em;
+    }
+
+    .modal-content p, .modal-content ul li {
+        font-size: 2.65em;
+    }
+
+
+   .copo-creations, #titlesearchbar, .list, #modalabout {
+       max-width: 1200px;
+   }
+
+   hr {
+       max-width: 450px;
+   }
+
+
+    /* .formcontainer .container {
+        margin:0;
+    } */
+
+    input, textarea, label, button {
+        font-size: 3em!important;
+    }
+
+    .input-field.col label {
+        top: -2.5rem!important;
+    }
+
+    form .row {
+        margin-bottom: 60px;
+    }
+    .dropdown-content li span {
+        font-size: 1em!important;
+    }
+
+    button {
+        height: 108px!important;
+        line-height: 108px!important;
+    }
+
+      .btn i{
+        font-size: 3rem!important;
+    }
+
+    main, #modalabout {
+        height: calc(100vh - 480px);
+    }
+.switch label .lever:before, .switch label .lever:after {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    left: 0;
+    top: -6px;
+}
+
+.switch label input[type=checkbox]:checked+.lever:before, .switch label input[type=checkbox]:checked+.lever:after {
+    left: 36px;
+}
+
+.switch label .lever {
+    width: 72px;
+    height: 28px;
+    border-radius: 30px;
+}
 }
