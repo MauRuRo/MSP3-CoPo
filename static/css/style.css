@@ -17,8 +17,9 @@ li {
 }
 
 main {
-
-    margin-top:15px;
+    height: calc(100vh - 205px);
+    overflow: auto;
+    /* margin-top:15px; */
 
 }
 .main-section {
@@ -76,7 +77,8 @@ footer {
    text-align: center;
    padding-top:15px;
    padding-bottom:15px;
-   background-image: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.9),rgba(255,255,255,1))
+   height:70px;
+   /* background-image: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.9),rgba(255,255,255,1)) */
    /* background-color: rgba(255,255,255,0.75) */
 }
 
@@ -111,4 +113,18 @@ footer {
 
 #allow_collab_text {
     display: none;
+}
+
+header h1 {
+    margin-top:0px;
+}
+
+header h4 {
+    margin-bottom: 0px;
+}
+
+header {
+    padding-top: 15px;
+    padding-bottom: 5px;
+    height: 135px;
 }

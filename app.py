@@ -15,7 +15,8 @@ mongo = PyMongo(app)
 # INSERT APP ROUTES HERE
 @app.route('/')
 def home(): 
-    return render_template("index.html")
+    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser= None)
+    # return render_template("index.html")
 
 @app.route('/creations')
 def creations(): 
