@@ -111,6 +111,17 @@ footer {
     height:325px;
 }
 
+#modalabout {
+    width: 100vw;
+    max-height:100%;
+    height: calc(100vh - 205px);
+}
+
+.modal-content ul li {
+    list-style-type: circle!important;
+    font-size: 1em;
+}
+
 #allow_collab_text {
     display: none;
 }

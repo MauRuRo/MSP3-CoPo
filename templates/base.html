@@ -27,10 +27,25 @@
              -->
             {% endblock %}
             </div>
+
+    <div id="modalabout" class="modal">
+    <div class="modal-content">
+      <h4>CoPo</h4>
+      <h5>It's about the words</h5>
+      <p>Welcome to CoPo (~<strong>Co</strong>llaborative <strong>Po</strong>etry~). We believe there is magic in words and poets and amateurs through the centuries have tried to capture that magic in the written word. We feel that there is an untapped source of magic however:
+      We believe we can open up a whole new chapter on the written arts by introducing the practice of "collaborative poetry": multiple writers/poets come together to work on one poem, each infusing their own visions and feelings into the work. We hope this experiment will produce some interesting and beautifull words! 
+      In this app you can browse through all the different poetry that individuals and 
+      collaborators have produced using the CoPo web application. Be inspired by others like 
+      yourself and when you're ready collaborate on a poem or create your own!</p>
+      <ul><li>Please respect your fellow poets and don't intentionnally ruin their works (the admin will be on you!).</li>
+      <li>Uploading published poetry is permitted as long as the original author is credited and collaboration mode is turned off.</li></ul>
+    </div>
+  </div>
+
         </main>
 
         <footer>
-            <h5><a href="{{ url_for('home') }}">About CoPo</a></h5>
+            <h5><a class ="modal-trigger" id="modalabouttrigger" href="#modalabout">About CoPo</a></h5>
         </footer>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
         <script type="text/javascript">

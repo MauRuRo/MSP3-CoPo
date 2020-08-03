@@ -1,6 +1,9 @@
 $(document).ready(function () {
   /** EVENT HANDLERS */
-$('.modal').modal();
+$('.modal').modal({
+    endingTop: '135px',
+}
+);
 // setting global variables used in functions
 if ($("#Theme").hasClass("coll-theme")) {
     themevar = true //variable used for form first part validation of collaboration form.
@@ -9,6 +12,7 @@ themevar = false //variable used for form first part validation.
 };
 newuservar = false  //variable used for form first part validation.
   $("ul").hide(); //hides the lists of themes, authors, titles before they are called
+  $(".modal-content").find("ul").css("display", "block")
   $(".second-part").css("display", "none") //hides the second part of the poem insertion form
   $("#next-part").addClass("disabled"); //disables the next button on the form, until all fields are filled
     
