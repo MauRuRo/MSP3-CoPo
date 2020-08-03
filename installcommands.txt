@@ -5,5 +5,8 @@ pip3 install flask_pymongo
 python3 app.py
 
 to do:
-about copo modal
+published authors in author list
 css
+commenting code
+readme
+

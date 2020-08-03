@@ -19,8 +19,6 @@ li {
 main {
     height: calc(100vh - 205px);
     overflow: auto;
-    /* margin-top:15px; */
-
 }
 .main-section {
     text-align: left;
@@ -42,16 +40,20 @@ main {
     /* color: white; */
     height: auto;
     width: 70vw;
+    max-width:400px;
     margin: auto;
     padding:10px;
     border-radius:15px;
     border: solid 1px black;
-    
-    
+}
+
+#titlesearchbar {
+    max-width: 400px;
 }
 
 .list {
     width: 70vw;
+    max-width: 400px;
     margin: auto;
 }
 
@@ -62,10 +64,12 @@ main {
 }
 .poem-text {
     white-space:pre-line;
+    margin-top:0;
 }
 
 .poem-space {
     text-align: center;
+    margin-top:30px;
 }
 
 footer {
@@ -114,6 +118,7 @@ footer {
 #modalabout {
     width: 100vw;
     max-height:100%;
+    max-width:400px;
     height: calc(100vh - 205px);
 }
 
@@ -138,4 +143,18 @@ header {
     padding-top: 15px;
     padding-bottom: 5px;
     height: 135px;
+}
+
+#credits {
+    margin-top: 30px;
+}
+
+hr {
+    width: 50%;
+    max-width: 350px;
+}
+
+.formcontainer {
+    max-width: 520px;
+    margin:auto;
 }

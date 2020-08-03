@@ -22,7 +22,10 @@
                 {% endif %}
                 {% endfor %}
                 <div id="credits">
+                    <hr>
                     <p><span class="credit"><strong>Author</strong>: <a href="{{ url_for('creations_author', authoruser=poem.Author )}}">{{ poem.Author }}</a></span></p>
+                    
+                    {% if poem.edit_YN == "Y" %}
                     <span class="credit">
                        {% for i in poem.Version %}
                        {% if i[3] == true %}
@@ -33,12 +36,15 @@
                         {% endfor %}
        
                         </span>
-                    <span class="credit"><p><strong id="version-his">Version</strong>: <span id="current-ver">{% for i in poem.Version %}{% if i[3] == true %}{{ i[0] }}{% endif %}{% endfor %}</span></p>
+          
+                    <span class="credit">
+                    <p><strong id="version-his">Version</strong>: <span id="current-ver">{% for i in poem.Version %}{% if i[3] == true %}{{ i[0] }}{% endif %}{% endfor %}</span></p>
                     <span id="version-menu"><p>Version History: {% for i in poem.Version %}<span id="version-{{ i[0] }}" class="version-num">{{ i[0] }}</span>    {% endfor %}</p></span>
                     </span>
+              
                 </div>
             </div>
-            {% if poem.edit_YN == "Y" %}
+    
                 <div class="row">
                         <a href="{{ url_for('collaborate', poemId=poem._id ) }}">
                             <div class="copo-creations">
