@@ -48,9 +48,9 @@ checkresult = function(){
     $(".copo-creations").addClass("inactive");
     $(y).removeClass("inactive");
     $(y).addClass("active");
-    $(".inactive").slideToggle();
-    $("h6").slideToggle();
-    $(".inactive").parent().slideToggle();
+    $(".inactive").slideToggle(50);
+    $("h6").slideToggle(50);
+    $(".inactive").parent().slideToggle(50);
     checkresult()
     };
 
@@ -63,28 +63,28 @@ checkresult = function(){
        let block = "#" + $(x).attr("id")
     if ($(x).attr("id") == "themeblock") {
         if ($("#title-list").is(":visible")) {
-            $("#title-list").slideToggle();
+            $("#title-list").slideToggle(50);
             $("#themeblock").children("h5").text("Themes");
             $("#title-list").children().css("display", "block")
-            $("#theme-list").slideToggle();
+            $("#theme-list").slideToggle(50);
             $("#notitles").remove()
         } else {
-            $("#theme-list").slideToggle();
+            $("#theme-list").slideToggle(50);
             toggleblocks(block)
         }
     } else if ($(x).attr("id") == "authorblock") {
         if ($("#title-list").is(":visible")) {
-            $("#title-list").slideToggle();
+            $("#title-list").slideToggle(50);
             $("#authorblock").children("h5").text("Authors");
             $("#title-list").children().css("display", "block")
-            $("#author-list").slideToggle();
+            $("#author-list").slideToggle(50);
             $("#notitles").remove()
         } else {
-            $("#author-list").slideToggle();
+            $("#author-list").slideToggle(50);
             toggleblocks(block)
         }
     } else if ($(x).attr("id") == "titleblock") {
-            $("#title-list").slideToggle();
+            $("#title-list").slideToggle(50);
             $("#search").val("")
             $("#title-list").children().css("display","block")
             $("#notitles").remove()
@@ -320,13 +320,13 @@ lastcollabindicator = function () {
 }
 
 $("#version-his").click(function(){
-    $("#version-menu").slideToggle();
+    $("#version-menu").slideToggle(50);
     setTimeout(function() {    //time out necessary for slideUp: the codition is :visible is checked before slideUp is completed and therefor it won't trigger the color change.
         lastcollabindicator()
     }, 500);
 })
 $("#current-ver").click(function(){
-    $("#version-menu").slideToggle();
+    $("#version-menu").slideToggle(50);
         lastcollabindicator()
         setTimeout(function() { 
         lastcollabindicator()
@@ -495,6 +495,7 @@ $("#passworddelete").change(function(){
 
 
 $("body").click(function() {
+    verticalCenterMain()
      if ($("#modaldelete").css("display") == "block"){
     if ($("#usernamedelete").val() != "" && $("#passworddelete").val() != "") {
         $("#delete-submit").removeClass("disabled");
@@ -516,6 +517,7 @@ $("body").click(function() {
 })
 
 $('body').on('keydown', function (e) {
+    verticalCenterMain()
     if ($("#modaldelete").css("display") == "block"){
         if ($("#usernamedelete").val() != "" && $("#passworddelete").val() != "") {
         $("#delete-submit").removeClass("disabled");
@@ -579,4 +581,15 @@ $("#title").change(function() {
     $("#title").val(capTitle)
 })
 
+function verticalCenterMain(){
+    setTimeout(function(){
+mainheight = $("main").children(".container").height()
+console.log(mainheight)
+// $("main").children(".container").css("margin-top", "calc(calc( 0.5 * calc(100vh - 205px - " + mainheight +"px)) -60px")
+// $("main").children(".container").css("margin-bottom", "calc( 0.5 * calc(100vh - 205px - " + mainheight +"px))")
+$(".buffer").css("height", "calc(calc( 0.5 * calc(100vh - 205px - " + mainheight +"px)) - 60px")
+}, 50)
+};
+
+verticalCenterMain()
 }); //docend

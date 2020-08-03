@@ -19,6 +19,23 @@ li {
 main {
     height: calc(100vh - 205px);
     overflow: auto;
+    /* position:relative;  */
+    /* for vertical centering of content */
+}
+
+.buffer {
+    transition: all 0.2s linear;
+}
+
+main .container {
+    /* position: absolute; */
+    /* height: calc(100vh - 205px); */
+    /* width:96%; */
+    /* top:calc(50% + 135px); */
+    /* left:50%; */
+    /* margin-top: calc(-0.5 * calc(100vh - 205px));
+    margin-left: -48%; */
+    /* margin: auto; */
 }
 .main-section {
     text-align: left;
@@ -151,10 +168,14 @@ header {
 
 hr {
     width: 50%;
-    max-width: 350px;
+    max-width: 200px;
 }
 
 .formcontainer {
     max-width: 520px;
     margin:auto;
+}
+
+.action-buttons {
+    margin-top: 50px;
 }
