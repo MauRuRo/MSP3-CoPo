@@ -60,8 +60,13 @@
                             {% endfor %}
                         </ul>
                         <ul id="author-list" class="list">
+                            {% set former = [] %}
                             {% for user in copo_authors %}
-                            <li id="{{user.username}}">{{user.author_name}}</li>
+                            {% set current = user.Author %}
+                            {% if former[-1] != current %}
+                            <li id="{{user.username}}">{{user.Author}}</li>
+                            {% endif %}
+                            {% do former.append(current) %}
                             {% endfor %}
                         </ul>
                         <ul id="title-list" class="list">

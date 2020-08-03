@@ -6,7 +6,7 @@ import datetime
 import requests
 
 app = Flask(__name__)
-
+app.jinja_env.add_extension('jinja2.ext.do') # found here: https://stackoverflow.com/questions/17925674/jinja2-local-global-variable/17926422
 app.config["MONGO_DBNAME"] = 'CoPoDB'
 app.config["MONGO_URI"] = "mongodb+srv://root:root@myfirstcluster-wegta.mongodb.net/CoPoDB?retryWrites=true&w=majority"
 # DON'T FORGET TO HIDE PASSWORD IN URI BEFORE LAUNCH
@@ -15,16 +15,20 @@ mongo = PyMongo(app)
 # INSERT APP ROUTES HERE
 @app.route('/')
 def home(): 
-    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser= None)
-    # return render_template("index.html")
+    return redirect(url_for('creations'))
+    # return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_creations.find().sort("Author", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser= None)
+    # return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser= None)
+
 
 @app.route('/creations')
 def creations(): 
-    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser= None)
+    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_creations.find().sort("Author", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser= None)
+    # return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser= None)
 
 @app.route('/creations_author/<authoruser>')
 def creations_author(authoruser): 
-    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser=authoruser)
+    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_creations.find().sort("Author", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser=authoruser)
+    # return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser=authoruser)
 
 
 @app.route('/creations-theme-select', methods=['POST'])
