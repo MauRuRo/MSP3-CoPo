@@ -143,7 +143,6 @@ searchFunc = function(){
       if (found == 0) {
                 $("#title-list").append("<li id='notitles'><em>No titles found..</em></li>")
             } 
-    // checkresult()
 };
 
 
