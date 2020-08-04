@@ -5,8 +5,9 @@ pip3 install flask_pymongo
 python3 app.py
 
 to do:
-published authors in author list
 css
 commenting code
 readme
+
+<a href='https://www.freepik.com/vectors/background'>Background vector created by freepik - www.freepik.com</a>
 

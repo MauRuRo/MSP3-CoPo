@@ -1,20 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Open+Sans:wght@300&display=swap');
+
 body {
-            background-image: 
-         /* linear-gradient(-90deg,rgba(255, 255, 255, 0.4),rgba(255, 255, 255, 0.8) 5%, rgba(255,255,255,1) 20%,rgba(255,255,255,1) 80%,rgba(255, 255, 255, 0.8) 95%,rgb(255, 255, 255, 0.4)),  */
-         /* url('../images/poets-collage-complete.jpg'); */
+           background: url('../images/achtergrond.png') no-repeat center center fixed; 
+        background-size: cover;
+        font-family: "Open Sans", sans-serif;
 }
 
+#copologo {
+    background-image: url('../images/copologo1.png'); 
+    background-size:contain;
+    height: 4em;
+    background-repeat: no-repeat;
+    background-position: center;
 
+}
 
 
 h1, h2, h3, h4, h5, h6 {
     text-align: center;
     margin-bottom:5px;
+    font-family: "Gloria Hallelujah", sans-serif;
 }
 
-/* h1, h2, h3, h4, h5, h6, p, li, input {
-background-color:white;
-} */
 
 h6 {
     margin-bottom: 20px;
@@ -54,9 +61,8 @@ main .container {
     margin-left: -48%; */
     /* margin: auto; */
 }
-.main-section {
+/* .main-section {
     text-align: left;
-    /* color: white; */
     height: 70vw;
     width: 70vw;
     max-width: 280px;
@@ -67,18 +73,24 @@ main .container {
     padding:10px;
     border-radius:5%;
     border: solid 1px black;
+    
+} */
+h1 {
+    display:inline-block;
 }
 
+
 .copo-creations {
+    background-color: rgba(255,255,255,0.7);
     text-align: left;
-    /* color: white; */
+    color: black;
     height: auto;
     width: 70vw;
     max-width:400px;
     margin: auto;
     padding:10px;
     border-radius:15px;
-    border: solid 1px black;
+    border: solid 4px rgba(126, 126, 126, 0.5);
 }
 
 #titlesearchbar {
@@ -106,18 +118,18 @@ main .container {
     margin-top:30px;
 }
 
+
+
 footer {
    position: fixed;
-   left: 0;
+   left:0;
    bottom: 0;
    width: 100%;
-   /* background-color: red; */
    text-align: center;
    padding-top:15px;
    padding-bottom:15px;
    height:70px;
-   /* background-image: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.9),rgba(255,255,255,1)) */
-   /* background-color: rgba(255,255,255,0.75) */
+
 }
 
 #new_theme_row {
@@ -190,6 +202,8 @@ hr {
     max-width: 200px;
 }
 
+
+
 .formcontainer {
     max-width: 520px;
     margin:auto;
@@ -200,13 +214,72 @@ hr {
     margin-top: 50px;
 }
 
+#feathercreate {
+height: 1.5em;
+position: relative;
+top: 6px;
+left: -8px;
+background-size: contain;
+margin-top: -100%;
+}
+
+}
+  /* WHITE BACKGROUNDS AGAINST IMAGE BACKGROUND */
+  .poem-space {
+      width:70vw;
+      margin:auto;
+      max-width:400px;
+  }
+  .input-field, ul, .poem-space, #modalabout {
+    background-image: linear-gradient(to right,rgba(255, 255, 255, .8), rgba(255,255,255, 0.1));
+    padding: 10px 10px 0 10px!important;
+    border-radius:15px;
+}
+    /* 
+
+.copo-creations {
+    background-color:white;
+}
+
+#headercontainer {
+    background-color:white;
+    padding:10px;
+    border-radius:15px;
+    border: solid 1px black;
+    width: 70vw;
+    max-width:400px;
+}
+
+footer h5 {
+    position: relative;
+    margin: auto;
+    background-color:white;
+    padding:10px;
+    border: solid 1px black;
+    width: 70vw;
+    border-radius:15px;
+    max-width:400px;
+} */
+
+
+@media (max-width: 800px) {
+        body {
+
+           background: url('../images/achtergrond.png') no-repeat center center fixed; 
+            background-size: 150% 100%;
+}
+}
 @media (min-width: 1000px) and (min-height: 1200px) {
 
     body {
-            background-image: 
-         linear-gradient(-90deg,rgba(255, 255, 255, 0.4),rgba(255, 255, 255, 0.8) 15%, rgba(255,255,255,1) 25%,rgba(255,255,255,1) 75%,rgba(255, 255, 255, 0.8) 85%,rgb(255, 255, 255, 0.4)), 
-         url('../images/poets-collage-complete.jpg');
+           background: url('../images/achtergrond.png') no-repeat center center fixed; 
+            background-size: cover;
 }
+
+#copologo {
+    height:6em;
+}
+
 
     footer {
         margin-top: 40px;
@@ -287,6 +360,39 @@ hr {
     main, #modalabout {
         height: calc(100vh - 395px);
     }
+
+    /* WHITE BACKGROUNDS AGAINST IMAGE BACKGROUND */
+  
+    /* .input-field, ul, .poem-space, #modalabout {
+    background-color: white;
+    padding: 10px 10px 0 10px!important;
+    border: solid 1px black;
+    border-radius:15px;
+}
+
+.copo-creations {
+    background-color:white;
+}
+
+#headercontainer {
+    background-color:white;
+    padding:10px;
+    border-radius:15px;
+    border: solid 1px black;
+    width: 70vw;
+    max-width:400px;
+}
+
+footer h5 {
+    position: relative;
+    margin: auto;
+    background-color:white;
+    padding:10px;
+    border: solid 1px black;
+    width: 70vw;
+    border-radius:15px;
+    max-width:400px;
+} */
 
 }
 
