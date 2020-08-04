@@ -114,12 +114,14 @@ checkresult = function(){
 searchFunc = function(){
     stitle = $("#search").val()
     searchtitle = {"title" : stitle};
+    found = 0
     $.ajax({
         url: '/searchpoems',
         data: searchtitle,
         type: 'POST',
         success: function(response){
             titlesel = JSON.parse(response);
+            console.log(titlesel)
             if ($("#title-list").is(":visible")){
             }else{
                 toggleblocks("#titleblock")
@@ -129,13 +131,19 @@ searchFunc = function(){
             for (i in titlesel) {
                 let idObject= "#" + titlesel[i]._id ;
                 $("#title-list").children(idObject).css("display", "block")
+                found = 1
             };
 
         },
         error: function(error){
             console.log(error);
         }
-    }); 
+       
+    });
+      if (found == 0) {
+                $("#title-list").append("<li id='notitles'><em>No titles found..</em></li>")
+            } 
+    // checkresult()
 };
 
 
@@ -351,13 +359,10 @@ $("#password").change(function(){
 autosize($("#Poem"));
 
 lastcollabindicator = function () {
-    console.log("running?")
     if($("#version-menu").is(":visible")){
-        console.log("versionhis display?")
         $(".collab-name").css("color", "DarkGrey")
         $(".last_collaborator").css("color", "Black")
     }else{
-        console.log("versionhis hidden?")
         $(".collab-name").css("color", "Black")
     }
 }
@@ -633,7 +638,6 @@ function verticalCenterMain(){
     } else {
     }
     modalheight = $("#modaldelete").children(".modal-content").height() + $("#delete-submit").height() + 75
-    console.log(modalheight)
     $("#modaldelete").height(modalheight)
 
     setTimeout(function(){
