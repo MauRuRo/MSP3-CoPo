@@ -17,7 +17,7 @@
     <body>
         <header>
             <div class="container" id="headercontainer">
-                <a href="{{ url_for('home') }}"><div id="copologo"></div></a>
+                <a href="{{ url_for('home') }}"><div class="copologo" id="logoheader"></div></a>
                 <div id="logo"></div>
                 {% block content %}
                 <!-- <h4>It's about the words.</h4>
@@ -32,7 +32,7 @@
 
     <div id="modalabout" class="modal">
     <div class="modal-content">
-      <h4>CoPo</h4>
+      <div class="copologo" id="logoabout"></div>
       <h5>It's about the words</h5>
       <p>Welcome to CoPo (~<strong>Co</strong>llaborative <strong>Po</strong>etry~). We believe there is magic in words and poets and amateurs through the centuries have tried to capture that magic in the written word. We feel that there is an untapped source of magic however:
       We believe we can open up a whole new chapter on the written arts by introducing the practice of "collaborative poetry": multiple writers/poets come together to work on one poem, each infusing their own visions and feelings into the work. We hope this experiment will produce some interesting and beautifull words! 

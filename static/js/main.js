@@ -269,22 +269,26 @@ $("#new_user").change(function(){
   if ($(this).val() == 1) {
     //   $("#Author").attr("readonly", "readonly"); //If Existing user then Author name is immutable.
       $("#username").attr("placeholder", "Enter Username").val("");
-      $("#password").siblings("label").text("Enter Password");
+      $("#password").attr("placeholder", "Enter Password").val("");
+    //   $("#password").siblings("label").text("Enter Password");
       $("#password").val("");
       $("#create-submit").addClass("disabled");
   } else {
-     $("#Author").removeAttr("readonly");
+      $("#username").val("");
+      $("#password").val("");
+    //  $("#Author").removeAttr("readonly");
       $("#username").attr("placeholder", "Create Username");
-      $("#password").siblings("label").text("Create Password")
+      $("#password").attr("placeholder", "Create Password").val("");
   };
 })  
 
 var databack // sets global variable to be used in to seperate functions
 //if existing user is selected, and username is filled out: post to MongoDB to check if username exists and if so fill out authorname.
 $("#username").change(function(){
+    if ( $(".second-part").is(":visible")) {
   if ($("#new_user").val() == 1) {
 
-      var user = $("#username").val();
+       user = $("#username").val();
 
       // from : https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
 		$.ajax({
@@ -304,7 +308,28 @@ $("#username").change(function(){
 				console.log(error);
 			}
 		});       
+    } else {
+   user = $("#username").val();
+
+      // from : https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
+		$.ajax({
+			url: '/checkUser',
+            data: $('form').serialize(),
+			type: 'POST',
+			success: function(response){
+                databack = JSON.parse(response)
+                if (databack.user != null) {
+                    alert("Username already exists!");
+                    $("#username").val("").focus()
+                    $("#password").val("")
+                } 
+			},
+			error: function(error){
+				console.log(error);
+			}
+		});       
     };
+    }
 });
 
 //if existing user is selected, check if password that's filled in matches password from user document
@@ -606,11 +631,13 @@ function verticalCenterMain(){
     } else if ($(window).height() > 1200) {
         screenvariable = 475
     } else {
-
     }
+    modalheight = $("#modaldelete").children(".modal-content").height() + $("#delete-submit").height() + 75
+    console.log(modalheight)
+    $("#modaldelete").height(modalheight)
+
     setTimeout(function(){
 mainheight = $("main").children(".container").height()
-console.log(mainheight)
 // $("main").children(".container").css("margin-top", "calc(calc( 0.5 * calc(100vh - 205px - " + mainheight +"px)) -60px")
 // $("main").children(".container").css("margin-bottom", "calc( 0.5 * calc(100vh - 205px - " + mainheight +"px))")
 $(".buffer").css("height", "calc(calc( 0.5 * calc(100vh - "+screenvariable+"px - " + mainheight +"px)) - 60px")
@@ -618,4 +645,14 @@ $(".buffer").css("height", "calc(calc( 0.5 * calc(100vh - "+screenvariable+"px -
 };
 
 verticalCenterMain()
+
+// function pubIc() {
+// if ($("#create-submit").hasClass("disabled")) {
+//     $("#publishicon").attr("src", "../static/images/publishdis.png")
+// } else {
+//     $("#publishicon").attr("src", "../static/images/publishwhite.png")
+// }
+// }
+
+$(".btn").css("text-transform", "none")
 }); //docend

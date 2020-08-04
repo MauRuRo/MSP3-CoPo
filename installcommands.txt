@@ -8,6 +8,7 @@ to do:
 css
 commenting code
 readme
+new user issue (existing user)
 
 <a href='https://www.freepik.com/vectors/background'>Background vector created by freepik - www.freepik.com</a>
 

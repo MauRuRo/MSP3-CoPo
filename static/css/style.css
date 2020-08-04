@@ -6,7 +6,7 @@ body {
         font-family: "Open Sans", sans-serif;
 }
 
-#copologo {
+.copologo {
     background-image: url('../images/copologo1.png'); 
     background-size:contain;
     height: 4em;
@@ -15,8 +15,11 @@ body {
 
 }
 
+#logoabout {
+    height: 3em;
+}
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, .btn {
     text-align: center;
     margin-bottom:5px;
     font-family: "Gloria Hallelujah", sans-serif;
@@ -51,30 +54,6 @@ main {
     transition: all 0.2s linear;
 }
 
-main .container {
-    /* position: absolute; */
-    /* height: calc(100vh - 205px); */
-    /* width:96%; */
-    /* top:calc(50% + 135px); */
-    /* left:50%; */
-    /* margin-top: calc(-0.5 * calc(100vh - 205px));
-    margin-left: -48%; */
-    /* margin: auto; */
-}
-/* .main-section {
-    text-align: left;
-    height: 70vw;
-    width: 70vw;
-    max-width: 280px;
-    max-height:280px;
-    min-width: 240px;
-    min-height:240px;
-    margin: auto;
-    padding:10px;
-    border-radius:5%;
-    border: solid 1px black;
-    
-} */
 h1 {
     display:inline-block;
 }
@@ -157,16 +136,18 @@ footer {
     display:none;
 }
 
-#modaldelete {
-    height:50vh;
-    text-align: center;
+#delete-submit {
+    margin-top: 10px;
 }
-
-#modalabout {
+#modalabout, #modaldelete {
     width: 100vw;
     max-height:100%;
     max-width:400px;
     height: calc(100vh - 205px);
+}
+#modaldelete {
+    height:50vh;
+    text-align: center;
 }
 
 .modal-content ul li {
@@ -203,9 +184,11 @@ hr {
 }
 
 
-
+input, textarea {
+    margin-bottom: 5px!important;
+}
 .formcontainer {
-    max-width: 520px;
+    max-width:400px;
     margin:auto;
     margin-top: 30px;
 }
@@ -214,8 +197,8 @@ hr {
     margin-top: 50px;
 }
 
-#feathercreate {
-height: 1.5em;
+#feathercreate, #feathercollaborate, #deleteburn {
+height: 1.4em;
 position: relative;
 top: 6px;
 left: -8px;
@@ -223,17 +206,61 @@ background-size: contain;
 margin-top: -100%;
 }
 
+#feathercollaborate {
+left: -5px;
 }
+
+#deleteburn {
+    left: 0px;
+}
+
+/* #publishicon {
+    left: 5px;
+    top: 3px;
+} */
+
+/* #publishicon:active {
+    src: "../static/images/publishwhite.png";
+}
+
+#publishicon:disabled {
+    src: "../static/images/publishdis.png";
+} */
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color:lightslategrey;
+  opacity: .7; 
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color:lightslategrey;
+   opacity: .7; 
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color:lightslategrey;
+   opacity: .7; 
+}
+
   /* WHITE BACKGROUNDS AGAINST IMAGE BACKGROUND */
   .poem-space {
+          background-image: linear-gradient(to right,rgba(255, 255, 255, .8), rgba(255,255,255, 0.1));
+        padding: 10px 10px 10px 10px!important;
+        border-radius:15px;
       width:70vw;
       margin:auto;
       max-width:400px;
   }
-  .input-field, ul, .poem-space, #modalabout {
+
+  .input-field, ul, #modalabout, #modaldelete {
     background-image: linear-gradient(to right,rgba(255, 255, 255, .8), rgba(255,255,255, 0.1));
     padding: 10px 10px 0 10px!important;
     border-radius:15px;
+}
+
+.input-field {
+        padding: 0px 10px 0 10px!important;
+        margin-top: 0;
 }
     /* 
 
@@ -276,8 +303,11 @@ footer h5 {
             background-size: cover;
 }
 
-#copologo {
+#logoheader {
     height:6em;
+}
+#logoabout {
+    height: 5em;
 }
 
 
@@ -312,7 +342,7 @@ footer h5 {
     }
 
 
-   .copo-creations, #titlesearchbar, .list, #modalabout {
+   .copo-creations, #titlesearchbar, .list, #modalabout, #modaldelete {
        max-width: 600px;
    }
 
@@ -357,10 +387,17 @@ footer h5 {
         font-size: 2rem!important;
     }
 
+    .btn {
+        text-transform: none!important;
+    }
+
     main, #modalabout {
         height: calc(100vh - 395px);
     }
 
+      .poem-space {
+        max-width:600px;
+  }
     /* WHITE BACKGROUNDS AGAINST IMAGE BACKGROUND */
   
     /* .input-field, ul, .poem-space, #modalabout {
@@ -428,7 +465,7 @@ footer h5 {
     }
 
 
-   .copo-creations, #titlesearchbar, .list, #modalabout {
+   .copo-creations, #titlesearchbar, .list, #modalabout, #modaldelete {
        max-width: 1200px;
    }
 
@@ -436,10 +473,6 @@ footer h5 {
        max-width: 450px;
    }
 
-
-    /* .formcontainer .container {
-        margin:0;
-    } */
 
     input, textarea, label, button {
         font-size: 3em!important;
@@ -485,4 +518,8 @@ footer h5 {
     height: 28px;
     border-radius: 30px;
 }
+
+.poem-space {
+        max-width:600px;
+  }
 }
