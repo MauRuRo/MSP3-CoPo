@@ -8,7 +8,7 @@ to do:
 css
 commenting code
 readme
-new user issue (existing user)
+version history arrows
 
 <a href='https://www.freepik.com/vectors/background'>Background vector created by freepik - www.freepik.com</a>
 

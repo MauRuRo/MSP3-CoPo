@@ -38,7 +38,8 @@ a {
 }
 
 a:hover {
-    color: skyblue;
+    /* color: skyblue; */
+    color: #06839D;
 }
 
 li {
@@ -132,7 +133,8 @@ footer {
 }
 
 #version-his:hover,.version-num:hover  {
-    color: skyblue;
+    color: #06839D;
+    cursor: pointer;
 }
 
 .old {
