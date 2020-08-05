@@ -42,7 +42,7 @@ a:hover {
     color: #06839D;
 }
 
-.his-nav:hover, #version-his-nav-title, .version-num {
+.his-nav:hover, #version-his-nav-title, .version-num, #current-ver {
     cursor: pointer;
 }
 

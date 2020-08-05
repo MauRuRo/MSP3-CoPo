@@ -18,6 +18,14 @@ $(document).ready(function () {
 
 modalInit()
 
+lastversion = 0
+function lastversioncheck() {
+    $(".version-num").each(function() {
+        lastversion = parseInt($(this).text())
+    })
+}
+lastversioncheck()
+
 $(window).resize(function() {
     modalInit()
 });
@@ -375,6 +383,7 @@ $("#version-his").click(function(){
     setTimeout(function() {    //time out necessary for slideUp: the codition is :visible is checked before slideUp is completed and therefor it won't trigger the color change.
         lastcollabindicator()
     }, 500);
+     hisMenuNavUpdate()
 })
 
 $("#version-his-nav-title").click(function(){
@@ -383,6 +392,7 @@ $("#version-his-nav-title").click(function(){
     setTimeout(function() {    //time out necessary for slideUp: the codition is :visible is checked before slideUp is completed and therefor it won't trigger the color change.
         lastcollabindicator()
     }, 500);
+     hisMenuNavUpdate()
 })
 
 $("#current-ver").click(function(){
@@ -392,6 +402,7 @@ $("#current-ver").click(function(){
         setTimeout(function() { 
         lastcollabindicator()
     }, 500);
+     hisMenuNavUpdate()
 })
 
 $(".version-num").click(function(){
@@ -408,33 +419,56 @@ $(".version-num").click(function(){
     $(".version-num").removeClass("ver-active")
     $(active).addClass("ver-active")
     collaboratorscheck()
+     hisMenuNavUpdate()
 })
 
-// $("#his-nav-prev").click(function(){
-//     $(".poem-text").addClass("old");
-//     $(".collab").addClass("old");
-//     clickedversion = $("#current-ver").text() - 1;
-//     console.log(clickedversion)
-//     $("#current-ver").text(clickedversion);
-//     clickedversioncoll = clickedversion
-//     clickedversion = "#poem-ver-" + clickedversion
-//     clickedversioncoll = "#collab-ver-" + clickedversioncoll
-//     $(clickedversion).removeClass("old");
-//     $(clickedversioncoll).removeClass("old");
-//     active = "#version-" + $("#current-ver").text()
-//     $(".version-num").removeClass("ver-active")
-//     $(active).addClass("ver-active")
-//     collaboratorscheck()
-// })
+function hisMenuNavUpdate() {
+    lastversioncheck()
+        if ($("#current-ver").text() == lastversion) {
+    $("#his-nav-next").hide()
+        } else {
+    $("#his-nav-next").show()
+    }
+    if ($("#current-ver").text() == 1) {
+    $("#his-nav-prev").hide()
+        } else {
+    $("#his-nav-prev").show()
+    }
+}
+shortenList()
+function shortenList() {
+if (lastversion > 5){
+    $(".version-num").each(function() {
+        if ($(this).text() > lastversion - 5) {
+            $(this).show()
+        } else {
+            $(this).hide()
+        }
+    })
+}
+}
 
-$(".his-nav").click(function(){
+function navigate(x){
     $(".poem-text").addClass("old");
     $(".collab").addClass("old");
-    if ($(this).attr('id') == "his-nav-prev") {
+    if (x == "his-nav-prev") {
     clickedversion = parseInt($("#current-ver").text()) - 1;
+        if ($("version-"+clickedversion).is(":visible")) {
+        }else{
+            versionhide = parseInt(clickedversion) + 5
+            $("#version-"+clickedversion).show()
+            $("#version-"+versionhide).hide()
+        }
     } else {
     clickedversion = parseInt($("#current-ver").text()) + 1;
-    }
+    if ($("version-"+clickedversion).is(":visible")) {
+        }else{
+            versionhide = parseInt(clickedversion) - 5
+            $("#version-"+clickedversion).show()
+            $("#version-"+versionhide).hide()
+        }
+        }
+  
     $("#current-ver").text(clickedversion);
     clickedversioncoll = clickedversion
     clickedversion = "#poem-ver-" + clickedversion
@@ -445,6 +479,11 @@ $(".his-nav").click(function(){
     $(".version-num").removeClass("ver-active")
     $(active).addClass("ver-active")
     collaboratorscheck()
+    hisMenuNavUpdate()
+}
+
+$(".his-nav").click(function() {
+    navigate($(this).attr('id'))
 })
 
 
@@ -467,6 +506,19 @@ $("body").click(function() {
       
     };
 
+})
+$('body').on('keydown', function (e) {
+    if ($("#version-menu").is(":visible")) {
+        if (e.which == 39) {
+            if ($("#current-ver").text() != lastversion){
+navigate("his-nav-next")
+        }
+        } else if (e.which == 37) {
+              if ($("#current-ver").text() != 1){
+navigate("his-nav-prev")
+              }
+        }
+    }
 })
 //https://ilovecoding.org/lessons/keyboard-event-with-jquery
 $('body').on('keydown', function (e) {
