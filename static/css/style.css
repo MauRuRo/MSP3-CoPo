@@ -324,6 +324,10 @@ left: -5px;
         font-size: 2em;
     }
 
+    .his-nav {
+        font-size:35px;
+    }
+
     .modal-content p, .modal-content ul li {
         font-size: 1.75em;
     }
@@ -412,6 +416,9 @@ left: -5px;
         font-size: 3em;
     }
 
+  .his-nav {
+        font-size:47px;
+    }
     .modal-content p, .modal-content ul li {
         font-size: 2.65em;
     }
@@ -472,6 +479,6 @@ left: -5px;
 }
 
 .poem-space {
-        max-width:600px;
+        max-width:1200px;
   }
 }
