@@ -357,10 +357,6 @@ left: -5px;
         margin-bottom: 40px;
     }
 
-    .input-field {
-        margin-bottom:70px;
-        margin-top:70px;
-    }
     .dropdown-content li span {
         font-size: 1em!important;
     }
@@ -385,38 +381,7 @@ left: -5px;
       .poem-space {
         max-width:600px;
   }
-    /* WHITE BACKGROUNDS AGAINST IMAGE BACKGROUND */
-  
-    /* .input-field, ul, .poem-space, #modalabout {
-    background-color: white;
-    padding: 10px 10px 0 10px!important;
-    border: solid 1px black;
-    border-radius:15px;
-}
 
-.copo-creations {
-    background-color:white;
-}
-
-#headercontainer {
-    background-color:white;
-    padding:10px;
-    border-radius:15px;
-    border: solid 1px black;
-    width: 70vw;
-    max-width:400px;
-}
-
-footer h5 {
-    position: relative;
-    margin: auto;
-    background-color:white;
-    padding:10px;
-    border: solid 1px black;
-    width: 70vw;
-    border-radius:15px;
-    max-width:400px;
-} */
 
 }
 

@@ -17,6 +17,16 @@ $(document).ready(function () {
 }
 
 modalInit()
+pagetitle = ""
+$("#headercontainer").children("h4").mouseenter(function() {
+    pagetitle = $(this).children("a").text()
+    $(this).children("a").text("CoPo Creations")
+})
+
+$("#headercontainer").children("h4").mouseleave(function() {
+    $(this).children("a").text(pagetitle)
+})
+
 
 lastversion = 0
 function lastversioncheck() {
