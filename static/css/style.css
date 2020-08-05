@@ -42,6 +42,13 @@ a:hover {
     color: #06839D;
 }
 
+.his-nav:hover, #version-his-nav-title, .version-num {
+    cursor: pointer;
+}
+
+.ver-active {
+    color: rgb(255, 26, 1);
+}
 li {
     font-size:150%;
 }
@@ -259,7 +266,11 @@ left: -5px;
         padding: 0px 10px 0 10px!important;
         margin-top: 0;
 }
-  
+
+.his-nav {
+    position: relative;
+    top: 7px;
+}
 
 @media (max-width: 800px) {
         body {

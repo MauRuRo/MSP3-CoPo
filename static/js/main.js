@@ -368,12 +368,26 @@ lastcollabindicator = function () {
 
 $("#version-his").click(function(){
     $("#version-menu").slideToggle(50);
+    $("#version-his-main").slideToggle(50);
+    active = "#version-" + $("#current-ver").text()
+    $(".version-num").removeClass("ver-active")
+    $(active).addClass("ver-active")
     setTimeout(function() {    //time out necessary for slideUp: the codition is :visible is checked before slideUp is completed and therefor it won't trigger the color change.
         lastcollabindicator()
     }, 500);
 })
+
+$("#version-his-nav-title").click(function(){
+    $("#version-menu").slideToggle(50);
+    $("#version-his-main").slideToggle(50);
+    setTimeout(function() {    //time out necessary for slideUp: the codition is :visible is checked before slideUp is completed and therefor it won't trigger the color change.
+        lastcollabindicator()
+    }, 500);
+})
+
 $("#current-ver").click(function(){
     $("#version-menu").slideToggle(50);
+     $("#version-his-main").slideToggle(50);
         lastcollabindicator()
         setTimeout(function() { 
         lastcollabindicator()
@@ -390,6 +404,46 @@ $(".version-num").click(function(){
     clickedversioncoll = "#collab-ver-" + clickedversioncoll
     $(clickedversion).removeClass("old");
     $(clickedversioncoll).removeClass("old");
+    active = "#version-" + $("#current-ver").text()
+    $(".version-num").removeClass("ver-active")
+    $(active).addClass("ver-active")
+    collaboratorscheck()
+})
+
+// $("#his-nav-prev").click(function(){
+//     $(".poem-text").addClass("old");
+//     $(".collab").addClass("old");
+//     clickedversion = $("#current-ver").text() - 1;
+//     console.log(clickedversion)
+//     $("#current-ver").text(clickedversion);
+//     clickedversioncoll = clickedversion
+//     clickedversion = "#poem-ver-" + clickedversion
+//     clickedversioncoll = "#collab-ver-" + clickedversioncoll
+//     $(clickedversion).removeClass("old");
+//     $(clickedversioncoll).removeClass("old");
+//     active = "#version-" + $("#current-ver").text()
+//     $(".version-num").removeClass("ver-active")
+//     $(active).addClass("ver-active")
+//     collaboratorscheck()
+// })
+
+$(".his-nav").click(function(){
+    $(".poem-text").addClass("old");
+    $(".collab").addClass("old");
+    if ($(this).attr('id') == "his-nav-prev") {
+    clickedversion = parseInt($("#current-ver").text()) - 1;
+    } else {
+    clickedversion = parseInt($("#current-ver").text()) + 1;
+    }
+    $("#current-ver").text(clickedversion);
+    clickedversioncoll = clickedversion
+    clickedversion = "#poem-ver-" + clickedversion
+    clickedversioncoll = "#collab-ver-" + clickedversioncoll
+    $(clickedversion).removeClass("old");
+    $(clickedversioncoll).removeClass("old");
+    active = "#version-" + $("#current-ver").text()
+    $(".version-num").removeClass("ver-active")
+    $(active).addClass("ver-active")
     collaboratorscheck()
 })
 

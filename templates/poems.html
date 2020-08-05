@@ -43,8 +43,8 @@
                         </span>
           
                     <span class="credit">
-                    <p><strong id="version-his">Version</strong>: <span id="current-ver">{% for i in poem.Version %}{% if i[3] == true %}{{ i[0] }}{% endif %}{% endfor %}</span></p>
-                    <span id="version-menu"><p>Version History: {% for i in poem.Version %}<span id="version-{{ i[0] }}" class="version-num">{{ i[0] }}</span>    {% endfor %}</p></span>
+                    <p id="version-his-main"><strong id="version-his">Version</strong>: <span id="current-ver">{% for i in poem.Version %}{% if i[3] == true %}{{ i[0] }}{% endif %}{% endfor %}</span></p>
+                    <span id="version-menu"><p><strong id="version-his-nav-title">Version History: </strong><i class="material-icons his-nav" id="his-nav-prev">navigate_before</i> {% for i in poem.Version %}<span id="version-{{ i[0] }}" class="version-num">{{ i[0] }}</span>    {% endfor %} <i class="material-icons his-nav" id="his-nav-next">navigate_next</i></p></span>
                     </span>
               {% endif %}
                 </div>
@@ -75,22 +75,17 @@
         </div>
 
 <span class ="meta-hidden" id="poempage">poem.html</span>
-<!-- <span class ="meta-hidden" id="poem_id">{{ poem._id }}</span>
-<span class ="meta-hidden" id="poem_username">{{ poem.username }}</span> -->
 
-  <!-- Modal Structure -->
   <div id="modaldelete" class="modal">
     <div class="modal-content">
       <h4>Delete Poem?</h4>
       <p>Only the original author of the poem can delete this poem.</p>
       <form class="col s12" id="deletepoem"> 
-      <!-- action="{{ url_for('delete') }}" method="POST" -->
             <div class="input-field">
                 <input id="usernamedelete" type="text" class="validate" name="username" placeholder="Enter username" required>
             </div>
             <div class="input-field col s12">
                 <input id="passworddelete" name="password" type="password" class="validate" required placeholder="Enter Password">
-                <!-- <label for="passworddelete">Enter Password</label> -->
             </div>
             <button id="delete-submit" class="btn waves-effect waves-light right disabled" type="submit">Delete
                                 <i class="material-icons right">delete_sweep</i>
