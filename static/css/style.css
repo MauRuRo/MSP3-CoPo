@@ -49,6 +49,10 @@ a:hover {
 .ver-active {
     color: rgb(255, 26, 1);
 }
+
+.col-active {
+    color: rgb(255, 26, 1); 
+}
 li {
     font-size:150%;
 }

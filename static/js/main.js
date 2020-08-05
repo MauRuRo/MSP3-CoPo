@@ -367,8 +367,8 @@ autosize($("#Poem"));
 
 lastcollabindicator = function () {
     if($("#version-menu").is(":visible")){
-        $(".collab-name").css("color", "DarkGrey")
-        $(".last_collaborator").css("color", "Black")
+        $(".collab-name").removeClass("col-active")
+        $(".last_collaborator").addClass("col-active")
     }else{
         $(".collab-name").css("color", "Black")
     }
