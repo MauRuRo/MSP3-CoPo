@@ -1,82 +1,74 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block content %}
-                
-                <h4><a href="{{ url_for('creations') }}">CoPo Creations</a></h4>
-                
-            </div>
+        <h4><a href="{{ url_for('creations') }}">CoPo Creations</a></h4>
+    </div>
+</header>
 
-        </header>
-
-        <main>
-        <div class="buffer"></div>
-            <div class = "container">
-
-                    <div class="row">
-                        <div class="search-bar" id="titlesearchbar">
-                            <form onsubmit="searchFunc(); return false;" method="POST" id="searchbar">
-                                <div class="input-field">
-                                <input id="search" type="search" placeholder="Search poems by title..." required>
-                                <!-- <i class="material-icons">close</i> -->
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-
-
-                    <!-- <h6>Or browse by:</h6> -->
-                    <div class="row">
-                        <div id="themeblock" class="copo-creations">
-                            <h5>Themes</h5>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div id="authorblock" class="copo-creations">
-                            <h5>Authors</h5>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div id="titleblock" class="copo-creations">
-                            <h5>Titles</h5>
-                        </div>
-                    </div>
-                    <!-- <div class="row">
-                        <div class="copo-creations">
-                            <h5>Rating</h5>
-                        </div>
-                    </div> -->
-                    <h6>Or:</h6>
-                    <div class="row">
-                    <a href="{{ url_for('create') }}">
-                        <div class="copo-creations">
-                            <h5>Create<img src="../static/images/featherlogo2.png" id="feathercreate" /></h5>
-                        </div>
-                    </a>
-                    </div>
-                    <div class="row">
-                        <ul id="theme-list" class="list">
-                            {% for theme in copo_themes %}
-                            <li class="theme-item">{{theme.theme}}</li>
-                            {% endfor %}
-                        </ul>
-                        <ul id="author-list" class="list">
-                            {% set former = [] %}
-                            {% for user in copo_authors %}
-                            {% set current = user.Author %}
-                            {% if former[-1] != current %}
-                            <li id="{{user.username}}">{{user.Author}}</li>
-                            {% endif %}
-                            {% do former.append(current) %}
-                            {% endfor %}
-                        </ul>
-                        <ul id="title-list" class="list">
-                            {% for poem in copo_titles%}
-                            <a id="{{poem._id}}" href="{{ url_for('read', poem_id=poem._id )}}" class="poem-title-item"><li>{{poem.title}}</li></a>
-                            {% endfor %}
-                        </ul>
-                </div>
-            <span class="meta-hidden" id="author-user">{% if authoruser != None %}{{ authoruser }}{% endif %}</span>
-
-
-
+<main>
+	<div class="buffer"></div>
+	<div class="container">
+		<div class="row">
+			<div class="search-bar" id="titlesearchbar">
+				<form onsubmit="searchFunc(); return false;" method="POST" id="searchbar">
+					<div class="input-field">
+						<input id="search" type="search" placeholder="Search poems by title..." required>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div id="themeblock" class="copo-creations">
+				<h5>Themes</h5>
+			</div>
+		</div>
+		<div class="row">
+			<div id="authorblock" class="copo-creations">
+				<h5>Authors</h5>
+			</div>
+		</div>
+		<div class="row">
+			<div id="titleblock" class="copo-creations">
+				<h5>Titles</h5>
+			</div>
+		</div>
+		<h6>Or:</h6>
+		<div class="row">
+			<a href="{{ url_for('create') }}">
+				<div class="copo-creations">
+					<h5>Create<img src="../static/images/featherlogo2.png" id="feathercreate" /></h5>
+				</div>
+			</a>
+		</div>
+		<div class="row">
+			<ul id="theme-list" class="list">
+            <!-- following python generates the list of themes, pulling from the database of themes -->
+				{% for theme in copo_themes %}
+				<li class="theme-item">{{theme.theme}}</li>
+				{% endfor %}
+			</ul>
+			<ul id="author-list" class="list">
+            <!-- following python generates the list of authors, pulling from the database of poems. It's sorted alphabetically and it checks if the former listed author is the same as the author
+            to be listed; if so then it won't list the author, thus preventing doubles/multiples in the author list. -->
+				{% set former = [] %}
+				{% for user in copo_authors %}
+				{% set current = user.Author %}
+				{% if former[-1] != current %}
+				<li id="{{user.username}}">{{user.Author}}</li>
+				{% endif %}
+				{% do former.append(current) %}
+				{% endfor %}
+			</ul>
+			<ul id="title-list" class="list">
+                <!-- following python generates the list of titles, pulling from the database of poems. -->
+				{% for poem in copo_titles%}
+				<a id="{{poem._id}}" href="{{ url_for('read', poem_id=poem._id )}}" class="poem-title-item">
+					<li>{{poem.title}}</li>
+				</a>
+				{% endfor %}
+			</ul>
+		</div>
+        <!-- This hidden meta field stores a variable of an author name, passed on from the poem page when clicked on the authors name, 
+        enabling a searchfunction to run on this page for poems to their name. -->
+		<span class="meta-hidden" id="author-user">{% if authoruser != None %}{{ authoruser }}{% endif %}</span>
+    </div>
 {% endblock %}

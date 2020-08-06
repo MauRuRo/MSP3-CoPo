@@ -1,100 +1,97 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block content %}
-                 <h4><a href="{{ url_for('creations') }}">Create!</a></h4>
+        <h4><a href="{{ url_for('creations') }}">Create!</a></h4>
+    </div>
+</header>
+
+<main>
+	<div class="buffer"></div>
+	<div class="container">
+		<div class="formcontainer">
+			<div class="row">
+				<form action="{{ url_for('insert_poem') }}" method="POST" class="col s12" id="createpoem">
+					<div class="row first-part">
+						<div class="input-field col s12">
+							<input  id="title" name="title" type="text" class="validate"  placeholder="Title" required>
+                        </div>
+					</div>
+					<div class="row first-part">
+					    <div class="input-field col s12">
+								<textarea id="Poem" name="Poem" class="materialize-textarea" placeholder="Write your poem here..." required></textarea>
+						</div>
+					</div>
+					<div class="row first-part">
+						<div class="input-field col s12" id="sel-theme">
+							<select id="Theme" name="Theme" class="validate" required="required">
+                                <option disabled selected value="">Choose your theme</option>
+                                <!-- pulles theme options from theme database. -->
+                                {% for theme in copo_themes %}
+                                <option>{{ theme.theme }}</option>
+                                {% endfor %}
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="new_theme_row" class="row first-part">
+                        <div class="input-field col s12">
+                            <input  id="new_theme" name="new_theme" type="text" class="validate" placeholder="enter new theme...."/>
+                        </div>
+                    </div>
+                    <div class="row first-part">
+                        <div class="switch col s12" id="edit_YN" name="edit_YN">
+                            <label for="switch">Allow Collaboration?</label>
+                            <br>
+                            <label>
+                                Off
+                                <input type="checkbox" checked id="allow_collab" name="allow_collab" />
+                                <span class="lever"></span>
+                                On
+                            </label>
+                        </div>
+                        <!-- This hidden input field was necessary because the ajax function could not parse the "checked"/"unchecked" or true/false value of the materialize switch. Some javascript sets the value of this input field to either Y or N based on what the switch is set for. This information is succesfully passed on to the mongo database. -->
+                        <input id="allow_collab_text" type="text" class="validate" name="allow_collab_text" required val="Y"/>
+                    </div>
+                    <div class="row first-part">
+                        <div class="input-field col s12">
+                            <select id="new_user" name="new_user" data-error="Please select an option before continuing." required>
+                                <option disabled selected value="">Submit as existing or new user?</option>
+                                <option value=1>Existing User</option>
+                                <option value=2>New User</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="next-part" class="btn waves-effect waves-light first-part right" type="button">
+                    Next<i class="material-icons right">navigate_next</i>
+                    </button>
+                    <div class="row second-part">
+                        <div class="input-field col s12">
+                            <input id="username" type="text" class="validate" name="username" placeholder="Create Username" required/>
+                        </div>
+                    </div>
+                    <div class="row second-part">
+                        <div class="input-field col s12">
+                            <input id="password" name="password" type="password" class="validate" required placeholder="Create password"/>
+                        </div>
+                    </div>
+                    <div class="row second-part">
+                        <div class="input-field col s12">
+                            <input id="Author" type="text" class="validate" name="Author" placeholder="Author Name" required/>
+                        </div>
+                    </div>
+                    <div class="row second-part">
+                        <div class="col s6">
+                            <button id="prev-part" class="btn waves-effect waves-light second-part" type="button">
+                            Previous <i class="material-icons right">navigate_before</i>
+                            </button>
+                        </div>
+                        <div class="col s6">
+                            <button id="create-submit" class="btn waves-effect waves-light right" type="submit">
+                            Publish <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-
-        </header>
-
-        <main>
-        <div class="buffer"></div>
-            <div class="container">
-            <div class = "formcontainer">
-                <!-- <div class="container"> -->
-                      <div class="row">
-                            <form action="{{ url_for('insert_poem') }}" method="POST" class="col s12" id="createpoem">
-                                <div class="row first-part">
-                                    <div class="input-field col s12">
-                                    <input  id="title" name="title" type="text" class="validate"  placeholder="Title" required>
-                                    </div>
-                                </div>
-                                <div class="row first-part">
-                                    <div class="input-field col s12">
-                                    <textarea id="Poem" name="Poem" class="materialize-textarea" placeholder="Write your poem here..." required></textarea>
-                                    </div>
-                                </div>
-                                <div class="row first-part">
-                                    <div class="input-field col s12" id="sel-theme">
-                                        <select id="Theme" name="Theme" class="validate" required="required">
-                                        <option disabled selected value="">Choose your theme</option>
-                                        {% for theme in copo_themes %}
-                                        <option>{{ theme.theme }}</option>
-                                        {% endfor %}
-                                        <option>Other</option>
-                                        </select>
-                                        <!-- <label>Choose your theme</label> -->
-                                    </div>
-                                </div>
-                                <div id="new_theme_row" class="row first-part">
-                                    <div class="input-field col s12">
-                                        <input  id="new_theme" name="new_theme" type="text" class="validate" placeholder="enter new theme....">
-                                    </div>
-                                </div>
-                                 <div class="row first-part">
-                                        <div class="switch col s12" id="edit_YN" name="edit_YN">
-                                            <label for="switch">Allow Collaboration?</label>
-                                            <br>
-                                            <label>
-                                            Off
-                                            <input type="checkbox" checked id="allow_collab" name="allow_collab" >
-                                            <span class="lever"></span>
-                                            On
-                                            </label>
-                                        </div>
-                                    <input id="allow_collab_text" type="text" class="validate" name="allow_collab_text" required val="Y">
-                                </div>
-                                <div class="row first-part">
-                                    <div class="input-field col s12">
-                                        <select id="new_user" name="new_user" data-error="Please select an option before continuing." required>
-                                        <option disabled selected value="">Submit as existing or new user?</option>
-                                        <option value=1>Existing User</option>
-                                        <option value=2>New User</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            <button id="next-part" class="btn waves-effect waves-light first-part right" type="button">Next
-                                <i class="material-icons right">navigate_next</i>
-                            </button>
-                                <div class="row second-part">
-                                    <div class="input-field col s12">
-                                    <input id="username" type="text" class="validate" name="username" placeholder="Create Username" required>
-                                    </div>
-                                </div>
-                            <div class="row second-part">
-                                <div class="input-field col s12">
-                                <input id="password" name="password" type="password" class="validate" required placeholder="Create password">                        
-                                </div>
-                            </div>
-                            <div class="row second-part">
-                                <div class="input-field col s12">
-                                <input id="Author" type="text" class="validate" name="Author" placeholder="Author Name" required>
-                                </div>
-                            </div>
-                             <div class="row second-part">
-                             <div class="col s6">
-                            <button id="prev-part" class="btn waves-effect waves-light second-part" type="button">Previous
-                                <i class="material-icons right">navigate_before</i>
-                            </button>
-                            </div>
-                            <div class="col s6">
-                            <button id="create-submit" class="btn waves-effect waves-light right" type="submit">Publish
-                                <i class="material-icons right">send</i>
-                            </button>
-                            </div>
-                        </div>     
-                    </form>
-                </div>                       
-            <!-- </div> -->
         </div>
-
-
+    </div>
 {% endblock %}

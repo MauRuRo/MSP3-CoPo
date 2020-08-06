@@ -15,7 +15,7 @@ $(document).ready(function () {
             });
         }
 }
-
+$('select').material_select()
 modalInit()
 pagetitle = ""
 $("#headercontainer").children("h4").mouseenter(function() {
@@ -196,7 +196,8 @@ $("#author-list").children().click(function() {
     checkresult()
     })
 
-
+//This function enables looking up the author or collaborator by clicking their name in the poem page. Using Jinja it puts the name in a meta field on the main creations page, 
+//from which it then retrieves the information that you would normally get by clicking the author's name in the author list.
 //for some reason wouldn't work if function was referenced in an if statement; so had to incorporate the if statement and call function to avoid Reference error.
 searchFuncAuthor = function(){
     if ($("#author-user").text() != "") {

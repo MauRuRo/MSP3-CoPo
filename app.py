@@ -16,20 +16,14 @@ mongo = PyMongo(app)
 @app.route('/')
 def home(): 
     return redirect(url_for('creations'))
-    # return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_creations.find().sort("Author", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser= None)
-    # return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser= None)
-
 
 @app.route('/creations')
 def creations(): 
     return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_creations.find().sort("Author", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser= None)
-    # return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser= None)
 
 @app.route('/creations_author/<authoruser>')
 def creations_author(authoruser): 
     return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_creations.find().sort("Author", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser=authoruser)
-    # return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_users.find().sort("author_name", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser=authoruser)
-
 
 @app.route('/creations-theme-select', methods=['POST'])
 def creationsThemeSelect(): 
@@ -127,9 +121,7 @@ def update_poem(poemId):
    
     if request.form.get("new_user") == "2":
         users.insert_one(user)
-    # return redirect(url_for('creations'))
     return redirect(url_for('read', poem_id=poemId))
-
 
 @app.route('/read/<poem_id>')
 def read(poem_id):
@@ -154,8 +146,6 @@ def insert_poem():
         mongo.db.copo_themes.insert_one(themedict)
     else:
         theme = creation.get("Theme")
-    
-    print(creation)
 
     poem = {
         "title" : creation.get("title"),
@@ -178,7 +168,6 @@ def insert_poem():
 
     if creation.get("new_user") == "2":
         users.insert_one(user)
-    # return redirect(url_for('creations'))
     return redirect(url_for('read', poem_id=poem_id.inserted_id))
 
 # from: https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php

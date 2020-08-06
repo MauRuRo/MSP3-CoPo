@@ -1,59 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CoPo</title>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"/>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
-        <script src="https://code.jquery.com/jquery-3.5.1.js"
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CoPo</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-        <script src="{{ url_for('static', filename='js/autosize.js') }}"></script> 
-        <!-- source: https://www.jacklmoore.com/autosize/ || allows auto resizing of textarea after dynamically generated page-->
-	    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/autosize.js') }}"></script>
+	<!-- source: https://www.jacklmoore.com/autosize/ || allows auto resizing of textarea after dynamically generated page-->
+	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
 
-    </head>
-    <body>
-        <header>
-            <div class="container" id="headercontainer">
-                <a href="{{ url_for('home') }}"><div class="copologo" id="logoheader"></div></a>
-                <div id="logo"></div>
-                {% block content %}
-                <!-- <h4>It's about the words.</h4>
-            </div>
-        </header>
-        <main>
-            <div class = "container">
-             -->
-            {% endblock %}
-            </div> 
-            <!-- container div -->
+<body>
+	<header>
+		<div class="container" id="headercontainer">
+			<a href="{{ url_for('home') }}">
+				<div class="copologo" id="logoheader"></div>
+			</a>
+			<div id="logo"></div>
+			{% block content %}
+			{% endblock %}
 
-    <div id="modalabout" class="modal">
-    <div class="modal-content">
-      <div class="copologo" id="logoabout"></div>
-      <h5>It's about the words</h5>
-      <p>Welcome to CoPo (~<strong>Co</strong>llaborative <strong>Po</strong>etry~). We believe there is magic in words and poets and amateurs through the centuries have tried to capture that magic in the written word. We feel that there is an untapped source of magic however:
-      We believe we can open up a whole new chapter on the written arts by introducing the practice of "collaborative poetry": multiple writers/poets come together to work on one poem, each infusing their own visions and feelings into the work. We hope this experiment will produce some interesting and beautifull words! 
-      In this app you can browse through all the different poetry that individuals and 
-      collaborators have produced using the CoPo web application. Be inspired by others like 
-      yourself and when you're ready collaborate on a poem or create your own!</p>
-      <ul><li>Please respect your fellow poets and don't intentionnally ruin their works (the admin will be on you!).</li>
-      <li>Uploading published poetry is permitted as long as the original author is credited and collaboration mode is turned off.</li></ul>
-    </div>
-  </div>
+                <div id="modalabout" class="modal">
+                    <div class="modal-content">
+                        <div class="copologo" id="logoabout"></div>
+                        <h5>It's about the words</h5>
+                        <p>Welcome to CoPo (~<strong>Co</strong>llaborative <strong>Po</strong>etry~). We believe there is magic
+                            in words and poets and amateurs through the centuries have tried to capture that magic in the
+                            written word. We feel that there is an untapped source of magic however:
+                            We believe we can open up a whole new chapter on the written arts by introducing the practice of
+                            "collaborative poetry": multiple writers/poets come together to work on one poem, each infusing
+                            their own visions and feelings into the work. We hope this experiment will produce some interesting
+                            and beautifull words!
+                            In this app you can browse through all the different poetry that individuals and
+                            collaborators have produced using the CoPo web application. Be inspired by others like
+                            yourself and when you're ready collaborate on a poem or create your own!</p>
+                        <ul>
+                            <li>Please respect your fellow poets and don't intentionnally ruin their works (the admin will be on
+                                you!).</li>
+                            <li>Uploading published poetry is permitted as long as the original author is credited and
+                                collaboration mode is turned off.</li>
+                        </ul>
+                    </div>
+                </div>
+            </main>
 
-        </main>
+            <footer>
+                <h5><a class="modal-trigger" id="modalabouttrigger" href="#modalabout">About CoPo</a></h5>
+            </footer>
 
-        <footer>
-            <h5><a class ="modal-trigger" id="modalabouttrigger" href="#modalabout">About CoPo</a></h5>
-        </footer>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-        <script type="text/javascript">
-                $(document).ready(function() {
-                $('select').material_select();
-                 });
-        </script>
-    </body>     
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+</body>
+
 </html>
