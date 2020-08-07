@@ -240,7 +240,6 @@ function hisMenuNavUpdate() {
 }
 
 //Insures the nav menu list is cropped to max of 5 version numbers.
-shortenList()
 function shortenList() {
 if (lastversion > 5){
     $(".version-num").each(function() {
@@ -547,9 +546,9 @@ $("#version-his-main").click(function(){
     $(".version-num").removeClass("ver-active")
     $(active).addClass("ver-active")
     setTimeout(function() {    //time out necessary for slideUp: the codition is :visible is checked before slideUp is completed and therefor it won't trigger the color change.
-    lastcollabindicator()
+        lastcollabindicator()
     }, 500);
-     hisMenuNavUpdate()
+    hisMenuNavUpdate()
 })
 
 //hides the history nav menu and shows current/selected version
@@ -559,7 +558,7 @@ $("#version-his-nav-title").click(function(){
     setTimeout(function() {    //time out necessary for slideUp: the codition is :visible is checked before slideUp is completed and therefor it won't trigger the color change.
         lastcollabindicator()
     }, 500);
-     hisMenuNavUpdate()
+    hisMenuNavUpdate()
 })
 
 //navigates to the version of the poem that's clicked on and indicates the version and the corresponding collaborator.
@@ -645,7 +644,7 @@ $('body').on('keydown', function (e) {
 $("#usernamedelete").change(function(){
 if ($("#modaldelete").css("display") == "block"){
       var user = $("#usernamedelete").val();
-        if (masterUser == user || user == "Admin") {
+        if (masterUser == user || user == "Admin") { //masterUser variable is pulled from html meta script on poem page.
       // from : https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
 		$.ajax({
 			url: '/checkUser',
@@ -745,7 +744,7 @@ $("#delete-submit").click(function() {
     if ($("#usernamedelete").val() != "" && $("#passworddelete").val() != "") {
         $.ajax({
                     url: '/delete',
-                    data: {"_id" : thispoemid},
+                    data: {"_id" : thispoemid}, //variable is pulled from html meta script on poem page.
                     type: 'POST',
                     success: function(response){
                         alert("Your poem has been deleted.")
@@ -792,5 +791,6 @@ verticalCenterMain() //sets buffer and modal height values to achieve vertical c
 
 $(".btn").css("text-transform", "none") // setting the attribute through css did not work, also not with "!important"
 
+shortenList() // shortens history navigation menu to maximum of 5 numbers.
 
 }); //doc end
