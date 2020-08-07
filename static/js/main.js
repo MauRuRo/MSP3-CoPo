@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
 /** GLOBAL VARIABLES */
 
 pagetitle = ""
@@ -228,15 +229,15 @@ function hisMenuNavUpdate() {
 
 //Insures the nav menu list is cropped to max of 5 version numbers.
 function shortenList() {
-if (lastversion > 5){
-    $(".version-num").each(function() {
-        if ($(this).text() > lastversion - 5) {
-            $(this).show()
-        } else {
-            $(this).hide()
-        }
-    })
-}
+    if (lastversion > 5){
+        $(".version-num").each(function() {
+            if ($(this).text() > lastversion - 5) {
+                $(this).show()
+            } else {
+                $(this).hide()
+            }
+        })
+    }
 }
 
 //When user reaches the beginning or end of the shown navigation list and there is more numbers before or in after respectivally, this function will shift the list to before or after if user clicks further. The parameter enables the function to be used to be triggered by click or key down event.
@@ -309,16 +310,16 @@ function collaboratorscheck(){
 
 //identifies the last collaborator and ads identifying class.
 function lastcollaborator(){
-$(".collab").each(function() {
-    last_collab = $(this).children().children(".collab-name").last().text()
- $(this).children().children(".collab-name").each(function(){
-    if ($(this).text() == last_collab){
-        $(this).addClass("last_collaborator")
-    } else {
-        $(this).removeClass("last_collaborator")
-    }
- })
-})
+    $(".collab").each(function() {
+        last_collab = $(this).children().children(".collab-name").last().text()
+        $(this).children().children(".collab-name").each(function(){
+            if ($(this).text() == last_collab){
+                $(this).addClass("last_collaborator")
+            } else {
+                $(this).removeClass("last_collaborator")
+            }
+        })
+    })
 collaboratorscheck()
 };
 
