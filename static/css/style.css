@@ -1,23 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Open+Sans:wght@300;600&display=swap');
-
+/* GENERAL */
 body {
     background: url('../images/achtergrond.png') no-repeat center center fixed; 
     background-size: cover;
     font-family: "Open Sans", sans-serif;
-}
-
-header h1 {
-    margin-top:0px;
-}
-
-header h4 {
-    margin-bottom: 0px;
-}
-
-header {
-    padding-top: 15px;
-    padding-bottom: 5px;
-    height: 135px;
 }
 
 main {
@@ -57,6 +43,23 @@ a:hover {
     color: #06839D;
 }
 
+/* HEADER */
+
+header h1 {
+    margin-top:0px;
+}
+
+header h4 {
+    margin-bottom: 0px;
+}
+
+header {
+    padding-top: 15px;
+    padding-bottom: 5px;
+    height: 135px;
+}
+
+
 .copologo {
     background-image: url('../images/copologo1.png'); 
     background-size:contain;
@@ -65,21 +68,39 @@ a:hover {
     background-position: center;
 }
 
+/* FOOTER */
+
 #logoabout {
     height: 3em;
 }
 
-.his-nav, #version-his-nav-title, .version-num, #version-his, #current-ver, .copo-creations {
-    cursor: pointer;
+footer {
+   position: fixed;
+   left:0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+   padding-top:15px;
+   padding-bottom:15px;
+   height:70px;
 }
 
-.ver-active, .col-active  {
-    color: rgb(255, 26, 1);
+/* modal about */
+
+#modalabout {
+    width: 100vw;
+    max-height:100%;
+    max-width:400px;
+    height: calc(100vh - 205px);
 }
 
-h1 {
-    display:inline-block;
+.modal-content ul li {
+    list-style-type: circle!important;
+    font-size: 1em;
+    margin-left: 25px;
 }
+
+/* COPO CREATIONS PAGE CONTENT */
 
 .copo-creations {
     background-image: linear-gradient(45deg,rgba(14, 16, 166, 0.1),rgba(254, 98, 41, 0.1), rgba(255,255,255, 0.1));
@@ -114,6 +135,79 @@ h1 {
     margin: auto;
 }
 
+/* CREATE PAGE CONTENT */
+
+#new_theme_row {
+    display: none;
+}
+
+.ro-invisible {
+    display: none;
+}
+
+input, textarea {
+    margin-bottom: 5px!important;
+}
+
+.formcontainer {
+    max-width:400px;
+    margin:auto;
+    margin-top: 30px;
+}
+
+#feathercreate, #feathercollaborate {
+height: 1.4em;
+position: relative;
+top: 6px;
+left: -8px;
+background-size: contain;
+margin-top: -100%;
+}
+
+.input-field, ul, #modalabout, #modaldelete {
+    background-image: linear-gradient(to right,rgba(255, 255, 255, .8), rgba(255,255,255, 0.1));
+    padding: 10px 10px 0 10px!important;
+    border-radius:15px;
+}
+
+.input-field {
+        padding: 0px 10px 0 10px!important;
+        margin-top: 0;
+}
+
+    /*  customize placeholder color, code found at: https://www.w3schools.com/howto/howto_css_placeholder.asp*/
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color:lightslategrey;
+    opacity: .7; 
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color:lightslategrey;
+    opacity: .7; 
+    }
+
+    ::-ms-input-placeholder { /* Microsoft Edge */
+    color:lightslategrey;
+    opacity: .7; 
+    }
+
+
+/* COLLABORATE PAGE CONTENT */
+
+#feathercollaborate {
+left: -5px;
+}
+
+/* POEM PAGE CONTENT */
+
+.his-nav, #version-his-nav-title, .version-num, #version-his, #current-ver, .copo-creations {
+    cursor: pointer;
+}
+
+.ver-active, .col-active  {
+    color: rgb(255, 26, 1);
+}
+
 .poem-text {
     /* the pre-line setting enables the whitespaces and returns of the input to be shown in the read function of the poem. */
     white-space:pre-line;
@@ -130,25 +224,6 @@ h1 {
     max-width:400px;
 }
 
-footer {
-   position: fixed;
-   left:0;
-   bottom: 0;
-   width: 100%;
-   text-align: center;
-   padding-top:15px;
-   padding-bottom:15px;
-   height:70px;
-}
-
-#new_theme_row {
-    display: none;
-}
-
-.ro-invisible {
-    display: none;
-}
-
 #version-menu {
     display: none;
 }
@@ -161,31 +236,6 @@ footer {
     display: none;
 }
 
-#delete-submit {
-    margin-top: 10px;
-}
-
-#modalabout {
-    width: 100vw;
-    max-height:100%;
-    max-width:400px;
-    height: calc(100vh - 205px);
-}
-
-#modaldelete {
-    width: 100vw;
-    max-height:100%;
-    max-width:400px;
-    height:50vh;
-    text-align: center;
-}
-
-.modal-content ul li {
-    list-style-type: circle!important;
-    font-size: 1em;
-    margin-left: 25px;
-}
-
 #credits {
     margin-top: 30px;
 }
@@ -195,58 +245,23 @@ hr {
     max-width: 200px;
 }
 
-input, textarea {
-    margin-bottom: 5px!important;
-}
-.formcontainer {
-    max-width:400px;
-    margin:auto;
-    margin-top: 30px;
-}
-
-#feathercreate, #feathercollaborate {
-height: 1.4em;
-position: relative;
-top: 6px;
-left: -8px;
-background-size: contain;
-margin-top: -100%;
-}
-
-#feathercollaborate {
-left: -5px;
-}
-
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color:lightslategrey;
-  opacity: .7; 
-}
-
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color:lightslategrey;
-   opacity: .7; 
-}
-
-::-ms-input-placeholder { /* Microsoft Edge */
-  color:lightslategrey;
-   opacity: .7; 
-}
-
-/* WHITE BACKGROUNDS AGAINST IMAGE BACKGROUND */
-.input-field, ul, #modalabout, #modaldelete {
-    background-image: linear-gradient(to right,rgba(255, 255, 255, .8), rgba(255,255,255, 0.1));
-    padding: 10px 10px 0 10px!important;
-    border-radius:15px;
-}
-
-.input-field {
-        padding: 0px 10px 0 10px!important;
-        margin-top: 0;
-}
-
 .his-nav {
     position: relative;
     top: 7px;
+}
+
+/* modal delete */
+
+#delete-submit {
+    margin-top: 10px;
+}
+
+#modaldelete {
+    width: 100vw;
+    max-height:100%;
+    max-width:400px;
+    height:50vh;
+    text-align: center;
 }
 
 /* For windows smaller than 800px, an adjustment of the width of the background image is needed in order to have a similar design effect. (otherwise black splotches would be minimally visible. */
