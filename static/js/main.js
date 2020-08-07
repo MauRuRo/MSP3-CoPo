@@ -76,8 +76,7 @@ function checkresult() {
 function toggleblocks(y) {
     $(".copo-creations").addClass("inactive");
     $(y).removeClass("inactive");
-    $(y).addClass("active");
-    $(".inactive").slideToggle(50);
+    // $(".inactive").slideToggle(50);
     $("h6").slideToggle(50);
     $(".inactive").parent().slideToggle(50);
     checkresult()
@@ -85,39 +84,16 @@ function toggleblocks(y) {
 
 //resets the lists and blocks before executing search. To be called at the start of the search function.
 function resetBeforeSearch() {
-    console.log(1)
     $("#themeblock").children("h5").text("Themes")
     $("#authorblock").children("h5").text("Authors")
     $(".list").slideUp(50)
-    $(".copo-creations").slideDown(50)
-    console.log(2)
-    // if ($(".list").is(":visible")) {
-    //     theblock = $(".list:visible").attr("id").slice(0,3)
-    //     if (theblock == "tit" && $("#themeblock").is(":visible")) {
-    //         console.log(1)
-    //         blockclick("#themeblock")
-    //         blockclick("#themeblock")
-    //     } else if (theblock == "tit" && $("#authorblock").is(":visible")) {
-    //          console.log(2)
-    //         blockclick("#authorblock")
-    //         console.log(2.5)
-    //         blockclick("#authorblock")
-    //     } else if (theblock == "the") {
-    //          console.log(3)
-    //         blockclick("#themeblock")
-    //     } else if (theblock == "aut") {
-    //          console.log(4)
-    //         blockclick("#authorblock")
-    //     } 
-    //      console.log(5)
-    // }
-    //  console.log(6)
+    $(".inactive").parent().slideDown(50)
+    $("h6").slideDown(50)
 }
 
 // looks for the titles that (partially) match the searchbar input
 searchFunc = function(){
     resetBeforeSearch()
-    console.log("s1")
     stitle = $("#search").val()
     searchtitle = {"title" : stitle};
     found = 0
@@ -144,9 +120,9 @@ searchFunc = function(){
         error: function(error){
             console.log(error);
         }
-       
+    
     });
-      if (found == 0) {
+    if (found == 0) {
                 $("#title-list").append("<li id='notitles'><em>No titles found..</em></li>")
             } 
 };
@@ -155,7 +131,6 @@ searchFunc = function(){
 function blockclick(x) {
        let block = "#" + $(x).attr("id")
     if ($(x).attr("id") == "themeblock") {
-        console.log(1)
         if ($("#title-list").is(":visible")) {
             $("#title-list").slideUp(50);
             $("#themeblock").children("h5").text("Themes"); // resets the title of the block.
@@ -216,10 +191,12 @@ function authorsearch(x) {
 //from which it then retrieves the information that you would normally get by clicking the author's name in the author list.
 //for some reason wouldn't work if function was referenced in an if statement; so had to incorporate the if statement and call function to avoid Reference error.
 function searchFuncAuthor(){
+    setTimeout(function() {
     if ($("#author-user").text() != "") {
         blockclick("#authorblock")
         authorsearch("#author-user")
     };
+}, 100)
 }
 
 //indicates which collaborator collaborated to make the selected version.
@@ -351,8 +328,9 @@ function capitalize_Words(str){
  return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})
 };
 
-//Changes the buffer and modal height dynammiccally, not achievable through simple css mediaqueries.
+//Changes the buffer and modal height dynammiccally, not achievable through simple css mediaqueries, because of changing content height.
 function verticalCenterMain(){
+    setTimeout(function() { // time out necessary because of transition times of slideToggles.
     screenvariable = 205
     if ($(window).height() > 2000) {
         screenvariable = 385
@@ -366,6 +344,7 @@ function verticalCenterMain(){
         mainheight = $("main").children(".container").height()
         $(".buffer").css("height", "calc(calc( 0.5 * calc(100vh - "+screenvariable+"px - " + mainheight +"px)) - 60px")
         }, 50)
+    }, 500) 
 };
 
 /** EVENT HANDLERS */
@@ -389,6 +368,7 @@ $("#searchbar").change(function(){
 $("#author-list").children().click(function() {
     authorsearch(this)
     checkresult()
+    verticalCenterMain()
 })
 
 //handler which shows/hides a list based on the selection of categorie themes/author/titles
@@ -419,6 +399,7 @@ $("#theme-list").children().click(function() {
     });   
     $("#themeblock").children("h5").text("Theme: " + choice);
     checkresult()
+    verticalCenterMain()
 })
 
 //shows the next part of the form and hides current part

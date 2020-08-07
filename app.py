@@ -19,11 +19,11 @@ def home():
 
 @app.route('/creations')
 def creations(): 
-    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_creations.find().sort("Author", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser= None)
+    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_creations.find().sort("Author", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser = None)
 
 @app.route('/creations_author/<authoruser>')
 def creations_author(authoruser): 
-    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_creations.find().sort("Author", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser=authoruser)
+    return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_creations.find().sort("Author", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser = authoruser)
 
 @app.route('/creations-theme-select', methods=['POST'])
 def creationsThemeSelect(): 
