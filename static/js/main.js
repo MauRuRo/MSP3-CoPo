@@ -1,6 +1,27 @@
 $(document).ready(function () {
-  /** EVENT HANDLERS */
- function modalInit() { 
+/** GLOBAL VARIABLES */
+
+pagetitle = ""
+
+lastversion = 0 
+
+newuservar = false  //variable used for form first part validation. Changes to true once choice has been selected in field.
+
+if ($("#Theme").hasClass("coll-theme")) {
+    themevar = true //variable used for form first part validation of collaboration page form.
+} else {
+    themevar = false //variable used for form first part validation of create page form; changes to true if theme is chosen.
+};
+
+var databack // sets global variable to be used in two seperate functions that post to the database.
+
+var datab // sets global variable to be used in two seperate functions that post to the database.
+
+/** FUNCTIONS */
+
+// Dynamically resizes the modal responsive to screen height (not setable in CSS mediaquery)
+
+function modalInit() { 
         if ($(window).height() > 2000) {
             $('.modal').modal({
                 endingTop: '335px',
@@ -15,44 +36,16 @@ $(document).ready(function () {
             });
         }
 }
-$('select').material_select()
-modalInit()
-pagetitle = ""
-$("#headercontainer").children("h4").mouseenter(function() {
-    pagetitle = $(this).children("a").text()
-    $(this).children("a").text("CoPo Creations")
-})
 
-$("#headercontainer").children("h4").mouseleave(function() {
-    $(this).children("a").text(pagetitle)
-})
-
-
-lastversion = 0
+// Gets the version number of the last version of the poem by iterating through the versions and storing re-storing the number in the lastversion variable.
 function lastversioncheck() {
     $(".version-num").each(function() {
         lastversion = parseInt($(this).text())
     })
 }
-lastversioncheck()
 
-$(window).resize(function() {
-    modalInit()
-});
-
-// setting global variables used in functions
-if ($("#Theme").hasClass("coll-theme")) {
-    themevar = true //variable used for form first part validation of collaboration form.
-}else{
-themevar = false //variable used for form first part validation.
-};
-newuservar = false  //variable used for form first part validation.
-  $("ul").hide(); //hides the lists of themes, authors, titles before they are called
-  $(".modal-content").find("ul").css("display", "block")
-  $(".second-part").css("display", "none") //hides the second part of the poem insertion form
-  $("#next-part").addClass("disabled"); //disables the next button on the form, until all fields are filled
-    
-checkresult = function(){
+//Checks if search result displays any list items, if not then show "No titles found..."
+function checkresult() {
     setTimeout(function(){ //necessary for the checkresult; it has to fire when page reload is completed.
     if($('#title-list').css('display') == 'block') {
         found = 0
@@ -78,9 +71,9 @@ checkresult = function(){
     }, 500);
 }
 
-
-    // function for hiding/showing the selection buttons for themes, authors, titles
-    toggleblocks = function(y) {
+// function for hiding/showing the selection buttons for themes, authors, titles
+// function parameter y is the id of an either the author-/theme-/titleblock element.
+function toggleblocks(y) {
     $(".copo-creations").addClass("inactive");
     $(y).removeClass("inactive");
     $(y).addClass("active");
@@ -88,48 +81,35 @@ checkresult = function(){
     $("h6").slideToggle(50);
     $(".inactive").parent().slideToggle(50);
     checkresult()
-    };
+};
 
-    // If search bar is filled in and user presses return or tab or clicks anywhere on the page, the searchFunc function is called.
-    $("#searchbar").change(function(){
-      searchFunc()
-    });
-
-    blockclick = function(x) {
-       let block = "#" + $(x).attr("id")
-    if ($(x).attr("id") == "themeblock") {
-        if ($("#title-list").is(":visible")) {
-            $("#title-list").slideToggle(50);
-            $("#themeblock").children("h5").text("Themes");
-            $("#title-list").children().css("display", "block")
-            $("#theme-list").slideToggle(50);
-            $("#notitles").remove()
+//resets the lists and blocks before executing search. To be called at the start of the search function.
+function resetBeforeSearch() {
+    if ($(".list").is(":visible")) {
+        theblock = $(".list:visible").attr("id").slice(0,3)
+        if (theblock == "the") {
+            if ($("#themeblock").children().text() != "Themes"){
+                blockclick("#themeblock")
+                blockclick("#themeblock")
+            } else {
+                blockclick("#themeblock")
+            }
+        } else if (theblock == "aut") {
+              if ($("#authorblock").children().text() != "Authors"){
+                blockclick("#authorblock")
+                blockclick("#authorblock")
+            } else {
+                blockclick("#authorblock")
+            }
         } else {
-            $("#theme-list").slideToggle(50);
-            toggleblocks(block)
+            console.log("nothing")
         }
-    } else if ($(x).attr("id") == "authorblock") {
-        if ($("#title-list").is(":visible")) {
-            $("#title-list").slideToggle(50);
-            $("#authorblock").children("h5").text("Authors");
-            $("#title-list").children().css("display", "block")
-            $("#author-list").slideToggle(50);
-            $("#notitles").remove()
-        } else {
-            $("#author-list").slideToggle(50);
-            toggleblocks(block)
-        }
-    } else if ($(x).attr("id") == "titleblock") {
-            $("#title-list").slideToggle(50);
-            $("#search").val("")
-            $("#title-list").children().css("display","block")
-            $("#notitles").remove()
-            toggleblocks(block)
-    } else {
-    };
+    }
 }
+
 // looks for the titles that (partially) match the searchbar input
 searchFunc = function(){
+    resetBeforeSearch()
     stitle = $("#search").val()
     searchtitle = {"title" : stitle};
     found = 0
@@ -163,10 +143,41 @@ searchFunc = function(){
             } 
 };
 
+// function for hiding/showing the lists of the "clicked" (or indirectly accesed through clicking author names on poem page or entering something in the search bar. The paramater "x" enables the indirect accessing by inputting the corresponding element id.)
+function blockclick(x) {
+       let block = "#" + $(x).attr("id")
+    if ($(x).attr("id") == "themeblock") {
+        if ($("#title-list").is(":visible")) {
+            $("#title-list").slideUp(50);
+            $("#themeblock").children("h5").text("Themes"); // resets the title of the block.
+            $("#title-list").children().css("display", "block")
+            $("#theme-list").slideDown(50);
+            $("#notitles").remove()
+        } else {
+            $("#theme-list").slideToggle(50);
+            toggleblocks(block)
+        }
+    } else if ($(x).attr("id") == "authorblock") {
+        if ($("#title-list").is(":visible")) {
+            $("#title-list").slideUp(50);
+            $("#authorblock").children("h5").text("Authors"); // resets the title of the block.
+            $("#title-list").children().css("display", "block")
+            $("#author-list").slideDown(50);
+            $("#notitles").remove()
+        } else {
+            $("#author-list").slideToggle(50);
+            toggleblocks(block)
+        }
+    } else if ($(x).attr("id") == "titleblock") {
+            $("#title-list").slideToggle(50);
+            $("#search").val("")
+            $("#title-list").children().css("display","block")
+            $("#notitles").remove()
+            toggleblocks(block)
+    };
+}
 
-
-  
-authorsearch = function(x){
+function authorsearch(x) {
         choice = $(x).text()
         authorname = $(x).html()
     		$.ajax({
@@ -187,77 +198,235 @@ authorsearch = function(x){
 			error: function(error){
 				console.log(error);
             }
-        }); 
-        $("#authorblock").children("h5").text("Author: " + authorname);  
-  }
-//if author is clicked it will show a list of titles with this author/user
-$("#author-list").children().click(function() {
-    authorsearch(this)
-    checkresult()
-    })
+        })
+    $("#authorblock").children("h5").text("Author: " + authorname);  
+}
 
 //This function enables looking up the author or collaborator by clicking their name in the poem page. Using Jinja it puts the name in a meta field on the main creations page, 
 //from which it then retrieves the information that you would normally get by clicking the author's name in the author list.
 //for some reason wouldn't work if function was referenced in an if statement; so had to incorporate the if statement and call function to avoid Reference error.
-searchFuncAuthor = function(){
+function searchFuncAuthor(){
     if ($("#author-user").text() != "") {
         blockclick("#authorblock")
         authorsearch("#author-user")
     };
 }
 
-searchFuncAuthor()
-  
+//indicates which collaborator collaborated to make the selected version.
+function lastcollabindicator() {
+    if($("#version-menu").is(":visible")){
+        $(".collab-name").removeClass("col-active")
+        $(".last_collaborator").addClass("col-active")
+    }else{
+        $(".collab-name").css("color", "Black")
+    }
+}
 
-    //function which shows/hides a list based on the selection of categorie themes/author/titles
+
+
+//hides the prev- and next arrow of the menu if the first or last version is currently shown, respectivelly.
+function hisMenuNavUpdate() {
+    lastversioncheck()
+        if ($("#current-ver").text() == lastversion) {
+    $("#his-nav-next").hide()
+        } else {
+    $("#his-nav-next").show()
+    }
+    if ($("#current-ver").text() == 1) {
+    $("#his-nav-prev").hide()
+        } else {
+    $("#his-nav-prev").show()
+    }
+}
+
+//Insures the nav menu list is cropped to max of 5 version numbers.
+shortenList()
+function shortenList() {
+if (lastversion > 5){
+    $(".version-num").each(function() {
+        if ($(this).text() > lastversion - 5) {
+            $(this).show()
+        } else {
+            $(this).hide()
+        }
+    })
+}
+}
+
+//When user reaches the beginning or end of the shown navigation list and there is more numbers before or in after respectivally, this function will shift the list to before or after if user clicks further. The parameter enables the function to be used to be triggered by click or key down event.
+function navigate(x){
+    $(".poem-text").addClass("old");
+    $(".collab").addClass("old");
+    if (x == "his-nav-prev") {
+    clickedversion = parseInt($("#current-ver").text()) - 1;
+        if ($("version-"+clickedversion).is(":visible")) {
+        }else{
+            versionhide = parseInt(clickedversion) + 5
+            $("#version-"+clickedversion).show()
+            $("#version-"+versionhide).hide()
+        }
+    } else {
+    clickedversion = parseInt($("#current-ver").text()) + 1;
+    if ($("version-"+clickedversion).is(":visible")) {
+        }else{
+            versionhide = parseInt(clickedversion) - 5
+            $("#version-"+clickedversion).show()
+            $("#version-"+versionhide).hide()
+        }
+        }
+  
+    $("#current-ver").text(clickedversion);
+    clickedversioncoll = clickedversion
+    clickedversion = "#poem-ver-" + clickedversion
+    clickedversioncoll = "#collab-ver-" + clickedversioncoll
+    $(clickedversion).removeClass("old");
+    $(clickedversioncoll).removeClass("old");
+    active = "#version-" + $("#current-ver").text()
+    $(".version-num").removeClass("ver-active")
+    $(active).addClass("ver-active")
+    collaboratorscheck()
+    hisMenuNavUpdate()
+}
+
+//checks if the collaborator section has collaborators, if not then hide section. Also removes the comma after the last collaborator if there are collaborators.
+function collaboratorscheck(){
+    $(".collab-name").each(function() {
+        if ($(this).parent().parent().hasClass("old")) {
+            return true
+        }
+        name1 = $(this).text()        
+        idname = $(this).attr("id")
+        if (!$("#"+idname).length) {
+            return true
+        }
+        $(".collab-name").each(function() {
+            if ($(this).parent().parent().hasClass("old") || $(this).attr("id") == idname) {
+                return true
+            } 
+            if ($(this).text() == name1) {
+                $(this).next(".comma").remove()
+                $(this).remove()                    
+            }  
+        })
+    })
+    verselect = $("#current-ver").text()
+    if ($("#collab-ver-"+verselect).text() == 'Collaborators:'){
+        $("#collab-ver-"+verselect).css("display","none");
+    }   
+    $(".comma").each(function(){
+        if ($(this).next().length){
+        } else {
+            $(this).css("display", "none")
+        }
+    });
+};
+
+//identifies the last collaborator and ads identifying class.
+function lastcollaborator(){
+$(".collab").each(function() {
+    last_collab = $(this).children().children(".collab-name").last().text()
+ $(this).children().children(".collab-name").each(function(){
+    if ($(this).text() == last_collab){
+        $(this).addClass("last_collaborator")
+    } else {
+        $(this).removeClass("last_collaborator")
+    }
+ })
+})
+collaboratorscheck()
+};
+
+// capitalizes the first letter of each word in string, necessary for title input field due to mongo sorting algorithm.
+// found here : https://www.w3resource.com/javascript-exercises/javascript-string-exercise-9.php
+function capitalize_Words(str){
+ return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})
+};
+
+//Changes the buffer and modal height dynammiccally, not achievable through simple css mediaqueries.
+function verticalCenterMain(){
+    screenvariable = 205
+    if ($(window).height() > 2000) {
+        screenvariable = 385
+    } else if ($(window).height() > 1200) {
+        screenvariable = 475
+    } else {
+    }
+    modalheight = $("#modaldelete").children(".modal-content").height() + $("#delete-submit").height() + 75
+    $("#modaldelete").height(modalheight)
+    setTimeout(function(){
+        mainheight = $("main").children(".container").height()
+        $(".buffer").css("height", "calc(calc( 0.5 * calc(100vh - "+screenvariable+"px - " + mainheight +"px)) - 60px")
+        }, 50)
+};
+
+/** EVENT HANDLERS */
+
+// "Remembers" original page title in variable while chaning it to the homepage title on mouseenter
+$("#headercontainer").children("h4").mouseenter(function() {
+    pagetitle = $(this).children("a").text()
+    $(this).children("a").text("CoPo Creations")
+})
+// Returns the remembered title in pagetitle on mouseleave
+$("#headercontainer").children("h4").mouseleave(function() {
+    $(this).children("a").text(pagetitle)
+})
+
+// If search bar is filled in and user presses return or tab or clicks anywhere on the page, the searchFunc function is called.
+$("#searchbar").change(function(){
+    searchFunc()
+})
+
+//if author is clicked it will show a list of titles with this author/user
+$("#author-list").children().click(function() {
+    authorsearch(this)
+    checkresult()
+})
+
+//handler which shows/hides a list based on the selection of categorie themes/author/titles
   $(".copo-creations").click(function () {
       blockclick(this)
   });
 
-  // if a theme is clicked it will show a list of titles with that theme
-  $("#theme-list").children().click(function() {
-        choice = $(this).html()
-    		$.ajax({
-			url: '/creations-theme-select',
-            data: {"Theme": choice},
-			type: 'POST',
-			success: function(response){
-                themesel = JSON.parse(response);
-                $("#theme-list").slideUp();
-                $("#title-list").slideDown();
-                $("#title-list").children().css("display","none");
-                for (i in themesel) {
-                    let idObject= "#" + themesel[i]._id ;
-                    $("#title-list").children(idObject).css("display", "block")
-                $("#themeblock").children("h5").text("Theme: " + choice);
-                }
-			},
-			error: function(error){
-			}
-        });   
-        $("#themeblock").children("h5").text("Theme: " + choice);
-        checkresult()
-  })
+// if a theme is clicked it will show a list of titles with that theme
+$("#theme-list").children().click(function() {
+    choice = $(this).html()
+        $.ajax({
+        url: '/creations-theme-select',
+        data: {"Theme": choice},
+        type: 'POST',
+        success: function(response){
+            themesel = JSON.parse(response);
+            $("#theme-list").slideUp();
+            $("#title-list").slideDown();
+            $("#title-list").children().css("display","none");
+            for (i in themesel) {
+                let idObject= "#" + themesel[i]._id ;
+                $("#title-list").children(idObject).css("display", "block")
+            $("#themeblock").children("h5").text("Theme: " + choice);
+            }
+        },
+        error: function(error){
+        }
+    });   
+    $("#themeblock").children("h5").text("Theme: " + choice);
+    checkresult()
+})
 
-  
+//shows the next part of the form and hides current part
+$("#next-part").click( function() {
+    $(".second-part").css("display", "block");
+    $(".first-part").css("display", "none")
+});
 
-  //shows the next part of the form and hides current part
-
-  $("#next-part").click( function() {
-        $(".second-part").css("display", "block");
-        $(".first-part").css("display", "none")
-  });
-
-  //shows first part of the form and hides current part.
-  $("#prev-part").click( function() {
-      $(".first-part").css("display", "block")
-      $(".second-part").css("display", "none")
-      if ($("#new_theme").attr("required")) { //depending on if theme "other" is selected it will also show the new_theme field
-      } else {
-         $("#new_theme_row").css("display", "none")
-      }
-  });
-
+//shows first part of the form and hides current part.
+$("#prev-part").click( function() {
+    $(".first-part").css("display", "block")
+    $(".second-part").css("display", "none")
+    if ($("#new_theme").attr("required")) { //depending on if theme "other" is selected it will also show the new_theme field
+    } else {
+        $("#new_theme_row").css("display", "none")
+    }
+});
 
 //checks if all fields of first part are filled out before enabling next button
 $("#createpoem").change(function(){
@@ -308,57 +477,53 @@ $("#new_user").change(function(){
   };
 })  
 
-var databack // sets global variable to be used in to seperate functions
 //if existing user is selected, and username is filled out: post to MongoDB to check if username exists and if so fill out authorname.
+//else if new user is selected, and username is filled out: post to MongoDB to check if username is available; if not show error message.
 $("#username").change(function(){
     if ( $(".second-part").is(":visible")) {
-  if ($("#new_user").val() == 1) {
-
-       user = $("#username").val();
-
-      // from : https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
-		$.ajax({
-			url: '/checkUser',
-            data: $('form').serialize(),
-			type: 'POST',
-			success: function(response){
-                databack = JSON.parse(response)
-                if (databack.user == null) {
-                    alert("Username does not exist");
-                    $("#username").val("").focus()
-                } else {
-                $("#Author").val(databack.author)          
-            }
-			},
-			error: function(error){
-				console.log(error);
-			}
-		});       
-    } else {
-   user = $("#username").val();
-
-      // from : https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
-		$.ajax({
-			url: '/checkUser',
-            data: $('form').serialize(),
-			type: 'POST',
-			success: function(response){
-                databack = JSON.parse(response)
-                if (databack.user != null) {
-                    alert("Username already exists!");
-                    $("#username").val("").focus()
-                    $("#password").val("")
-                } 
-			},
-			error: function(error){
-				console.log(error);
-			}
-		});       
-    };
-    }
+        if ($("#new_user").val() == 1) {
+            user = $("#username").val();
+            // from : https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
+                $.ajax({
+                    url: '/checkUser',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        databack = JSON.parse(response)
+                        if (databack.user == null) {
+                            alert("Username does not exist");
+                            $("#username").val("").focus()
+                        } else {
+                        $("#Author").val(databack.author)          
+                    }
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });       
+        } else {
+            user = $("#username").val();
+                $.ajax({
+                    url: '/checkUser',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        databack = JSON.parse(response)
+                        if (databack.user != null) {
+                            alert("Username already exists!");
+                            $("#username").val("").focus()
+                            $("#password").val("")
+                        } 
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });       
+            };
+        }
 });
 
-//if existing user is selected, check if password that's filled in matches password from user document
+//if existing user is selected, check if password that's filled in matches password from user document.
 $("#password").change(function(){   
   if ($("#new_user").val() == 1) {
       var password = $("#password").val();
@@ -374,29 +539,20 @@ $("#password").change(function(){
     };
 });
 
-autosize($("#Poem"));
-
-lastcollabindicator = function () {
-    if($("#version-menu").is(":visible")){
-        $(".collab-name").removeClass("col-active")
-        $(".last_collaborator").addClass("col-active")
-    }else{
-        $(".collab-name").css("color", "Black")
-    }
-}
-
-$("#version-his").click(function(){
+//shows the history navigation menu and indicates currently shown version and corresponding collaborator.
+$("#version-his-main").click(function(){
     $("#version-menu").slideToggle(50);
     $("#version-his-main").slideToggle(50);
     active = "#version-" + $("#current-ver").text()
     $(".version-num").removeClass("ver-active")
     $(active).addClass("ver-active")
     setTimeout(function() {    //time out necessary for slideUp: the codition is :visible is checked before slideUp is completed and therefor it won't trigger the color change.
-        lastcollabindicator()
+    lastcollabindicator()
     }, 500);
      hisMenuNavUpdate()
 })
 
+//hides the history nav menu and shows current/selected version
 $("#version-his-nav-title").click(function(){
     $("#version-menu").slideToggle(50);
     $("#version-his-main").slideToggle(50);
@@ -406,16 +562,7 @@ $("#version-his-nav-title").click(function(){
      hisMenuNavUpdate()
 })
 
-$("#current-ver").click(function(){
-    $("#version-menu").slideToggle(50);
-     $("#version-his-main").slideToggle(50);
-        lastcollabindicator()
-        setTimeout(function() { 
-        lastcollabindicator()
-    }, 500);
-     hisMenuNavUpdate()
-})
-
+//navigates to the version of the poem that's clicked on and indicates the version and the corresponding collaborator.
 $(".version-num").click(function(){
     $(".poem-text").addClass("old");
     $(".collab").addClass("old");
@@ -430,81 +577,43 @@ $(".version-num").click(function(){
     $(".version-num").removeClass("ver-active")
     $(active).addClass("ver-active")
     collaboratorscheck()
-     hisMenuNavUpdate()
+    hisMenuNavUpdate()
 })
 
-function hisMenuNavUpdate() {
-    lastversioncheck()
-        if ($("#current-ver").text() == lastversion) {
-    $("#his-nav-next").hide()
-        } else {
-    $("#his-nav-next").show()
-    }
-    if ($("#current-ver").text() == 1) {
-    $("#his-nav-prev").hide()
-        } else {
-    $("#his-nav-prev").show()
-    }
-}
-shortenList()
-function shortenList() {
-if (lastversion > 5){
-    $(".version-num").each(function() {
-        if ($(this).text() > lastversion - 5) {
-            $(this).show()
-        } else {
-            $(this).hide()
-        }
-    })
-}
-}
-
-function navigate(x){
-    $(".poem-text").addClass("old");
-    $(".collab").addClass("old");
-    if (x == "his-nav-prev") {
-    clickedversion = parseInt($("#current-ver").text()) - 1;
-        if ($("version-"+clickedversion).is(":visible")) {
-        }else{
-            versionhide = parseInt(clickedversion) + 5
-            $("#version-"+clickedversion).show()
-            $("#version-"+versionhide).hide()
-        }
-    } else {
-    clickedversion = parseInt($("#current-ver").text()) + 1;
-    if ($("version-"+clickedversion).is(":visible")) {
-        }else{
-            versionhide = parseInt(clickedversion) - 5
-            $("#version-"+clickedversion).show()
-            $("#version-"+versionhide).hide()
-        }
-        }
-  
-    $("#current-ver").text(clickedversion);
-    clickedversioncoll = clickedversion
-    clickedversion = "#poem-ver-" + clickedversion
-    clickedversioncoll = "#collab-ver-" + clickedversioncoll
-    $(clickedversion).removeClass("old");
-    $(clickedversioncoll).removeClass("old");
-    active = "#version-" + $("#current-ver").text()
-    $(".version-num").removeClass("ver-active")
-    $(active).addClass("ver-active")
-    collaboratorscheck()
-    hisMenuNavUpdate()
-}
-
+//navigates the history menu on click of one of the arrows.
 $(".his-nav").click(function() {
     navigate($(this).attr('id'))
 })
 
+//Ensusers that the form is only submittable and IS submittable if all fields are filled out vallidly by checking on every keydown (except during the filling out of the password.)
+$('body').on('keydown', function (e) {
+    if ($("#Author").val() != "" && $("#password").val() != "" && $("#username").val() != "") {
+        $("#create-submit").removeClass("disabled");
+    } else {
+        $("#create-submit").addClass("disabled");
+    }
+    if ($("#password").is(":focus")) {
+    } else {    
+        if ($("#new_user").val() == 1 && $("#password").val() != "") {
+            var password = $("#password").val();
+            if (databack.password == password) {
+                $("#create-submit").removeClass("disabled");   
+            } else {
+                alert("Incorrect Password");
+                $("#password").val("").focus();
+                $("#create-submit").addClass("disabled");   
+            } 
+         };
+    }; 
+})
 
+//Ensusers that the form is only submittable and IS submittable if all fields are filled out vallidly by checking on every keydown click.
 $("body").click(function() {
     if ($("#Author").val() != "" && $("#password").val() != "" && $("#username").val() != "") {
         $("#create-submit").removeClass("disabled");
     } else {
         $("#create-submit").addClass("disabled");
     }
-
     if ($("#new_user").val() == 1 && $("#password").val() != "") {
       var password = $("#password").val();
       if (databack.password == password) {
@@ -514,104 +623,24 @@ $("body").click(function() {
           $("#password").val("").focus();
           $("#create-submit").addClass("disabled");   
       }
-      
     };
-
 })
+
+//Enables navigation through history using left and right arrow on the keyboard.
 $('body').on('keydown', function (e) {
     if ($("#version-menu").is(":visible")) {
         if (e.which == 39) {
             if ($("#current-ver").text() != lastversion){
-navigate("his-nav-next")
-        }
+                navigate("his-nav-next")
+             }
         } else if (e.which == 37) {
-              if ($("#current-ver").text() != 1){
-navigate("his-nav-prev")
-              }
-        }
-    }
-})
-//https://ilovecoding.org/lessons/keyboard-event-with-jquery
-$('body').on('keydown', function (e) {
-        if ($("#Author").val() != "" && $("#password").val() != "" && $("#username").val() != "") {
-        $("#create-submit").removeClass("disabled");
-    } else {
-        $("#create-submit").addClass("disabled");
-    }
-
-    if ($("#password").is(":focus")) {
-    } else {
-    
-        if ($("#new_user").val() == 1 && $("#password").val() != "") {
-      var password = $("#password").val();
-      if (databack.password == password) {
-          console.log("password correct")
-          $("#create-submit").removeClass("disabled");   
-      } else {
-          alert("Incorrect Password");
-          console.log("password incorrect")
-          $("#password").val("").focus();
-          $("#create-submit").addClass("disabled");   
-      }
-      
-    };
-}; 
-
-})
-
-collaboratorscheck = function(){
-        $(".collab-name").each(function() {
-            if ($(this).parent().parent().hasClass("old")) {
-                return true
+            if ($("#current-ver").text() != 1){
+                    navigate("his-nav-prev")
             }
-        name1 = $(this).text()        
-        idname = $(this).attr("id")
-        if (!$("#"+idname).length) {
-            return true
         }
-        $(".collab-name").each(function() {
-            if ($(this).parent().parent().hasClass("old") || $(this).attr("id") == idname) {
-                return true
-            } 
-                if ($(this).text() == name1) {
-                    $(this).next(".comma").remove()
-                    $(this).remove()                    
-                }
-        
-    })
-})
-
-verselect = $("#current-ver").text()
-if ($("#collab-ver-"+verselect).text() == 'Collaborators:'){ // <p><strong>Collaborators</strong>": "</p>
-    $("#collab-ver-"+verselect).css("display","none");
-}
-
-$(".comma").each(function(){
-if ($(this).next().length){
-} else {
-    $(this).css("display", "none")
-}
-});
-};
-
-
-function lastcollaborator(){
-$(".collab").each(function() {
-    last_collab = $(this).children().children(".collab-name").last().text()
- $(this).children().children(".collab-name").each(function(){
-    if ($(this).text() == last_collab){
-        $(this).addClass("last_collaborator")
-    } else {
-        $(this).removeClass("last_collaborator")
     }
- })
 })
-collaboratorscheck()
-};
 
-lastcollaborator()
-
-var datab
 //if existing user is selected, and username is filled out: post to MongoDB to check if username exists and if so fill out authorname.
 $("#usernamedelete").change(function(){
 if ($("#modaldelete").css("display") == "block"){
@@ -645,7 +674,7 @@ if ($("#modaldelete").css("display") == "block"){
 $("#passworddelete").change(function(){  
     if ($("#modaldelete").css("display") == "block"){ 
       var password = $("#passworddelete").val();
-      if (datab.password == password) {
+      if (datab.password == password) { // will throw an error if the username field is not first filled out but does not result in any user experience issues. 
           console.log("password correct")
           $("#delete-submit").removeClass("disabled");   
       } else {
@@ -657,86 +686,77 @@ $("#passworddelete").change(function(){
     }
 });
 
-
+//Ensusers that the form is only submittable and IS submittable if all fields are filled out vallidly by checking on every keydown click.
 $("body").click(function() {
     verticalCenterMain()
-     if ($("#modaldelete").css("display") == "block"){
-    if ($("#usernamedelete").val() != "" && $("#passworddelete").val() != "") {
-        $("#delete-submit").removeClass("disabled");
-    } else {
-        $("#delete-submit").addClass("disabled");
+    if ($("#modaldelete").css("display") == "block"){
+        if ($("#usernamedelete").val() != "" && $("#passworddelete").val() != "") {
+            $("#delete-submit").removeClass("disabled");
+        } else {
+            $("#delete-submit").addClass("disabled");
+        }
+        password = $("#passworddelete").val();
+        if (databack.password == password) {
+            $("#delete-submit").removeClass("disabled");   
+        } else {
+            alert("Incorrect Password");
+            $("#passworddelete").val("").focus();
+            $("#delete-submit").addClass("disabled");   
+        }    
     }
-
-    
-      var password = $("#passworddelete").val();
-      if (databack.password == password) {
-          $("#delete-submit").removeClass("disabled");   
-      } else {
-          alert("Incorrect Password");
-          $("#passworddelete").val("").focus();
-          $("#delete-submit").addClass("disabled");   
-      }
-      
-     }
 })
 
+//Ensusers that the form is only submittable and IS submittable if all fields are filled out vallidly by checking on every keydown (except during the filling out of the password.)
 $('body').on('keydown', function (e) {
     verticalCenterMain()
     if ($("#modaldelete").css("display") == "block"){
         if ($("#usernamedelete").val() != "" && $("#passworddelete").val() != "") {
         $("#delete-submit").removeClass("disabled");
-    } else {
+        } else {
         $("#delete-submit").addClass("disabled");
-    }
-
-    if ($("#passworddelete").is(":focus")) {
-    } else {
-    
-        if ($("#passworddelete").val() != "") {
-      var password = $("#passworddelete").val();
-      if (datab.password == password) {
-          console.log("password correct")
-          $("#delete-submit").removeClass("disabled");   
-      } else {
-          alert("Incorrect Password");
-          console.log("password incorrect")
-          $("#passworddelete").val("").focus();
-          $("#delete-submit").addClass("disabled");   
-      }
-      
-    };
-}; 
+        }
+        if ($("#passworddelete").is(":focus")) {
+        } else {    
+            if ($("#passworddelete").val() != "") {
+                var password = $("#passworddelete").val();
+                if (datab.password == password) {
+                    console.log("password correct")
+                    $("#delete-submit").removeClass("disabled");   
+                } else {
+                    alert("Incorrect Password");
+                    console.log("password incorrect")
+                    $("#passworddelete").val("").focus();
+                    $("#delete-submit").addClass("disabled");   
+                }      
+            };
+        }; 
     }
 })
-    $("#tomodal").click(function() {
-      $("#usernamedelete").attr("placeholder", "Enter Username").val("");
-      $("#passworddelete").siblings("label").text("Enter Password");
-      $("#passworddelete").val("");
-    })
 
+//sets default values for delete form
+$("#tomodal").click(function() {
+    $("#usernamedelete").attr("placeholder", "Enter Username").val("");
+    $("#passworddelete").siblings("label").text("Enter Password");
+    $("#passworddelete").val("");
+})
 
-    $("#delete-submit").click(function() {
-            if ($("#usernamedelete").val() != "" && $("#passworddelete").val() != "") {
-   $.ajax({
-			url: '/delete',
-            data: {"_id" : thispoemid},
-			type: 'POST',
-			success: function(response){
-                alert("Your poem has been deleted.")
-            window.location.href = '/creations'
-			},
-			error: function(error){
-				console.log(error);
-			}
-        }); 
-    };
-    })
-
-// found here : https://www.w3resource.com/javascript-exercises/javascript-string-exercise-9.php
-// capitalizes the first letter of each word in string
-function capitalize_Words(str){
- return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-};
+//posts to database to delete poem
+$("#delete-submit").click(function() {
+    if ($("#usernamedelete").val() != "" && $("#passworddelete").val() != "") {
+        $.ajax({
+                    url: '/delete',
+                    data: {"_id" : thispoemid},
+                    type: 'POST',
+                    success: function(response){
+                        alert("Your poem has been deleted.")
+                    window.location.href = '/creations'
+                    },
+                    error: function(error){
+                        console.log(error)
+                    }
+        })
+    }
+})
 
 // All titles must be capitalized because the mongo sorting function can't sort case insensitevely
 $("#title").change(function() {
@@ -745,34 +765,32 @@ $("#title").change(function() {
     $("#title").val(capTitle)
 })
 
-function verticalCenterMain(){
-    screenvariable = 205
-    if ($(window).height() > 2000) {
-        screenvariable = 385
-    } else if ($(window).height() > 1200) {
-        screenvariable = 475
-    } else {
-    }
-    modalheight = $("#modaldelete").children(".modal-content").height() + $("#delete-submit").height() + 75
-    $("#modaldelete").height(modalheight)
+/** EXECUTE ON DOCUMENT READY */
+modalInit()
+lastversioncheck()
+searchFuncAuthor()
+$('select').material_select()
 
-    setTimeout(function(){
-mainheight = $("main").children(".container").height()
-// $("main").children(".container").css("margin-top", "calc(calc( 0.5 * calc(100vh - 205px - " + mainheight +"px)) -60px")
-// $("main").children(".container").css("margin-bottom", "calc( 0.5 * calc(100vh - 205px - " + mainheight +"px))")
-$(".buffer").css("height", "calc(calc( 0.5 * calc(100vh - "+screenvariable+"px - " + mainheight +"px)) - 60px")
-}, 50)
-};
+// Runs modalInit on window resizing to make sure modal size is correct for new window size.
+$(window).resize(function() {
+    modalInit()
+});
 
-verticalCenterMain()
+$("ul").hide(); //hides the lists of themes, authors, titles before they are called
 
-// function pubIc() {
-// if ($("#create-submit").hasClass("disabled")) {
-//     $("#publishicon").attr("src", "../static/images/publishdis.png")
-// } else {
-//     $("#publishicon").attr("src", "../static/images/publishwhite.png")
-// }
-// }
+$(".modal-content").find("ul").css("display", "block") //negates general list hiding for modal.
 
-$(".btn").css("text-transform", "none")
-}); //docend
+$(".second-part").css("display", "none") //hides the second part of the poem insertion form
+
+$("#next-part").addClass("disabled"); //disables the next button on the form, until all fields are filled
+    
+autosize($("#Poem")); // makes sure the the poem field in the form is stretched in height to show all it's contents on load. Using autosize.js
+
+lastcollaborator() //identifies last collaborator 
+
+verticalCenterMain() //sets buffer and modal height values to achieve vertical centering dynammically.
+
+$(".btn").css("text-transform", "none") // setting the attribute through css did not work, also not with "!important"
+
+
+}); //doc end
