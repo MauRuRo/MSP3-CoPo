@@ -85,31 +85,39 @@ function toggleblocks(y) {
 
 //resets the lists and blocks before executing search. To be called at the start of the search function.
 function resetBeforeSearch() {
-    if ($(".list").is(":visible")) {
-        theblock = $(".list:visible").attr("id").slice(0,3)
-        if (theblock == "the") {
-            if ($("#themeblock").children().text() != "Themes"){
-                blockclick("#themeblock")
-                blockclick("#themeblock")
-            } else {
-                blockclick("#themeblock")
-            }
-        } else if (theblock == "aut") {
-              if ($("#authorblock").children().text() != "Authors"){
-                blockclick("#authorblock")
-                blockclick("#authorblock")
-            } else {
-                blockclick("#authorblock")
-            }
-        } else {
-            console.log("nothing")
-        }
-    }
+    console.log(1)
+    $("#themeblock").children("h5").text("Themes")
+    $("#authorblock").children("h5").text("Authors")
+    $(".list").slideUp(50)
+    $(".copo-creations").slideDown(50)
+    console.log(2)
+    // if ($(".list").is(":visible")) {
+    //     theblock = $(".list:visible").attr("id").slice(0,3)
+    //     if (theblock == "tit" && $("#themeblock").is(":visible")) {
+    //         console.log(1)
+    //         blockclick("#themeblock")
+    //         blockclick("#themeblock")
+    //     } else if (theblock == "tit" && $("#authorblock").is(":visible")) {
+    //          console.log(2)
+    //         blockclick("#authorblock")
+    //         console.log(2.5)
+    //         blockclick("#authorblock")
+    //     } else if (theblock == "the") {
+    //          console.log(3)
+    //         blockclick("#themeblock")
+    //     } else if (theblock == "aut") {
+    //          console.log(4)
+    //         blockclick("#authorblock")
+    //     } 
+    //      console.log(5)
+    // }
+    //  console.log(6)
 }
 
 // looks for the titles that (partially) match the searchbar input
 searchFunc = function(){
     resetBeforeSearch()
+    console.log("s1")
     stitle = $("#search").val()
     searchtitle = {"title" : stitle};
     found = 0
@@ -147,6 +155,7 @@ searchFunc = function(){
 function blockclick(x) {
        let block = "#" + $(x).attr("id")
     if ($(x).attr("id") == "themeblock") {
+        console.log(1)
         if ($("#title-list").is(":visible")) {
             $("#title-list").slideUp(50);
             $("#themeblock").children("h5").text("Themes"); // resets the title of the block.
@@ -177,6 +186,7 @@ function blockclick(x) {
     };
 }
 
+//enables looking up titles for a specific author selected on the poem page or the creations page. The "x" parameter is set by clicking on the list item in list of authors on the creations page and getting the id of the clicked element, OR by clicking an author name on the poem page it will set a hidden meta field on the creations page to the value of the author name and get the id of that hidden meta element.
 function authorsearch(x) {
         choice = $(x).text()
         authorname = $(x).html()
