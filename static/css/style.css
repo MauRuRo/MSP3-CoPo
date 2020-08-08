@@ -8,7 +8,7 @@ body {
 }
 
 main {
-    height: calc(100vh - 205px);
+    /* height: calc(100vh - 205px); */
     height: calc(100*var(--vh, 1vh) - 205px);
     overflow: auto;
 }
@@ -94,7 +94,7 @@ footer {
     max-height:100%;
     max-width:400px;
     height: calc(100vh - 205px);
-    height: calc(100*var(--vh, 1vh) - 395px);
+    height: calc(100*var(--vh, 1vh) - 205px);
 }
 
 .modal-content ul li {
