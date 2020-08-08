@@ -3,7 +3,7 @@ from flask import Flask, render_template, redirect, request, url_for, json
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import datetime
-import requests
+# import requests
 
 app = Flask(__name__)
 app.jinja_env.add_extension('jinja2.ext.do') # found here: https://stackoverflow.com/questions/17925674/jinja2-local-global-variable/17926422
