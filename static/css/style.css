@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Open+Sans:wght@300;600&display=swap');
 /* GENERAL */
-
+#heightgetter {
+    border: double 4px purple;
+    background-color: blue;
+}
 body {
     background: url('../images/achtergrond.png') no-repeat center center fixed; 
     background-size: cover;
@@ -8,7 +11,7 @@ body {
 }
 
 main {
-    /* height: calc(100vh - 205px); */
+    height: calc(100vh - 205px);
     height: calc(100*var(--vh, 1vh) - 205px);
     overflow: auto;
 }

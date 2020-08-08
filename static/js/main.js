@@ -776,6 +776,8 @@ $('select').material_select() //Initialization for Materialize form select input
 // Runs modalInit on window resizing to make sure modal size is correct for new window size.
 $(window).resize(function() {
     modalInit()
+    vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
 });
 
 $("ul").hide(); //hides the lists of themes, authors, titles before they are called
@@ -801,18 +803,29 @@ shortenList() // shortens history navigation menu to maximum of 5 numbers.
 
 
 
+
+
+
+
 // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
 vh = window.innerHeight * 0.01;
 // Then we set the value in the --vh custom property to the root of the document
 document.documentElement.style.setProperty('--vh', `${vh}px`);
 
+function getProperHeigthforIOS() {
+      // We execute the same script as before
+  document.body.height = window.innerHeight;
+  vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
 
 // We listen to the resize event
 window.addEventListener('resize', () => {
   // We execute the same script as before
-  let vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
+    getProperHeigthforIOS()
 });
 
-
+$('body').click(function() {
+    getProperHeightforIOS()
+})
 }); //doc end
