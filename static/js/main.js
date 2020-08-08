@@ -1,3 +1,10 @@
+/** This doc is organized by the following categories in order:
+ * Global Variables
+ * Functions
+ * Event Handlers
+ * Execute on document ready
+ */
+
 $(document).ready(function () {
 
 /** GLOBAL VARIABLES */
@@ -757,10 +764,14 @@ $("#title").change(function() {
 })
 
 /** EXECUTE ON DOCUMENT READY */
+
 modalInit()
+
 lastversioncheck()
+
 searchFuncAuthor()
-$('select').material_select()
+
+$('select').material_select() //Initialization for Materialize form select input.
 
 // Runs modalInit on window resizing to make sure modal size is correct for new window size.
 $(window).resize(function() {

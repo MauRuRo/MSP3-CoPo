@@ -48,7 +48,7 @@
 			</ul>
 			<ul id="author-list" class="list">
             <!-- following python generates the list of authors, pulling from the database of poems. It's sorted alphabetically and it checks if the former listed author is the same as the author
-            to be listed; if so then it won't list the author, thus preventing doubles/multiples in the author list. -->
+            to be listed; if so then it won't list the author, thus preventing doubles/multiples in the author list. It uses a special Jinja2 extension 'jinja.ext.do'-->
 				{% set former = [] %}
 				{% for user in copo_authors %}
 				{% set current = user.Author %}
