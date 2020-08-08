@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Open+Sans:wght@300;600&display=swap');
 /* GENERAL */
+
 body {
     background: url('../images/achtergrond.png') no-repeat center center fixed; 
     background-size: cover;
