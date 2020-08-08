@@ -151,3 +151,4 @@ For some coding issues I found solutions on the web. I'm listing my sources here
 * https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
 * https://stackoverflow.com/questions/17925674/jinja2-local-global-variable/17926422
 * https://www.w3schools.com/howto/howto_css_placeholder.asp
+* https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
