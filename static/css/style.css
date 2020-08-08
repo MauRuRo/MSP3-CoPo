@@ -9,6 +9,7 @@ body {
 
 main {
     height: calc(100vh - 205px);
+    height: calc(100*var(--vh, 1vh) - 205px);
     overflow: auto;
 }
 
@@ -93,6 +94,7 @@ footer {
     max-height:100%;
     max-width:400px;
     height: calc(100vh - 205px);
+    height: calc(100*var(--vh, 1vh) - 395px);
 }
 
 .modal-content ul li {
@@ -262,6 +264,7 @@ hr {
     max-height:100%;
     max-width:400px;
     height:50vh;
+    height: calc(50*var(--vh, 1vh));
     text-align: center;
 }
 
@@ -371,6 +374,7 @@ hr {
 
     main, #modalabout {
         height: calc(100vh - 395px);
+        height: calc(100*var(--vh, 1vh) - 395px);
     }
 
 }
@@ -452,6 +456,7 @@ hr {
 
     main, #modalabout {
         height: calc(100vh - 480px);
+        height: calc(100*var(--vh, 1vh) - 480px);
     }
 
     .switch label .lever:before, .switch label .lever:after {

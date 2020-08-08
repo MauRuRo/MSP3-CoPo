@@ -130,6 +130,10 @@ This was done by:
 
 How to clone and fork the project...
 
+### Deployment Issues ###
+
+An issue that arose is that on a mobile device (iPhone X in my case) the viewer height calculation incorporates the browser buttons and addressbar; the main div height is there for set to large proportionately, resulting in the fixed footer at the bottom covering/crossing the contents of the main div.
+
 ## Credits ##
 ### Content ##
 For the design of the website I've used a few images that I've found on the web. I've listed them here:

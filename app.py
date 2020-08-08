@@ -3,11 +3,12 @@ from flask import Flask, render_template, redirect, request, url_for, json
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import datetime
-# import requests
 
 app = Flask(__name__)
 app.jinja_env.add_extension('jinja2.ext.do') # found here: https://stackoverflow.com/questions/17925674/jinja2-local-global-variable/17926422
 # This extension is necessary to be able to use 'global' variables in for loops in the jinja html on the creations pages.
+password= str(os.environ.get('Password')) # HOW DO I DO THIS AGIN????
+print(password)
 app.config["MONGO_DBNAME"] = 'CoPoDB'
 app.config["MONGO_URI"] = "mongodb+srv://root:root@myfirstcluster-wegta.mongodb.net/CoPoDB?retryWrites=true&w=majority"
 # DON'T FORGET TO HIDE PASSWORD IN URI BEFORE LAUNCH
