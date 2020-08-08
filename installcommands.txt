@@ -5,10 +5,8 @@ pip3 install flask_pymongo
 python3 app.py
 
 to do:
-css
-commenting code
 readme
-ipad pro form spacing
 
-<a href='https://www.freepik.com/vectors/background'>Background vector created by freepik - www.freepik.com</a>
-
+https://www.pinterest.cl/pin/630363279074092921/
+https://nl.pinterest.com/pin/857724691518034724/
+https://www.freepik.com/free-vector/colorful-geometric-feather_716154.htm
