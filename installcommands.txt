@@ -4,9 +4,4 @@ pip3 install dnspython
 pip3 install flask_pymongo
 python3 app.py
 
-to do:
-readme
-
-https://www.pinterest.cl/pin/630363279074092921/
-https://nl.pinterest.com/pin/857724691518034724/
-https://www.freepik.com/free-vector/colorful-geometric-feather_716154.htm
+connecting to mongo hiding the root: cd .. (home directory), nano ~/.bashrc, "export MONGO_URI = ***link***"

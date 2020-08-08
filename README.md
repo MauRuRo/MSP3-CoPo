@@ -3,7 +3,7 @@
 
 This web application is designed to bring people who are or want to be creative with words together to produce collaborative writing projects (poems). Secondary goals are to for users to make individual poetry or to be inspired by other user's work or to be inspired by published works uploaded by other users or to inspire other with published works.
 
-The website was deployed using Heroku and can be viewed here: ********
+The website was deployed using Heroku and can be viewed here: http://msp3-copo.herokuapp.com/
 
 ## UX ##
 
@@ -48,6 +48,7 @@ You can view the original wireframe using this link: ********
 * Search by options: Search by Theme, Search by Author, Search by Title.
 * Create form: the user can use this form to upload a new poem, either with an existing user account or by creating a new one. Depending on existing/new user the username and password fields are validated differently.
 * Collaborate form: the user can use this form to collaborate on a poem and update it on the database, either as an existing or as a new user.
+* Users can/must asign a theme to their poem. If theme of choice is not listed, they can add a new theme to the database.
 * Users can create/collaborate on poems with one user account, but can change the Author name for each poem individually; that way a user can upload for example a published poem by a famous poet withouth having to create a new account. The author name used on the first upload is stored in the database and will always be returned to the forms when filling out the username and password.
 * Delete form: the user can use this form to delete a poem, but only if they are the original author; it's password protected.
 * Version history navigation: a log is kept of all the changes made to the poem and by which author. The user can view the version history of a poem.
@@ -119,7 +120,7 @@ All pages are tested by having them display in the respective format sizes. They
 
 ## Deployment ##
 
-This website was deployed using Heroku and is now accesible here: **************
+This website was deployed using Heroku and is now accesible here: http://msp3-copo.herokuapp.com/
 
 This was done by: 
 1. Goi%%%%%

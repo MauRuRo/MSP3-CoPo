@@ -95,6 +95,7 @@ function toggleblocks(y) {
     $("h6").slideToggle(50);
     $(".inactive").parent().slideToggle(50);
     checkresult()
+    verticalCenterMain()
 };
 
 //resets the lists and blocks before executing search. To be called at the start of the search function.
@@ -107,7 +108,7 @@ function resetBeforeSearch() {
 }
 
 // looks for the titles that (partially) match the searchbar input
-searchFunc = function(){
+function searchFunc(){
     resetBeforeSearch()
     stitle = $("#search").val()
     searchtitle = {"title" : stitle};
@@ -140,6 +141,7 @@ searchFunc = function(){
     if (found == 0) {
                 $("#title-list").append("<li id='notitles'><em>No titles found..</em></li>")
             } 
+    verticalCenterMain()
 };
 
 // function for hiding/showing the lists of the "clicked" (or indirectly accesed through clicking author names on poem page or entering something in the search bar. The paramater "x" enables the indirect accessing by inputting the corresponding element id.)
@@ -211,6 +213,7 @@ function searchFuncAuthor(){
         blockclick("#authorblock")
         authorsearch("#author-user")
     };
+    verticalCenterMain()
 }, 100)
 }
 
@@ -358,7 +361,7 @@ function verticalCenterMain(){
     setTimeout(function(){
         mainheight = $("main").children(".container").height()
         $(".buffer").css("height", "calc(calc( 0.5 * calc(100vh - "+screenvariable+"px - " + mainheight +"px)) - 60px")
-        }, 50)
+        }, 100)
     }, 500) 
 };
 
@@ -777,7 +780,7 @@ window.addEventListener('resize', () => {
 
 //for proper div height in iOS
 $('body').click(function() {
-    getProperHeightforIOS()
+    getProperHeigthforIOS()
 })
 
 /** EXECUTE ON DOCUMENT READY */
