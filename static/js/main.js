@@ -95,7 +95,6 @@ function toggleblocks(y) {
     $(".inactive").parent().slideToggle(50);
     setTimeout(function(){
         if ($(".inactive").is(":visible")) {
-            console.log('check')
             $(".copo-creations").css("border-bottom", "solid 1px rgba(188, 28, 76, 0.2)");
         } else {
             $(y).css("border-bottom", "double");
@@ -126,7 +125,6 @@ function searchFunc(){
         type: 'POST',
         success: function(response){
             titlesel = JSON.parse(response);
-            console.log(titlesel)
             if ($("#title-list").is(":visible")){
             }else{
                 toggleblocks("#titleblock")
@@ -543,11 +541,9 @@ $("#password").change(function(){
   if ($("#new_user").val() == 1) {
       var password = $("#password").val();
       if (databack.password == password) {
-          console.log("password correct")
           $("#create-submit").removeClass("disabled");   
       } else {
           alert("Incorrect Password");
-          console.log("password incorrect")
           $("#password").val("").focus();
         $("#create-submit").addClass("disabled");  
       }
@@ -690,11 +686,9 @@ $("#passworddelete").change(function(){
     if ($("#modaldelete").css("display") == "block"){ 
       var password = $("#passworddelete").val();
       if (datab.password == password) { // will throw an error if the username field is not first filled out but does not result in any user experience issues. 
-          console.log("password correct")
           $("#delete-submit").removeClass("disabled");   
       } else {
           alert("Incorrect Password");
-          console.log("password incorrect")
           $("#passworddelete").val("").focus();
         $("#delete-submit").addClass("disabled");  
       }
@@ -735,11 +729,9 @@ $('body').on('keydown', function (e) {
             if ($("#passworddelete").val() != "") {
                 var password = $("#passworddelete").val();
                 if (datab.password == password) {
-                    console.log("password correct")
                     $("#delete-submit").removeClass("disabled");   
                 } else {
                     alert("Incorrect Password");
-                    console.log("password incorrect")
                     $("#passworddelete").val("").focus();
                     $("#delete-submit").addClass("disabled");   
                 }      
