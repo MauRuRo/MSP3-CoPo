@@ -314,7 +314,7 @@ function collaboratorscheck(){
         })
     })
     verselect = $("#current-ver").text()
-    if ($("#collab-ver-"+verselect).text() == 'Collaborators:'){
+    if ($("#collab-ver-"+verselect).text().trim() == 'Collaborators:'){
         $("#collab-ver-"+verselect).css("display","none");
     }   
     $(".comma").each(function(){
