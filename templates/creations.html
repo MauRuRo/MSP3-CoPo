@@ -9,7 +9,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="search-bar" id="titlesearchbar">
-				<form onsubmit="searchFunc(); return false;" method="POST" id="searchbar">
+				<form method="POST" id="searchbar">
 					<div class="input-field">
 						<input id="search" type="search" placeholder="Search poems by title..." required>
 					</div>
@@ -34,7 +34,7 @@
 		<h6>Or:</h6>
 		<div class="row">
 			<a href="{{ url_for('create') }}">
-				<div class="copo-creations">
+				<div id="createblock" class="copo-creations">
 					<h5>Create<img src="../static/images/featherlogo2.png" id="feathercreate" /></h5>
 				</div>
 			</a>

@@ -153,3 +153,4 @@ For some coding issues I found solutions on the web. I'm listing my sources here
 * https://stackoverflow.com/questions/17925674/jinja2-local-global-variable/17926422
 * https://www.w3schools.com/howto/howto_css_placeholder.asp
 * https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+* https://learn.getgrav.org/16/forms/forms/how-to-ajax-submission

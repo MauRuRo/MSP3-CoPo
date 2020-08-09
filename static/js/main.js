@@ -783,6 +783,12 @@ $('body').click(function() {
     getProperHeigthforIOS()
 })
 
+// found here https://learn.getgrav.org/16/forms/forms/how-to-ajax-submission
+// prevent form submission on return key
+$("#searchbar").submit(function(e) {
+    e.preventDefault();
+})
+
 /** EXECUTE ON DOCUMENT READY */
 
 modalInit()
