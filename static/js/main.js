@@ -91,9 +91,16 @@ function checkresult() {
 function toggleblocks(y) {
     $(".copo-creations").addClass("inactive");
     $(y).removeClass("inactive");
-    // $(".inactive").slideToggle(50);
     $("h6").slideToggle(50);
     $(".inactive").parent().slideToggle(50);
+    setTimeout(function(){
+        if ($(".inactive").is(":visible")) {
+            console.log('check')
+            $(".copo-creations").css("border-bottom", "solid 1px rgba(188, 28, 76, 0.2)");
+        } else {
+            $(y).css("border-bottom", "double");
+        }
+    },100)
     checkresult()
     verticalCenterMain()
 };
