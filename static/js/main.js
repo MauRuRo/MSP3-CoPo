@@ -19,7 +19,7 @@ if ($("#Theme").hasClass("coll-theme")) {
     themevar = true //variable used for form first part validation of collaboration page form.
 } else {
     themevar = false //variable used for form first part validation of create page form; changes to true if theme is chosen.
-};
+}
 
 var databack // sets global variable to be used in two seperate functions that post to the database.
 
@@ -29,7 +29,7 @@ var datab // sets global variable to be used in two seperate functions that post
 
 
 //This function fixes the issue of the iOS browser viewport height: this doesn't by itself take in to account the heigth of the address and menu bar of the browser. Solution found here: https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
-function getProperHeigthforIOS() {
+function getProperHeightforIOS() {
   document.body.height = window.innerHeight;
   vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -68,16 +68,16 @@ function checkresult() {
             $("#title-list").children("li").each(function() {
                 if (found === 1) {
                     return false;
-                };
+                }
                 if ($(this).css("display") == "block") {
                     found = 1
                 } else {
                     found = 0            
-                };
+                }
             })
         } else {
                 found = 0
-            };
+            }
         if (found === 0) {
             $("#title-list").append("<li id='notitles'><em>No titles found..</em></li>")
         }
@@ -101,7 +101,7 @@ function toggleblocks(y) {
     },100)
     checkresult()
     verticalCenterMain()
-};
+}
 
 //resets the lists and blocks before executing search. To be called at the start of the search function.
 function resetBeforeSearch() {
@@ -127,14 +127,14 @@ function searchFunc(){
             if ($("#title-list").is(":visible")){
             }else{
                 toggleblocks("#titleblock")
-            };
+            }
             $("#title-list").slideDown();
             $("#title-list").children().css("display","none");
             for (i in titlesel) {
                 let idObject= "#" + titlesel[i]._id ;
                 $("#title-list").children(idObject).css("display", "block")
                 found = 1
-            };
+            }
 
         },
         error: function(error){
@@ -146,7 +146,7 @@ function searchFunc(){
                 $("#title-list").append("<li id='notitles'><em>No titles found..</em></li>")
             } 
     verticalCenterMain()
-};
+}
 
 // function for hiding/showing the lists of the "clicked" (or indirectly accesed through clicking author names on poem page or entering something in the search bar. The paramater "x" enables the indirect accessing by inputting the corresponding element id.)
 function blockclick(x) {
@@ -179,7 +179,7 @@ function blockclick(x) {
             $("#title-list").children().css("display","block")
             $("#notitles").remove()
             toggleblocks(block)
-    };
+    }
 }
 
 //enables looking up titles for a specific author selected on the poem page or the creations page. The "x" parameter is set by clicking on the list item in list of authors on the creations page and getting the id of the clicked element, OR by clicking an author name on the poem page it will set a hidden meta field on the creations page to the value of the author name and get the id of that hidden meta element.
@@ -773,12 +773,12 @@ $("#title").change(function() {
 
 //for proper div height in iOS
 window.addEventListener('resize', () => {
-    getProperHeigthforIOS()
+    getProperHeightforIOS()
 });
 
 //for proper div height in iOS
 $('body').click(function() {
-    getProperHeigthforIOS()
+    getProperHeightforIOS()
 })
 
 // found here https://learn.getgrav.org/16/forms/forms/how-to-ajax-submission
@@ -822,6 +822,6 @@ $(".btn").css("text-transform", "none") // setting the attribute through css did
 
 shortenList() // shortens history navigation menu to maximum of 5 numbers.
 
-getProperHeigthforIOS() //for proper div height in iOS
+getProperHeightforIOS(); //for proper div height in iOS
 
 }); //doc end
