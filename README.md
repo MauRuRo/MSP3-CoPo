@@ -37,6 +37,82 @@ For most text areas on the page I've implemented a very subtle highly transparen
 
 You can view the original basic wireframe for smartphone that was used as the base of the design using this link: https://github.com/MauRuRo/MSP3-CoPo/blob/master/static/images/CoPo%20wireframe%20base.pdf
 
+## Database Structure ##
+
+For the database this project makes use of MongoDB. The app makes use of three database collections.
+
+1. copo_creations
+
+    {
+
+        _id:"automaticcaly generated ID"
+
+        title:"poem title"
+
+        Poem:"poem text"
+
+        Theme:"poem theme"
+
+        Author:"poem Author"
+
+        username:"usernam"
+
+        Collaborators: {
+            {
+                authorname:"author name", 
+                colusername:"username of collaborator"
+            },
+            {},{}...}
+
+        Version: {
+            {
+                {0:"version number"}, 
+                {1:{Poem:"version poem text}}, 
+                {2:{Collaborators: {
+                                    {authorname:"author name"},
+                                    {colusername:"username of collaborator"}
+                                   },{},{},...
+                }}, 
+                {3:"Boolean Value"}
+            },
+            {},{},....
+            }
+
+        Date: "date value of the moment that poem was uploaded"
+
+        edit_YN: "Y or N"
+
+    }
+    
+2. copo_themes
+
+    {
+
+        _id:"automaticcaly generated ID"
+
+        theme:"theme"
+
+    }
+3. copo_users
+
+    {
+
+        _id:"automaticcaly generated ID"
+
+        username:"username"
+
+        authorname:"author name"
+
+        password:"user password"
+
+    }
+
+*copo_creations* is the collection used to store poems. This is the main collection of the app and is used the most. It also has some complex nested arrays for Collaborators and Version history functionality.
+
+*copo_themes* is a small collection that maintains a database of the available themes a user can choose from when uploading their poem. It's updated if a user chooses to create a new theme.
+
+*copo_users* manages the user accounts and is used for validating accounts for uploading as existing/non-existing user or deleting poems.
+
 ## Features ##
 
 ### Existing Features ###
