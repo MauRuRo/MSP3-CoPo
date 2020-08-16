@@ -227,7 +227,7 @@ function lastcollabindicator() {
         $(".collab-name").removeClass("col-active")
         $(".last_collaborator").addClass("col-active")
     }else{
-        $(".collab-name").css("color", "Black")
+        $(".last_collaborator").removeClass("col-active")
     }
 }
 
