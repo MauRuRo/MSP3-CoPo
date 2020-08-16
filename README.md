@@ -35,6 +35,8 @@ I considered leaving it at that, but the design was still too minimalist for my 
 
 For most text areas on the page I've implemented a very subtle highly transparent white background linear gradient, in order for the background image not to interfere with the viewing of the content.
 
+The main font I've chosen is "Gloria Hallelujah", which has a 'handwritten' quality to it which matches nice with the writing theme of the app. Though it's not overlerly curly or italic as to become illegible or out of style with general web experience. For the paragraph font I selected the Open Sans font, as suggested by google fonts.
+
 You can view the original basic wireframe for smartphone that was used as the base of the design using this link: https://github.com/MauRuRo/MSP3-CoPo/blob/master/static/images/CoPo%20wireframe%20base.pdf
 
 ## Database Structure ##
