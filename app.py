@@ -7,7 +7,8 @@ import datetime
 app = Flask(__name__)
 app.jinja_env.add_extension('jinja2.ext.do') # found here: https://stackoverflow.com/questions/17925674/jinja2-local-global-variable/17926422
 # This extension is necessary to be able to use 'global' variables in for loops in the jinja html on the creations pages.
-app.config["MONGO_DBNAME"] = 'CoPoDB'
+app.secret_key = os.getenv("SECRET_KEY")
+app.config["MONGO_DBNAME"] = os.getenv("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 mongo = PyMongo(app)
 
