@@ -181,6 +181,7 @@ def delete():
     return json.dumps({"check":"check"})
 
 # Function to handle the 404 page
+#found here: https://github.com/EliasOPrado/data-centric-backend-project
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
