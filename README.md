@@ -29,7 +29,7 @@ The ink blot pattern on the background in black and white has an abstract feel t
 
 The black/white theme is contrasted subtly by the logo -two crossed writing feathers (stands for two writers collaborating)- which is very colourful with beautiful complimentary colours. The colourful logo is partly repeated in the 'Create' (single feather) and 'Collaborate' (crossed feathers) button. 
 
-I considered leaving it at that, but the design was still to minimalist for my taste, which I why I implemented a very subtle linear gradient colour on the buttons on the main page. The colours of the linear gradient are sampled from the logo, thus remaining within the colour scheme of the page. 
+I considered leaving it at that, but the design was still too minimalist for my taste, which I why I implemented a very subtle linear gradient colour on the buttons on the main page. The colours of the linear gradient are sampled from the logo, thus remaining within the colour scheme of the page. 
 
 ![CoPo Logo](/static/images/poemmockup.png)
 
@@ -249,5 +249,4 @@ For some coding issues I found solutions on the web. I'm listing my sources here
 * https://learn.getgrav.org/16/forms/forms/how-to-ajax-submission
 * https://github.com/EliasOPrado/data-centric-backend-project
 * https://html-online.com/articles/smart-404-error-page-redirect/
-* https://github.com/EliasOPrado/data-centric-backend-project
 
