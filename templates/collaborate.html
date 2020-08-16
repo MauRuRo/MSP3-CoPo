@@ -18,7 +18,7 @@
                     </div>
                     <div class="row first-part">
                         <div class="input-field col s12" style="height: auto;">
-                            <textarea id="Poem" name="Poem" class="materialize-textarea" value="{{ poeminfo.Poem }}" required>{{ poeminfo.Poem }}</textarea>
+                            <textarea id="Poem" name="Poem" class="materialize-textarea" required>{{ poeminfo.Poem }}</textarea>
                             <label>Poem</label>
                         </div>
                     </div>
@@ -27,8 +27,8 @@
                     <div class="ro-invisible">
                         <div class="row first-part">
                             <div class="input-field col s12" id="sel-theme">
-                                <select id="Theme" name="Theme" class="validate coll-theme" required="required">
-                                    <option selected value="{{ poeminfo.Theme }}">{{ poeminfo.Theme }}</option>
+                                <select id="Theme" name="Theme" class="validate coll-theme" required>
+                                    <option selected>{{ poeminfo.Theme }}</option>
                                 </select>
                             </div>
                         </div>
@@ -39,7 +39,7 @@
                         </div>
                         <div class="row first-part">
                             <div class="switch col s12" id="edit_YN" name="edit_YN">
-                                <label for="switch">Allow Collaboration?</label>
+                                <label for="edit_YN">Allow Collaboration?</label>
                                 <br>
                                 <label>
                                 Off

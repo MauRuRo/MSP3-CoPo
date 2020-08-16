@@ -35,7 +35,7 @@
 		<div class="row">
 			<a href="{{ url_for('create') }}">
 				<div id="createblock" class="copo-creations">
-					<h5>Create<img src="../static/images/featherlogo2.png" id="feathercreate" /></h5>
+					<h5>Create<img src="../static/images/featherlogo2.png" id="feathercreate" alt="createlogo"/></h5>
 				</div>
 			</a>
 		</div>
@@ -60,10 +60,8 @@
 			</ul>
 			<ul id="title-list" class="list">
                 <!-- following python generates the list of titles, pulling from the database of poems. -->
-				{% for poem in copo_titles%}
-				<a id="{{poem._id}}" href="{{ url_for('read', poem_id=poem._id )}}" class="poem-title-item">
-					<li>{{poem.title}}</li>
-				</a>
+				{% for poem in copo_titles%}				
+				<li id="{{poem._id}}"><a href="{{ url_for('read', poem_id=poem._id )}}" class="poem-title-item">{{poem.title}}</a></li>		
 				{% endfor %}
 			</ul>
 		</div>

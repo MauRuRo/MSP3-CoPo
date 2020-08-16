@@ -64,8 +64,8 @@ function checkresult() {
     setTimeout(function(){ //necessary for the checkresult; it has to fire when page reload is completed.
     if($('#title-list').css('display') == 'block') {
         found = 0
-        if ($(".poem-title-item")[0]){
-            $(".poem-title-item").each(function() {
+        if ($("#title-list").children("li")[0]){
+            $("#title-list").children("li").each(function() {
                 if (found === 1) {
                     return false;
                 };
@@ -78,7 +78,6 @@ function checkresult() {
         } else {
                 found = 0
             };
-
         if (found === 0) {
             $("#title-list").append("<li id='notitles'><em>No titles found..</em></li>")
         }

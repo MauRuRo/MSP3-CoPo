@@ -38,8 +38,8 @@
                         </div>
                     </div>
                     <div class="row first-part">
-                        <div class="switch col s12" id="edit_YN" name="edit_YN">
-                            <label for="switch">Allow Collaboration?</label>
+                        <div class="switch col s12" id="edit_YN">
+                            <label for="edit_YN">Allow Collaboration?</label>
                             <br>
                             <label>
                                 Off
@@ -49,7 +49,7 @@
                             </label>
                         </div>
                         <!-- This hidden input field was necessary because the ajax function could not parse the "checked"/"unchecked" or true/false value of the materialize switch. Some javascript sets the value of this input field to either Y or N based on what the switch is set for. This information is succesfully passed on to the mongo database. -->
-                        <input id="allow_collab_text" type="text" class="validate" name="allow_collab_text" required val="Y"/>
+                        <input id="allow_collab_text" type="text" class="validate" name="allow_collab_text" required/>
                     </div>
                     <div class="row first-part">
                         <div class="input-field col s12">

@@ -96,8 +96,11 @@ The website was tested using W3 CSS/HTML validator (validator.w3.org).
 Each page's HTML code was run through the validator as well as the CSS code. 
 
 Because of the Jinja and Python used in the HTML, the validator gave a lot of errors that were not valid errors:
-1. Due to the block extend code; the validator encountered some unclosed elements. They are in fact closed, but the opening/closing elements are divided over to different html files.
-2. The validator did not except Jinja blocks for url attributes; it threw an error for the use of '{'.
+* Due to the block extend code; the validator encountered some unclosed elements. They are in fact closed, but the opening/closing elements are divided over to different html files.
+* The validator did not except Jinja blocks for url attributes; it threw an error for the use of '{'.
+
+Valid errors that remain unresolved:
+* The hidden select field in the collaboration form does not allow a predetermined text input (through Jinja) if there is only one option in the list. The suggestions for resolving the issue (adding a "size" attribute) did not resolve the issue. However: since the field is hidden and only there for future possible expansions, where possibly there will be multiple themes to select as options, I have decided to leave it as is: it does not interfere with the funcionality of the website.
 
 
 The main.js file was passed through jshint linter. It did not bring up any major issues.
