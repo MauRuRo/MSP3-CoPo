@@ -37,7 +37,7 @@ I consdidered leaving it at that, but the design was still to minimalist for my 
 
 For most text area's on the page I've implementen a very subtle highly transparent white background linear gradient, in order for the background image not to interfere with the viewing of the content.
 
-You can view the original wireframe using this link: ********
+You can view the original wireframe using this link: https://github.com/MauRuRo/MSP3-CoPo/blob/master/static/images/CoPo%20wireframe%20base.pdf
 
 
 ## Features ##
@@ -51,7 +51,7 @@ You can view the original wireframe using this link: ********
 * Users can/must asign a theme to their poem. If theme of choice is not listed, they can add a new theme to the database.
 * Users can create/collaborate on poems with one user account, but can change the Author name for each poem individually; that way a user can upload for example a published poem by a famous poet withouth having to create a new account. The author name used on the first upload is stored in the database and will always be returned to the forms when filling out the username and password.
 * Delete form: the user can use this form to delete a poem, but only if they are the original author; it's password protected.
-* Version history navigation: a log is kept of all the changes made to the poem and by which author. The user can view the version history of a poem.
+* Version history navigation: a log is kept of all the changes made to the poem and by which author. The user can view the version history of a poem. (Navigation also possible by using arrow keys.)
 
 ### Features Left to Implement ###
 
@@ -78,6 +78,8 @@ You can view the original wireframe using this link: ********
     * For Creating, Reading, Updating and Deleting data (:user data, poem data and 'theme' data').
 * Flask
     * For template rendering.
+* ajax
+    * For posting to the database without loading a page. (e.g.: searchbar)
 
 
 _Stylesheet and script plugins used:_
@@ -93,18 +95,44 @@ _Stylesheet and script plugins used:_
 The website was tested using W3 CSS/HTML validator (validator.w3.org).
 Each page's HTML code was run through the validator as well as the CSS code. 
 
-On the HTML validation I solved some issues concerning block elements within span elements.
-On the CSS validation the validator mentioned a "Parse Error: | circle()" for both the .circle and .circle2 class. I think this is an error in the validator.
+Because of the Jinja and Python used in the HTML, the validator gave a lot of errors that were not valid errors:
+1. Due to the block extend code; the validator encountered some unclosed elements. They are in fact closed, but the opening/closing elements are divided over to different html files.
+2. The validator did not except Jinja blocks for url attributes; it threw an error for the use of '{'.
+
 
 The main.js file was passed through jshint linter. It did not bring up any major issues.
 
 ### Testing User Stories ###
 
 * As a user, I want to create a poem and share it online.
+    1. Open website on homepage.
+    2. Click on the "Create" button".
+    3. Fill out the form with poem.
+    4. Click the "Publish" button.
 * As a user, I want to collaborate on a poem.
+    1. Find a poem to collaborate on, either by selecting from the title list, looking up in the searchbar, or looking one up via the themes or author selection. Not all poems are "collaboratable", depending on the setting choice of the original author.
+    2. Open the poem by clicking on the title name.
+    3. Click the Collaborate button at the bottom of the poem.
+    4. Fill out the form and adjust the poem to collaborate (the title field is not adjustabel).
+    5. Click the submit button.
 * As a user, I want to read poems that others have published in the app.
+    1. Open website on the homepage.
+    2. Browse through the poems using one of these options:
+        * Searchbar: enter a text to search the titles by.
+        * Themes: click the themes button and select a theme to find titles of poems by.
+        * Authors: click the authors button and select an author who's poems you want to read.
+        * Titles: click the titles button and see a list of all the titles in the database.
+    3. Click on the poem title you wish to read.
 * As a user, I want to delete poems that I have published.
+    1. Look up your poem using one of the methods seen above.
+    2. Click the delete button.
+    3. Enter your username and password.
+    4. Click the delete button.
 * As a user, I want to see the version history of a poem.
+    1. Navigate to a poem using one of the methods seen above.
+    2. If the poem has a version history, the "Version" header will be visible at the bottom of the poem.
+    3. Click on the "Version" header or on the version number next to it. A version history navigation menu will appear.
+    4. Click on the arrows or the numbers of the navigation menu OR use the left and right arrow on your keyboard to navigate through the collaboration history.
 
 ### Testing Website responsiveness ###
 
