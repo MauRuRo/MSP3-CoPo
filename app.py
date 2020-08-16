@@ -12,18 +12,23 @@ app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 mongo = PyMongo(app)
 
 # APP ROUTES
+
+#homepage
 @app.route('/')
 def home(): 
     return redirect(url_for('creations'))
 
+#homepage; the authoruser variable is set to None; this will result in the condition for the searchFuncAuthor not being satisfied; thus not performing a author search on page load complete.
 @app.route('/creations')
 def creations(): 
     return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_creations.find().sort("Author", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser = None)
 
+#homepage/authorsearch; from the poem page the user can navigate to a search of an author by clicking on their name which has an href. It puts the author name in to a hidden div; from their jquery pulls the author name to perform an Ajax action with it on page load complete.
 @app.route('/creations_author/<authoruser>')
 def creations_author(authoruser): 
     return render_template("creations.html", copo_themes = mongo.db.copo_themes.find().sort("theme", 1), copo_authors = mongo.db.copo_creations.find().sort("Author", 1), copo_titles = mongo.db.copo_creations.find().sort("title", 1), authoruser = authoruser)
 
+#homepage/theme selection: performs a query on the database and returns all titles with selected theme, sorted.
 @app.route('/creations-theme-select', methods=['POST'])
 def creationsThemeSelect(): 
     info = request.form["Theme"]
@@ -37,6 +42,7 @@ def creationsThemeSelect():
         i+=1
     return json.dumps(poemlist)
 
+#homepage/author selection: performs a query on the database and returns all titles with selected author, sorted.
 @app.route('/creations-author-select', methods=['POST'])
 def creationsAuthorSelect(): 
     info = request.form["Author"]
@@ -50,6 +56,7 @@ def creationsAuthorSelect():
         i+=1
     return json.dumps(poemlist)
 
+#search titles: performs a query to the database for a partial match with titles of the input in the searchbar.
 @app.route('/searchpoems', methods=["POST"])
 def searchpoems():
     info = request.form["title"]
@@ -63,27 +70,17 @@ def searchpoems():
         i+=1
     return json.dumps(poemlist)
 
-@app.route('/searchauthor', methods=["POST"])
-def searchauthor():
-    info = request.form["Author"]
-    titleselect = {"Author" : info}
-    copo_titles = mongo.db.copo_creations.find(titleselect).sort("title", 1) 
-    ctitle = list(copo_titles)
-    poemlist = {}
-    i = 0
-    for poem in ctitle:
-        poemlist[i] = {"_id": str(poem.get("_id")), "title": poem.get("title")}
-        i+=1
-    return json.dumps(poemlist)
-
+#Create: renders the 'create' page when create button is clicked: the themes have to be pulled from the database as these may vary over time.
 @app.route('/create')
 def create():
     return render_template("create.html", copo_themes = mongo.db.copo_themes.find().sort("theme",1))
 
+#Collaborate: renders the collaborate page with all the info of the selected poem pulled from the database and pre-inputted in to the form.
 @app.route('/collaborate/<poemId>')
 def collaborate(poemId):
     return render_template("collaborate.html", poeminfo = mongo.db.copo_creations.find_one({"_id": ObjectId(poemId)}))
 
+#Update: uploads the adjusted poem on submission of the collaboration form and also updates the version history information.
 @app.route('/update_poem/<poemId>',methods=["POST"])
 def update_poem(poemId):
     poems = mongo.db.copo_creations
@@ -119,15 +116,13 @@ def update_poem(poemId):
         users.insert_one(user)
     return redirect(url_for('read', poem_id=poemId))
 
+# Poem: renders the poem page to read the selected poem with href.
 @app.route('/read/<poem_id>')
 def read(poem_id):
     the_poem = mongo.db.copo_creations.find_one({"_id": ObjectId(poem_id)})
     return render_template("poems.html", poem=the_poem)   
 
-@app.route('/poems')
-def poems():
-    return render_template("poems.html, <poem>")
-
+# Upload Poem: uploads new poem to the database and (if applicable) uploads new user to the database after submission of create form.
 @app.route('/insert_poem', methods=["POST"])
 def insert_poem():
     poems = mongo.db.copo_creations
@@ -166,7 +161,7 @@ def insert_poem():
         users.insert_one(user)
     return redirect(url_for('read', poem_id=poem_id.inserted_id))
 
-# from: https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
+# Checks if user account already exists or not when filling in the user info fields on the forms.
 @app.route('/checkUser', methods=['POST'])
 def checkUser():
     user = request.form['username']
@@ -177,12 +172,14 @@ def checkUser():
     else:
         return json.dumps({'user':exists.get("username"),'author': exists.get("author_name"),'password':exists.get("password")})
 
+# Delete; deletes poem from database.
 @app.route('/delete', methods=['POST'])
 def delete():
     poemid = request.form['_id']
     mongo.db.copo_creations.delete_one({"_id": ObjectId(poemid)})
     return json.dumps({"check":"check"})
 
+# Gets IP and PORT info from Mongo.
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
