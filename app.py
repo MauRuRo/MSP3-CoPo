@@ -180,6 +180,11 @@ def delete():
     mongo.db.copo_creations.delete_one({"_id": ObjectId(poemid)})
     return json.dumps({"check":"check"})
 
+# Function to handle the 404 page
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
 # Gets IP and PORT info from Mongo.
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
