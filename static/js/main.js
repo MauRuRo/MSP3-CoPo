@@ -28,14 +28,14 @@ var datab // sets global variable to be used in two seperate functions that post
 /** FUNCTIONS */
 
 
-//This function fixes the issue of the iOS browser viewport height: this doesn't by itself take in to account the heigth of the address and menu bar of the browser. Solution found here: https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+/**This function fixes the issue of the iOS browser viewport height: this doesn't by itself take in to account the heigth of the address and menu bar of the browser. Solution found here: https://css-tricks.com/the-trick-to-viewport-units-on-mobile/ */
 function getProperHeightforIOS() {
   document.body.height = window.innerHeight;
   vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
 
-// Dynamically resizes the modal responsive to screen height (not setable in CSS mediaquery)
+/** Dynamically resizes the modal responsive to screen height (not setable in CSS mediaquery) */
 function modalInit() { 
         if ($(window).height() > 2000) {
             $('.modal').modal({
@@ -52,14 +52,14 @@ function modalInit() {
         }
 }
 
-// Gets the version number of the last version of the poem by iterating through the versions and storing re-storing the number in the lastversion variable.
+/** Gets the version number of the last version of the poem by iterating through the versions and storing re-storing the number in the lastversion variable. */ 
 function lastversioncheck() {
     $(".version-num").each(function() {
         lastversion = parseInt($(this).text())
     })
 }
 
-//Checks if search result displays any list items, if not then show "No titles found..."
+/** Checks if search result displays any list items, if not then show "No titles found..." */ 
 function checkresult() {
     setTimeout(function(){ //necessary for the checkresult; it has to fire when page reload is completed.
     if($('#title-list').css('display') == 'block') {
@@ -85,8 +85,8 @@ function checkresult() {
     }, 500);
 }
 
-// function for hiding/showing the selection buttons for themes, authors, titles
-// function parameter y is the id of an either the author-/theme-/titleblock element.
+/** function for hiding/showing the selection buttons for themes, authors, titles
+ function parameter y is the id of an either the author-/theme-/titleblock element. */ 
 function toggleblocks(y) {
     $(".copo-creations").addClass("inactive");
     $(y).removeClass("inactive");
@@ -103,7 +103,7 @@ function toggleblocks(y) {
     verticalCenterMain()
 }
 
-//resets the lists and blocks before executing search. To be called at the start of the search function.
+/** resets the lists and blocks before executing search. To be called at the start of the search function. */ 
 function resetBeforeSearch() {
     $("#themeblock").children("h5").text("Themes")
     $("#authorblock").children("h5").text("Authors")
@@ -112,7 +112,7 @@ function resetBeforeSearch() {
     $("h6").slideDown(50)
 }
 
-// looks for the titles that (partially) match the searchbar input
+/** looks for the titles that (partially) match the searchbar input */ 
 function searchFunc(){
     resetBeforeSearch()
     stitle = $("#search").val()
@@ -148,7 +148,7 @@ function searchFunc(){
     verticalCenterMain()
 }
 
-// function for hiding/showing the lists of the "clicked" (or indirectly accesed through clicking author names on poem page or entering something in the search bar. The paramater "x" enables the indirect accessing by inputting the corresponding element id.)
+/** function for hiding/showing the lists of the "clicked" (or indirectly accesed through clicking author names on poem page or entering something in the search bar. The paramater "x" enables the indirect accessing by inputting the corresponding element id.) */ 
 function blockclick(x) {
        let block = "#" + $(x).attr("id")
     if ($(x).attr("id") == "themeblock") {
@@ -182,7 +182,7 @@ function blockclick(x) {
     }
 }
 
-//enables looking up titles for a specific author selected on the poem page or the creations page. The "x" parameter is set by clicking on the list item in list of authors on the creations page and getting the id of the clicked element, OR by clicking an author name on the poem page it will set a hidden meta field on the creations page to the value of the author name and get the id of that hidden meta element.
+/** enables looking up titles for a specific author selected on the poem page or the creations page. The "x" parameter is set by clicking on the list item in list of authors on the creations page and getting the id of the clicked element, OR by clicking an author name on the poem page it will set a hidden meta field on the creations page to the value of the author name and get the id of that hidden meta element. */ 
 function authorsearch(x) {
         choice = $(x).text()
         authorname = $(x).html()
@@ -208,9 +208,9 @@ function authorsearch(x) {
     $("#authorblock").children("h5").text("Author: " + authorname);  
 }
 
-//This function enables looking up the author or collaborator by clicking their name in the poem page. Using Jinja it puts the name in a meta field on the main creations page, 
-//from which it then retrieves the information that you would normally get by clicking the author's name in the author list.
-//for some reason wouldn't work if function was referenced in an if statement; so had to incorporate the if statement and call function to avoid Reference error.
+/** This function enables looking up the author or collaborator by clicking their name in the poem page. Using Jinja it puts the name in a meta field on the main creations page, 
+from which it then retrieves the information that you would normally get by clicking the author's name in the author list.
+for some reason wouldn't work if function was referenced in an if statement; so had to incorporate the if statement and call function to avoid Reference error. */ 
 function searchFuncAuthor(){
     setTimeout(function() {
     if ($("#author-user").text() != "") {
@@ -221,7 +221,7 @@ function searchFuncAuthor(){
 }, 100)
 }
 
-//indicates which collaborator collaborated to make the selected version.
+/** indicates which collaborator collaborated to make the selected version. */ 
 function lastcollabindicator() {
     if($("#version-menu").is(":visible")){
         $(".collab-name").removeClass("col-active")
@@ -233,7 +233,7 @@ function lastcollabindicator() {
 
 
 
-//hides the prev- and next arrow of the menu if the first or last version is currently shown, respectivelly.
+/** hides the prev- and next arrow of the menu if the first or last version is currently shown, respectivelly. */ 
 function hisMenuNavUpdate() {
     lastversioncheck()
         if ($("#current-ver").text() == lastversion) {
@@ -248,7 +248,7 @@ function hisMenuNavUpdate() {
     }
 }
 
-//Insures the nav menu list is cropped to max of 5 version numbers.
+/** Insures the nav menu list is cropped to max of 5 version numbers. */ 
 function shortenList() {
     if (lastversion > 5){
         $(".version-num").each(function() {
@@ -261,7 +261,7 @@ function shortenList() {
     }
 }
 
-//When user reaches the beginning or end of the shown navigation list and there is more numbers before or in after respectivally, this function will shift the list to before or after if user clicks further. The parameter enables the function to be used to be triggered by click or key down event.
+/** When user reaches the beginning or end of the shown navigation list and there is more numbers before or in after respectivally, this function will shift the list to before or after if user clicks further. The parameter enables the function to be used to be triggered by click or key down event. */ 
 function navigate(x){
     $(".poem-text").addClass("old");
     $(".collab").addClass("old");
@@ -296,7 +296,7 @@ function navigate(x){
     hisMenuNavUpdate()
 }
 
-//checks if the collaborator section has collaborators, if not then hide section. Also removes the comma after the last collaborator if there are collaborators.
+/** checks if the collaborator section has collaborators, if not then hide section. Also removes the comma after the last collaborator if there are collaborators. */ 
 function collaboratorscheck(){
     $(".collab-name").each(function() {
         if ($(this).parent().parent().hasClass("old")) {
@@ -329,7 +329,7 @@ function collaboratorscheck(){
     });
 };
 
-//identifies the last collaborator and ads identifying class.
+/** identifies the last collaborator and ads identifying class. */ 
 function lastcollaborator(){
     $(".collab").each(function() {
         last_collab = $(this).children().children(".collab-name").last().text()
@@ -344,13 +344,13 @@ function lastcollaborator(){
 collaboratorscheck()
 };
 
-// capitalizes the first letter of each word in string, necessary for title input field due to mongo sorting algorithm.
-// found here : https://www.w3resource.com/javascript-exercises/javascript-string-exercise-9.php
+/** capitalizes the first letter of each word in string, necessary for title input field due to mongo sorting algorithm.
+found here : https://www.w3resource.com/javascript-exercises/javascript-string-exercise-9.php */ 
 function capitalize_Words(str){
  return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})
 };
 
-//Changes the buffer and modal height dynammiccally, not achievable through simple css mediaqueries, because of changing content height.
+/** Changes the buffer and modal height dynammiccally, not achievable through simple css mediaqueries, because of changing content height. */ 
 function verticalCenterMain(){
     setTimeout(function() { // time out necessary because of transition times of slideToggles.
     screenvariable = 205
@@ -371,34 +371,34 @@ function verticalCenterMain(){
 
 /** EVENT HANDLERS */
 
-// "Remembers" original page title in variable while chaning it to the homepage title on mouseenter
+/** "Remembers" original page title in variable while chaning it to the homepage title on mouseenter */ 
 $("#headercontainer").children("h4").mouseenter(function() {
     pagetitle = $(this).children("a").text()
     $(this).children("a").text("CoPo Creations")
 })
-// Returns the remembered title in pagetitle on mouseleave
+/** Returns the remembered title in pagetitle on mouseleave */ 
 $("#headercontainer").children("h4").mouseleave(function() {
     $(this).children("a").text(pagetitle)
 })
 
-// If search bar is filled in and user presses return or tab or clicks anywhere on the page, the searchFunc function is called.
+/** If search bar is filled in and user presses return or tab or clicks anywhere on the page, the searchFunc function is called. */ 
 $("#searchbar").change(function(){
     searchFunc()
 })
 
-//if author is clicked it will show a list of titles with this author/user
+/** if author is clicked it will show a list of titles with this author/user */ 
 $("#author-list").children().click(function() {
     authorsearch(this)
     checkresult()
     verticalCenterMain()
 })
 
-//handler which shows/hides a list based on the selection of categorie themes/author/titles
+/** handler which shows/hides a list based on the selection of categorie themes/author/titles */ 
   $(".copo-creations").click(function () {
       blockclick(this)
   });
 
-// if a theme is clicked it will show a list of titles with that theme
+/** if a theme is clicked it will show a list of titles with that theme */ 
 $("#theme-list").children().click(function() {
     choice = $(this).html()
         $.ajax({
@@ -424,13 +424,13 @@ $("#theme-list").children().click(function() {
     verticalCenterMain()
 })
 
-//shows the next part of the form and hides current part
+/** shows the next part of the form and hides current part */ 
 $("#next-part").click( function() {
     $(".second-part").css("display", "block");
     $(".first-part").css("display", "none")
 });
 
-//shows first part of the form and hides current part.
+/** shows first part of the form and hides current part. */ 
 $("#prev-part").click( function() {
     $(".first-part").css("display", "block")
     $(".second-part").css("display", "none")
@@ -440,7 +440,7 @@ $("#prev-part").click( function() {
     }
 });
 
-//checks if all fields of first part are filled out before enabling next button
+/** checks if all fields of first part are filled out before enabling next button */ 
 $("#createpoem").change(function(){
     if ($("#title").val()=="" || $("#Poem").val()=="" || themevar==false || ($("#new_theme").val()=="" && $("#new_theme").get(0).hasAttribute("required")) || newuservar == false) {
     $("#next-part").addClass("disabled")
@@ -456,7 +456,7 @@ $("#createpoem").change(function(){
   }
 });
 
-//validates that theme field is selected and shows the new_theme field if "other" is selected.
+/** validates that theme field is selected and shows the new_theme field if "other" is selected. */ 
 $("#Theme").change(function(){
 themevar = true
   if ($(this).val() == "Other") {
@@ -470,7 +470,7 @@ themevar = true
   };
 });
 
-//validates that new_user field is filled out and sets the second part of the form based on the selection in new_user field.
+/** validates that new_user field is filled out and sets the second part of the form based on the selection in new_user field. */ 
 $("#new_user").change(function(){
     newuservar=true
   if ($(this).val() == 1) {
@@ -489,8 +489,8 @@ $("#new_user").change(function(){
   };
 })  
 
-//if existing user is selected, and username is filled out: post to MongoDB to check if username exists and if so fill out authorname.
-//else if new user is selected, and username is filled out: post to MongoDB to check if username is available; if not show error message.
+/** if existing user is selected, and username is filled out: post to MongoDB to check if username exists and if so fill out authorname.
+else if new user is selected, and username is filled out: post to MongoDB to check if username is available; if not show error message. */ 
 $("#username").change(function(){
     if ( $(".second-part").is(":visible")) {
         if ($("#new_user").val() == 1) {
@@ -535,7 +535,7 @@ $("#username").change(function(){
         }
 });
 
-//if existing user is selected, check if password that's filled in matches password from user document.
+/** if existing user is selected, check if password that's filled in matches password from user document. */ 
 $("#password").change(function(){   
   if ($("#new_user").val() == 1) {
       var password = $("#password").val();
@@ -549,7 +549,7 @@ $("#password").change(function(){
     };
 });
 
-//shows the history navigation menu and indicates currently shown version and corresponding collaborator.
+/** shows the history navigation menu and indicates currently shown version and corresponding collaborator. */ 
 $("#version-his-main").click(function(){
     $("#version-menu").slideToggle(50);
     $("#version-his-main").slideToggle(50);
@@ -562,7 +562,7 @@ $("#version-his-main").click(function(){
     hisMenuNavUpdate()
 })
 
-//hides the history nav menu and shows current/selected version
+/** hides the history nav menu and shows current/selected version */ 
 $("#version-his-nav-title").click(function(){
     $("#version-menu").slideToggle(50);
     $("#version-his-main").slideToggle(50);
@@ -572,7 +572,7 @@ $("#version-his-nav-title").click(function(){
     hisMenuNavUpdate()
 })
 
-//navigates to the version of the poem that's clicked on and indicates the version and the corresponding collaborator.
+/** navigates to the version of the poem that's clicked on and indicates the version and the corresponding collaborator. */ 
 $(".version-num").click(function(){
     $(".poem-text").addClass("old");
     $(".collab").addClass("old");
@@ -590,12 +590,12 @@ $(".version-num").click(function(){
     hisMenuNavUpdate()
 })
 
-//navigates the history menu on click of one of the arrows.
+/** navigates the history menu on click of one of the arrows. */ 
 $(".his-nav").click(function() {
     navigate($(this).attr('id'))
 })
 
-//Ensusers that the form is only submittable and IS submittable if all fields are filled out vallidly by checking on every keydown (except during the filling out of the password.)
+/** Ensusers that the form is only submittable and IS submittable if all fields are filled out vallidly by checking on every keydown (except during the filling out of the password.) */ 
 $('body').on('keydown', function (e) {
     if ($("#Author").val() != "" && $("#password").val() != "" && $("#username").val() != "") {
         $("#create-submit").removeClass("disabled");
@@ -617,7 +617,7 @@ $('body').on('keydown', function (e) {
     }; 
 })
 
-//Ensusers that the form is only submittable and IS submittable if all fields are filled out vallidly by checking on every keydown click.
+/** Ensusers that the form is only submittable and IS submittable if all fields are filled out vallidly by checking on every keydown click. */ 
 $("body").click(function() {
     if ($("#Author").val() != "" && $("#password").val() != "" && $("#username").val() != "") {
         $("#create-submit").removeClass("disabled");
@@ -636,7 +636,7 @@ $("body").click(function() {
     };
 })
 
-//Enables navigation through history using left and right arrow on the keyboard.
+/** Enables navigation through history using left and right arrow on the keyboard. */ 
 $('body').on('keydown', function (e) {
     if ($("#version-menu").is(":visible")) {
         if (e.which == 39) {
@@ -651,7 +651,7 @@ $('body').on('keydown', function (e) {
     }
 })
 
-//if existing user is selected, and username is filled out: post to MongoDB to check if username exists and if so fill out authorname.
+/** if existing user is selected, and username is filled out: post to MongoDB to check if username exists and if so fill out authorname. */ 
 $("#usernamedelete").change(function(){
 if ($("#modaldelete").css("display") == "block"){
       var user = $("#usernamedelete").val();
@@ -680,7 +680,7 @@ if ($("#modaldelete").css("display") == "block"){
 }
 });
 
-//if existing user is selected, check if password that's filled in matches password from user document
+/** if existing user is selected, check if password that's filled in matches password from user document */ 
 $("#passworddelete").change(function(){  
     if ($("#modaldelete").css("display") == "block"){ 
       var password = $("#passworddelete").val();
@@ -694,7 +694,7 @@ $("#passworddelete").change(function(){
     }
 });
 
-//Ensusers that the form is only submittable and IS submittable if all fields are filled out vallidly by checking on every keydown click.
+/** Ensusers that the form is only submittable and IS submittable if all fields are filled out vallidly by checking on every keydown click. */ 
 $("body").click(function() {
     verticalCenterMain()
     if ($("#modaldelete").css("display") == "block"){
@@ -714,7 +714,7 @@ $("body").click(function() {
     }
 })
 
-//Ensusers that the form is only submittable and IS submittable if all fields are filled out vallidly by checking on every keydown (except during the filling out of the password.)
+/** Ensusers that the form is only submittable and IS submittable if all fields are filled out vallidly by checking on every keydown (except during the filling out of the password.) */ 
 $('body').on('keydown', function (e) {
     verticalCenterMain()
     if ($("#modaldelete").css("display") == "block"){
@@ -739,14 +739,14 @@ $('body').on('keydown', function (e) {
     }
 })
 
-//sets default values for delete form
+/** sets default values for delete form */ 
 $("#tomodal").click(function() {
     $("#usernamedelete").attr("placeholder", "Enter Username").val("");
     $("#passworddelete").siblings("label").text("Enter Password");
     $("#passworddelete").val("");
 })
 
-//posts to database to delete poem
+/** posts to database to delete poem */ 
 $("#delete-submit").click(function() {
     if ($("#usernamedelete").val() != "" && $("#passworddelete").val() != "") {
         $.ajax({
@@ -764,25 +764,25 @@ $("#delete-submit").click(function() {
     }
 })
 
-// All titles must be capitalized because the mongo sorting function can't sort case insensitevely
+/** All titles must be capitalized because the mongo sorting function can't sort case insensitevely */ 
 $("#title").change(function() {
     lowerTitle = $("#title").val()
     capTitle = capitalize_Words(lowerTitle)
     $("#title").val(capTitle)
 })
 
-//for proper div height in iOS
+/** for proper div height in iOS */ 
 window.addEventListener('resize', () => {
     getProperHeightforIOS()
 });
 
-//for proper div height in iOS
+/** for proper div height in iOS */ 
 $('body').click(function() {
     getProperHeightforIOS()
 })
 
-// found here https://learn.getgrav.org/16/forms/forms/how-to-ajax-submission
-// prevent form submission on return key
+/** found here https://learn.getgrav.org/16/forms/forms/how-to-ajax-submission
+prevent form submission on return key */ 
 $("#searchbar").submit(function(e) {
     e.preventDefault();
 })
@@ -795,33 +795,44 @@ lastversioncheck()
 
 searchFuncAuthor()
 
-$('select').material_select() //Initialization for Materialize form select input.
+/** Initialization for Materialize form select input. */
+$('select').material_select() 
 
-// Runs modalInit on window resizing to make sure modal size is correct for new window size.
+/** Runs modalInit on window resizing to make sure modal size is correct for new window size. */ 
 $(window).resize(function() {
     modalInit()
     vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 });
 
-$("ul").hide(); //hides the lists of themes, authors, titles before they are called
+/** hides the lists of themes, authors, titles before they are called */
+$("ul").hide(); 
 
-$(".modal-content").find("ul").css("display", "block") //negates general list hiding for modal.
+/** negates general list hiding for modal. */
+$(".modal-content").find("ul").css("display", "block") 
 
-$(".second-part").css("display", "none") //hides the second part of the poem insertion form
+/** hides the second part of the poem insertion form */
+$(".second-part").css("display", "none") 
 
-$("#next-part").addClass("disabled"); //disables the next button on the form, until all fields are filled
-    
-autosize($("#Poem")); // makes sure the the poem field in the form is stretched in height to show all it's contents on load. Using autosize.js
+/** disables the next button on the form, until all fields are filled */
+$("#next-part").addClass("disabled"); 
+   
+/** makes sure the the poem field in the form is stretched in height to show all it's contents on load. Using autosize.js */
+autosize($("#Poem")); 
 
-lastcollaborator() //identifies last collaborator 
+/** identifies last collaborator */
+lastcollaborator()  
 
-verticalCenterMain() //sets buffer and modal height values to achieve vertical centering dynammically.
+/** sets buffer and modal height values to achieve vertical centering dynammically. */
+verticalCenterMain() 
 
-$(".btn").css("text-transform", "none") // setting the attribute through css did not work, also not with "!important"
+/** setting the attribute through css did not work, also not with "!important" */
+$(".btn").css("text-transform", "none") 
 
-shortenList() // shortens history navigation menu to maximum of 5 numbers.
+/** shortens history navigation menu to maximum of 5 numbers. */
+shortenList() 
 
-getProperHeightforIOS(); //for proper div height in iOS
+/** for proper div height in iOS */
+getProperHeightforIOS(); 
 
-}); //doc end
+}); 
