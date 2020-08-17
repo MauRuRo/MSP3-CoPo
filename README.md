@@ -25,7 +25,7 @@ The design is centred around mobile device use, where the content fills the scre
 
 The ink blot pattern on the background in black and white has an abstract feel to it and is relatable to the writing theme (because of the ink) and the creativity theme (because of the messy blots) and therefor matches well with the page content. The centre of the screen is mostly free of blots in order for it not to interfere with the viewing of the page content. I considered a slow animation of the background, slowly become larger/smaller, but decided against it when I discovered it made me nauseous. 
 
-<img src="static/images/feathercross2.png" height="200px" alt="desktop">
+![CoPo Logo](/static/images/feathercross2.png)
 
 The black/white theme is contrasted subtly by the logo -two crossed writing feathers (stands for two writers collaborating)- which is very colourful with beautiful complimentary colours. The colourful logo is partly repeated in the 'Create' (single feather) and 'Collaborate' (crossed feathers) button. 
 
@@ -41,7 +41,7 @@ You can view the original basic wireframe for smartphone that was used as the ba
 
 ## Database Structure ##
 
-For the database this project makes use of MongoDB. The app makes use of three database collections.
+For the database this project makes use of MongoDB. The app makes use of three database collections. Below are examples of single documents from each collection.
 
 1. copo_creations
 
@@ -59,26 +59,27 @@ For the database this project makes use of MongoDB. The app makes use of three d
 
         username:"usernam"
 
-        Collaborators: {
+        Collaborators: [
             {
                 authorname:"author name", 
                 colusername:"username of collaborator"
             },
-            {},{}...}
+            {},{}...]
 
-        Version: {
-            {
-                {0:"version number"}, 
-                {1:{Poem:"version poem text}}, 
-                {2:{Collaborators: {
-                                    {authorname:"author name"},
-                                    {colusername:"username of collaborator"}
-                                   },{},{},...
-                }}, 
-                {3:"Boolean Value"}
-            },
-            {},{},....
-            }
+        Version: [
+            [
+                "version number", 
+                Poem: "version poem text, 
+                {Collaborators: [
+                                    {
+                                        authorname:"author name",
+                                        colusername:"username of collaborator"
+                                    },{},{},...
+                ]}, 
+                "Boolean Value"
+            ],
+            [],[],....
+        ]
 
         Date: "date value of the moment that poem was uploaded"
 
