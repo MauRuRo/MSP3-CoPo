@@ -53,14 +53,14 @@ function modalInit() {
 }
 
 /** Gets the version number of the last version of the poem by iterating through the versions and storing re-storing the number in the lastversion variable. */ 
-function lastversioncheck() {
+function lastVersionCheck() {
     $(".version-num").each(function() {
         lastversion = parseInt($(this).text())
     })
 }
 
 /** Checks if search result displays any list items, if not then show "No titles found..." */ 
-function checkresult() {
+function checkResult() {
     setTimeout(function(){ //necessary for the checkresult; it has to fire when page reload is completed.
     if($('#title-list').css('display') == 'block') {
         found = 0
@@ -87,7 +87,7 @@ function checkresult() {
 
 /** function for hiding/showing the selection buttons for themes, authors, titles
  function parameter y is the id of an either the author-/theme-/titleblock element. */ 
-function toggleblocks(y) {
+function toggleBlocks(y) {
     $(".copo-creations").addClass("inactive");
     $(y).removeClass("inactive");
     $("h6").slideToggle(50);
@@ -99,7 +99,7 @@ function toggleblocks(y) {
             $(y).css("border-bottom", "double");
         }
     },100)
-    checkresult()
+    checkResult()
     verticalCenterMain()
 }
 
@@ -126,7 +126,7 @@ function searchFunc(){
             titlesel = JSON.parse(response);
             if ($("#title-list").is(":visible")){
             }else{
-                toggleblocks("#titleblock")
+                toggleBlocks("#titleblock")
             }
             $("#title-list").slideDown();
             $("#title-list").children().css("display","none");
@@ -149,7 +149,7 @@ function searchFunc(){
 }
 
 /** function for hiding/showing the lists of the "clicked" (or indirectly accesed through clicking author names on poem page or entering something in the search bar. The paramater "x" enables the indirect accessing by inputting the corresponding element id.) */ 
-function blockclick(x) {
+function blockClick(x) {
        let block = "#" + $(x).attr("id")
     if ($(x).attr("id") == "themeblock") {
         if ($("#title-list").is(":visible")) {
@@ -160,7 +160,7 @@ function blockclick(x) {
             $("#notitles").remove()
         } else {
             $("#theme-list").slideToggle(50);
-            toggleblocks(block)
+            toggleBlocks(block)
         }
     } else if ($(x).attr("id") == "authorblock") {
         if ($("#title-list").is(":visible")) {
@@ -171,19 +171,19 @@ function blockclick(x) {
             $("#notitles").remove()
         } else {
             $("#author-list").slideToggle(50);
-            toggleblocks(block)
+            toggleBlocks(block)
         }
     } else if ($(x).attr("id") == "titleblock") {
             $("#title-list").slideToggle(50);
             $("#search").val("")
             $("#title-list").children().css("display","block")
             $("#notitles").remove()
-            toggleblocks(block)
+            toggleBlocks(block)
     }
 }
 
 /** enables looking up titles for a specific author selected on the poem page or the creations page. The "x" parameter is set by clicking on the list item in list of authors on the creations page and getting the id of the clicked element, OR by clicking an author name on the poem page it will set a hidden meta field on the creations page to the value of the author name and get the id of that hidden meta element. */ 
-function authorsearch(x) {
+function authorSearch(x) {
         choice = $(x).text()
         authorname = $(x).html()
     		$.ajax({
@@ -214,15 +214,15 @@ for some reason wouldn't work if function was referenced in an if statement; so 
 function searchFuncAuthor(){
     setTimeout(function() {
     if ($("#author-user").text() != "") {
-        blockclick("#authorblock")
-        authorsearch("#author-user")
+        blockClick("#authorblock")
+        authorSearch("#author-user")
     };
     verticalCenterMain()
 }, 100)
 }
 
 /** indicates which collaborator collaborated to make the selected version. */ 
-function lastcollabindicator() {
+function lastCollaboratorIndicator() {
     if($("#version-menu").is(":visible")){
         $(".collab-name").removeClass("col-active")
         $(".last_collaborator").addClass("col-active")
@@ -235,7 +235,7 @@ function lastcollabindicator() {
 
 /** hides the prev- and next arrow of the menu if the first or last version is currently shown, respectivelly. */ 
 function hisMenuNavUpdate() {
-    lastversioncheck()
+    lastVersionCheck()
         if ($("#current-ver").text() == lastversion) {
     $("#his-nav-next").hide()
         } else {
@@ -292,12 +292,12 @@ function navigate(x){
     active = "#version-" + $("#current-ver").text()
     $(".version-num").removeClass("ver-active")
     $(active).addClass("ver-active")
-    collaboratorscheck()
+    collaboratorsCheck()
     hisMenuNavUpdate()
 }
 
 /** checks if the collaborator section has collaborators, if not then hide section. Also removes the comma after the last collaborator if there are collaborators. */ 
-function collaboratorscheck(){
+function collaboratorsCheck(){
     $(".collab-name").each(function() {
         if ($(this).parent().parent().hasClass("old")) {
             return true
@@ -330,7 +330,7 @@ function collaboratorscheck(){
 };
 
 /** identifies the last collaborator and ads identifying class. */ 
-function lastcollaborator(){
+function lastCollaborator(){
     $(".collab").each(function() {
         last_collab = $(this).children().children(".collab-name").last().text()
         $(this).children().children(".collab-name").each(function(){
@@ -341,7 +341,7 @@ function lastcollaborator(){
             }
         })
     })
-collaboratorscheck()
+collaboratorsCheck()
 };
 
 /** capitalizes the first letter of each word in string, necessary for title input field due to mongo sorting algorithm.
@@ -388,14 +388,14 @@ $("#searchbar").change(function(){
 
 /** if author is clicked it will show a list of titles with this author/user */ 
 $("#author-list").children().click(function() {
-    authorsearch(this)
-    checkresult()
+    authorSearch(this)
+    checkResult()
     verticalCenterMain()
 })
 
 /** handler which shows/hides a list based on the selection of categorie themes/author/titles */ 
   $(".copo-creations").click(function () {
-      blockclick(this)
+      blockClick(this)
   });
 
 /** if a theme is clicked it will show a list of titles with that theme */ 
@@ -420,7 +420,7 @@ $("#theme-list").children().click(function() {
         }
     });   
     $("#themeblock").children("h5").text("Theme: " + choice);
-    checkresult()
+    checkResult()
     verticalCenterMain()
 })
 
@@ -557,7 +557,7 @@ $("#version-his-main").click(function(){
     $(".version-num").removeClass("ver-active")
     $(active).addClass("ver-active")
     setTimeout(function() {    //time out necessary for slideUp: the codition is :visible is checked before slideUp is completed and therefor it won't trigger the color change.
-        lastcollabindicator()
+        lastCollaboratorIndicator()
     }, 500);
     hisMenuNavUpdate()
 })
@@ -567,7 +567,7 @@ $("#version-his-nav-title").click(function(){
     $("#version-menu").slideToggle(50);
     $("#version-his-main").slideToggle(50);
     setTimeout(function() {    //time out necessary for slideUp: the codition is :visible is checked before slideUp is completed and therefor it won't trigger the color change.
-        lastcollabindicator()
+        lastCollaboratorIndicator()
     }, 500);
     hisMenuNavUpdate()
 })
@@ -586,7 +586,7 @@ $(".version-num").click(function(){
     active = "#version-" + $("#current-ver").text()
     $(".version-num").removeClass("ver-active")
     $(active).addClass("ver-active")
-    collaboratorscheck()
+    collaboratorsCheck()
     hisMenuNavUpdate()
 })
 
@@ -791,7 +791,7 @@ $("#searchbar").submit(function(e) {
 
 modalInit()
 
-lastversioncheck()
+lastVersionCheck()
 
 searchFuncAuthor()
 
@@ -821,7 +821,7 @@ $("#next-part").addClass("disabled");
 autosize($("#Poem")); 
 
 /** identifies last collaborator */
-lastcollaborator()  
+lastCollaborator()  
 
 /** sets buffer and modal height values to achieve vertical centering dynammically. */
 verticalCenterMain() 
