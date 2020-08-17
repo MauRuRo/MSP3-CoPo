@@ -70,12 +70,12 @@ For the database this project makes use of MongoDB. The app makes use of three d
             [
                 "version number", 
                 Poem: "version poem text, 
-                {Collaborators: [
+                Collaborators: [
                                     {
                                         authorname:"author name",
                                         colusername:"username of collaborator"
                                     },{},{},...
-                ]}, 
+                ], 
                 "Boolean Value"
             ],
             [],[],....
